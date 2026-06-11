@@ -1,0 +1,243 @@
+{% extends "base.html" %}
+
+{% block title %}
+Caminhões - Sistema de Estoque
+{% endblock %}
+
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+
+<style>
+.page-header {
+    background: linear-gradient(135deg, #408cce, midnightblue);
+    color: white;
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.12);
+}
+
+.page-header h3 {
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.card-caminhoes {
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 6px 25px rgba(0,0,0,.08);
+}
+
+.table thead th {
+    background: midnightblue !important;
+    color: white !important;
+    border: none;
+    padding: 15px;
+    vertical-align: middle;
+}
+
+.table tbody td {
+    vertical-align: middle;
+    padding: 14px;
+}
+
+.table tbody tr {
+    transition: .2s;
+}
+
+.table tbody tr:hover {
+    background-color: #f8faff;
+}
+
+.caminhao-img {
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2px solid #e9ecef;
+}
+
+.placa-badge {
+    background: #e8eefc;
+    color: #2f4cb3;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.btn-novo {
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-weight: 600;
+}
+
+.btn-action {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.empty-box {
+    text-align: center;
+    padding: 60px;
+}
+
+.empty-box i {
+    font-size: 60px;
+    color: #adb5bd;
+}
+</style>
+
+<div class="page-header d-flex justify-content-between align-items-center">
+
+    <div>
+        <h3>
+            <i class="bi bi-truck"></i>
+            Caminhões
+        </h3>
+        <p class="mb-0">
+            Gerencie a frota cadastrada no sistema
+        </p>
+    </div>
+
+    <a href="{{ url_for('novo_caminhao') }}" class="btn btn-light btn-novo">
+        <i class="bi bi-plus-circle"></i>
+        Novo Caminhão
+    </a>
+
+</div>
+
+<div class="card card-caminhoes">
+    <div class="card-body p-0">
+
+        {% if caminhoes %}
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Imagem</th>
+                        <th>Placa</th>
+                        <th>Modelo</th>
+                        <th>Marca</th>
+                        <th>Cor</th>
+                        <th>Chassi</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for caminhao in caminhoes %}
+
+                    <tr>
+                        <td><strong>#{{ caminhao.id_caminhao }}</strong></td>
+
+                        <td>
+                            {% if caminhao.imagem_base64 %}
+                            <img src="data:{{ caminhao.imagem_tipo }};base64,{{ caminhao.imagem_base64 }}"
+                                 class="caminhao-img">
+                            {% else %}
+                            <div class="caminhao-img d-flex align-items-center justify-content-center bg-light">
+                                <i class="bi bi-image text-secondary"></i>
+                            </div>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            <span class="placa-badge">{{ caminhao.placa }}</span>
+                        </td>
+
+                        <td>{{ caminhao.modelo }}</td>
+                        <td>{{ caminhao.marca }}</td>
+                        <td>{{ caminhao.cor }}</td>
+                        <td>{{ caminhao.chassi }}</td>
+
+                        <td class="text-center">
+                            <a href="{{ url_for('editar_caminhao', id_caminhao=caminhao.id_caminhao) }}"
+                               class="btn btn-warning btn-action">
+                                <i class="bi bi-pencil-fill"></i>
+                            </a>
+
+                            <button class="btn btn-danger btn-action"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalExcluir{{ caminhao.id_caminhao }}">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-box">
+            <i class="bi bi-truck"></i>
+            <h4 class="mt-3">Nenhum caminhão cadastrado</h4>
+            <p class="text-muted">Cadastre seu primeiro caminhão para começar.</p>
+            <a href="{{ url_for('novo_caminhao') }}" class="btn btn-primary">
+                Cadastrar Caminhão
+            </a>
+        </div>
+
+        {% endif %}
+
+    </div>
+</div>
+
+
+{% for caminhao in caminhoes %}
+
+<div class="modal fade" id="modalExcluir{{ caminhao.id_caminhao }}" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar exclusão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <p>Deseja realmente excluir:</p>
+
+                <h5>{{ caminhao.placa }}</h5>
+                <small class="text-muted">{{ caminhao.modelo }}</small>
+
+                <div class="alert alert-warning mt-3 mb-0">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    Esta ação não poderá ser desfeita.
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+
+                <a href="{{ url_for('excluir_caminhao', id_caminhao=caminhao.id_caminhao) }}"
+                   class="btn btn-danger">
+                    Excluir Caminhão
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}

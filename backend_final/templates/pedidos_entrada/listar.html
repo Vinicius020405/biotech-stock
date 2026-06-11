@@ -1,0 +1,265 @@
+{% extends "base.html" %}
+
+{% block title %}
+Pedidos de Entrada - Sistema de Estoque
+{% endblock %}
+
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .page-header {
+        background: linear-gradient(135deg, #408cce, midnightblue);
+        color: white;
+        border-radius: 16px;
+        padding: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 8px 25px rgba(0,0,0,.12);
+    }
+
+    .page-header h3 {
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .card-pedidos {
+        border: none;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 6px 25px rgba(0,0,0,.08);
+    }
+
+    .table thead th {
+        background: midnightblue !important;
+        color: white !important;
+        border: none;
+        padding: 15px;
+        vertical-align: middle;
+    }
+
+    .table tbody td {
+        vertical-align: middle;
+        padding: 14px;
+    }
+
+    .table tbody tr {
+        transition: .2s;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8faff;
+    }
+
+    .documento-badge {
+        background: #e8eefc;
+        color: #2f4cb3;
+        font-weight: 600;
+        padding: 8px 12px;
+        border-radius: 8px;
+    }
+
+    .status-finalizado {
+        background: #d1fae5;
+        color: #065f46;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+    .status-cancelado {
+        background: #fee2e2;
+        color: #991b1b;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+    .status-aberto {
+        background: #fef3c7;
+        color: #92400e;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+    .btn-novo {
+        border-radius: 10px;
+        padding: 10px 18px;
+        font-weight: 600;
+    }
+
+    .btn-action {
+        width: 38px;
+        height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+    }
+
+    .empty-box {
+        text-align: center;
+        padding: 60px;
+    }
+
+    .empty-box i {
+        font-size: 60px;
+        color: #adb5bd;
+    }
+</style>
+
+<div class="page-header d-flex justify-content-between align-items-center">
+
+    <div>
+        <h3>
+            <i class="bi bi-box-arrow-in-down"></i>
+            Pedidos de Entrada
+        </h3>
+
+        <p class="mb-0">
+            Registros de entrada de produtos no estoque
+        </p>
+    </div>
+
+    <a href="{{ url_for('novo_pedido_entrada') }}" class="btn btn-light btn-novo">
+        <i class="bi bi-plus-circle"></i>
+        Novo Pedido de Entrada
+    </a>
+
+</div>
+
+<div class="card card-pedidos">
+
+    <div class="card-body p-0">
+
+        {% if pedidos %}
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Documento</th>
+                        <th>Fornecedor</th>
+                        <th>Data</th>
+                        <th>Usuário</th>
+                        <th>Status</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for pedido in pedidos %}
+
+                    <tr>
+
+                        <td>
+                            <strong>#{{ pedido.id_pedido_entrada }}</strong>
+                        </td>
+
+                        <td>
+                            <span class="documento-badge">
+                                {{ pedido.numero_documento }}
+                            </span>
+                        </td>
+
+                        <td>
+                            <strong>{{ pedido.fornecedor }}</strong>
+                        </td>
+
+                        <td>
+                            {{ pedido.data_entrada }}
+                        </td>
+
+                        <td>
+                            {{ pedido.usuario }}
+                        </td>
+
+                        <td>
+
+                            {% if pedido.status == 'finalizado' %}
+                                <span class="status-finalizado">
+                                    Finalizado
+                                </span>
+
+                            {% elif pedido.status == 'cancelado' %}
+                                <span class="status-cancelado">
+                                    Cancelado
+                                </span>
+
+                            {% else %}
+                                <span class="status-aberto">
+                                    Aberto
+                                </span>
+                            {% endif %}
+
+                        </td>
+
+                        <td class="text-center">
+
+                            <a
+                                href="{{ url_for('visualizar_pedido_entrada', id_pedido_entrada=pedido.id_pedido_entrada) }}"
+                                class="btn btn-info btn-action text-white"
+                                title="Visualizar">
+
+                                <i class="bi bi-eye-fill"></i>
+
+                            </a>
+
+                            <a
+                                href="{{ url_for('editar_pedido_entrada', id_pedido_entrada=pedido.id_pedido_entrada) }}"
+                                class="btn btn-warning btn-action"
+                                title="Editar">
+
+                                <i class="bi bi-pencil-fill"></i>
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-box">
+
+            <i class="bi bi-inbox"></i>
+
+            <h4 class="mt-3">
+                Nenhum pedido de entrada cadastrado
+            </h4>
+
+            <p class="text-muted">
+                Ainda não existem pedidos registrados.
+            </p>
+
+            <a href="{{ url_for('novo_pedido_entrada') }}"
+               class="btn btn-primary">
+
+                Criar Primeiro Pedido
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

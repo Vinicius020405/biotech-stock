@@ -1,0 +1,302 @@
+{% extends "base.html" %}
+
+{% block title %}
+Produtos - Sistema de Estoque
+{% endblock %}
+
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .page-header {
+        background: linear-gradient(135deg, #408cce, midnightblue);
+        color: white;
+        border-radius: 16px;
+        padding: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, .12);
+    }
+
+    .page-header h3 {
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .card-produtos {
+        border: none;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 6px 25px rgba(0, 0, 0, .08);
+    }
+
+    .table thead th {
+        background: midnightblue !important;
+        color: white !important;
+        border: none;
+        padding: 15px;
+        vertical-align: middle;
+    }
+
+    .table tbody td {
+        vertical-align: middle;
+        padding: 14px;
+    }
+
+    .table tbody tr {
+        transition: .2s;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8faff;
+    }
+
+    .produto-img {
+        width: 65px;
+        height: 65px;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 2px solid #e9ecef;
+    }
+
+    .codigo-badge {
+        background: #e8eefc;
+        color: #2f4cb3;
+        font-weight: 600;
+        padding: 8px 12px;
+        border-radius: 8px;
+    }
+
+    .status-ativo {
+        background: #d1fae5;
+        color: #065f46;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+    .status-inativo {
+        background: #fee2e2;
+        color: #991b1b;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+    .btn-novo {
+        border-radius: 10px;
+        padding: 10px 18px;
+        font-weight: 600;
+    }
+
+    .btn-action {
+        width: 38px;
+        height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+    }
+
+    .modal-content {
+        border: none;
+        border-radius: 18px;
+        overflow: hidden;
+    }
+
+    .modal-header {
+        background: #f8f9fa;
+    }
+
+    .empty-box {
+        text-align: center;
+        padding: 60px;
+    }
+
+    .empty-box i {
+        font-size: 60px;
+        color: #adb5bd;
+    }
+</style>
+
+<!-- HEADER -->
+<div class="page-header d-flex justify-content-between align-items-center">
+
+    <div>
+        <h3>
+            <i class="bi bi-box-seam"></i>
+            Produtos
+        </h3>
+
+        <p class="mb-0">
+            Gerencie os produtos cadastrados no sistema
+        </p>
+    </div>
+
+    <a href="{{ url_for('novo_produto') }}" class="btn btn-light btn-novo">
+        <i class="bi bi-plus-circle"></i>
+        Novo Produto
+    </a>
+
+</div>
+
+<!-- CARD -->
+<div class="card card-produtos">
+
+    <div class="card-body p-0">
+
+        {% if produtos %}
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Imagem</th>
+                        <th>Código</th>
+                        <th>Produto</th>
+                        <th>Unidade</th>
+                        <th>Estoque Min.</th>
+                        <th>Estoque Máx.</th>
+                        <th>Status</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for produto in produtos %}
+
+                    <tr>
+
+                        <td><strong>#{{ produto.id_produto }}</strong></td>
+
+                        <td>
+                            {% if produto.imagem_base64 %}
+                            <img src="data:{{ produto.imagem_tipo }};base64,{{ produto.imagem_base64 }}"
+                                 class="produto-img">
+                            {% else %}
+                            <div class="produto-img d-flex align-items-center justify-content-center bg-light">
+                                <i class="bi bi-image text-secondary"></i>
+                            </div>
+                            {% endif %}
+                        </td>
+
+                        <td><span class="codigo-badge">{{ produto.codigo }}</span></td>
+
+                        <td>
+                            <strong>{{ produto.nome }}</strong>
+                            {% if produto.descricao %}
+                            <br><small class="text-muted">{{ produto.descricao }}</small>
+                            {% endif %}
+                        </td>
+
+                        <td>{{ produto.unidade_medida }}</td>
+                        <td>{{ produto.estoque_minimo }}</td>
+                        <td>{{ produto.estoque_maximo }}</td>
+
+                        <td>
+                            {% if produto.status == 'ativo' %}
+                            <span class="status-ativo">Ativo</span>
+                            {% else %}
+                            <span class="status-inativo">Inativo</span>
+                            {% endif %}
+                        </td>
+
+                        <td class="text-center">
+
+                            <a href="{{ url_for('editar_produto', id_produto=produto.id_produto) }}"
+                               class="btn btn-warning btn-action">
+                                <i class="bi bi-pencil-fill"></i>
+                            </a>
+
+                            <button class="btn btn-danger btn-action"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalExcluir{{ produto.id_produto }}">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-box">
+
+            <i class="bi bi-box-seam"></i>
+
+            <h4 class="mt-3">Nenhum produto cadastrado</h4>
+
+            <p class="text-muted">Cadastre seu primeiro produto para começar.</p>
+
+            <a href="{{ url_for('novo_produto') }}" class="btn btn-primary">
+                Cadastrar Produto
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+<!-- MODAIS FORA DA TABELA -->
+{% for produto in produtos %}
+
+<div class="modal fade"
+     id="modalExcluir{{ produto.id_produto }}"
+     tabindex="-1">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar exclusão</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                <p>Deseja realmente excluir:</p>
+                <h5>{{ produto.nome }}</h5>
+                <small class="text-muted">Código: {{ produto.codigo }}</small>
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancelar
+                </button>
+
+                <form action="{{ url_for('excluir_produto', id_produto=produto.id_produto) }}"
+                      method="POST">
+                    <button type="submit" class="btn btn-danger">
+                        Excluir Produto
+                    </button>
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+{% endblock %}

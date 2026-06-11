@@ -1,0 +1,219 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% if usuario %}
+Editar Usuário - Sistema de Estoque
+{% else %}
+Novo Usuário - Sistema de Estoque
+{% endif %}
+{% endblock %}
+
+{% block page_title %}
+{% if usuario %}
+Editar Usuário
+{% else %}
+Novo Usuário
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<style>
+.page-card {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    overflow: hidden;
+    border: 1px solid #eef0f4;
+}
+
+.card-header-custom {
+    background: linear-gradient(135deg, #408cce, midnightblue);
+    color: white;
+    padding: 22px;
+}
+
+.card-header-custom h5 {
+    margin: 0;
+    font-weight: 700;
+}
+
+.card-header-custom small {
+    opacity: .85;
+}
+
+.form-body {
+    padding: 25px;
+}
+
+.form-label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #2c3e50;
+}
+
+.form-control, .form-select {
+    border-radius: 10px;
+    border: 1px solid #dfe3e8;
+    padding: 10px 12px;
+    transition: .2s;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #408cce;
+    box-shadow: 0 0 0 0.2rem rgba(64,140,206,.15);
+}
+
+.form-control:hover, .form-select:hover {
+    border-color: #b6c2cf;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #408cce, midnightblue);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-weight: 600;
+    transition: .2s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(0,0,0,.15);
+}
+
+.btn-secondary {
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-weight: 600;
+}
+
+hr {
+    opacity: .1;
+}
+</style>
+
+<div class="page-card">
+
+    <!-- HEADER -->
+    <div class="card-header-custom">
+
+        {% if usuario %}
+            <h5>Editar usuário</h5>
+            <small>Atualize as informações do usuário selecionado</small>
+        {% else %}
+            <h5>Cadastrar usuário</h5>
+            <small>Preencha os dados para criar um novo acesso ao sistema</small>
+        {% endif %}
+
+    </div>
+
+    <!-- BODY -->
+    <div class="form-body">
+
+        <form method="POST">
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Nome</label>
+                    <input type="text"
+                           class="form-control"
+                           name="nome"
+                           value="{{ usuario.nome if usuario else '' }}"
+                           required>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">E-mail</label>
+                    <input type="email"
+                           class="form-control"
+                           name="email"
+                           value="{{ usuario.email if usuario else '' }}"
+                           required>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Senha</label>
+                    <input type="password"
+                           class="form-control"
+                           name="senha"
+                           {% if not usuario %}required{% endif %}>
+
+                    {% if usuario %}
+                        <small class="text-muted">
+                            Deixe em branco para manter a senha atual
+                        </small>
+                    {% endif %}
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Perfil</label>
+                    <select class="form-select" name="perfil" required>
+
+                        <option value="">Selecione</option>
+
+                        <option value="admin" {% if usuario and usuario.perfil == 'admin' %}selected{% endif %}>
+                            Administrador
+                        </option>
+                       
+
+                        <option value="operador" {% if usuario and usuario.perfil == 'operador' %}selected{% endif %}>
+                            Operador
+                        </option>
+
+                    </select>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Status</label>
+                    <select class="form-select" name="status">
+
+                        <option value="ativo"
+                            {% if not usuario or usuario.status == 'ativo' %}selected{% endif %}>
+                            Ativo
+                        </option>
+
+                        <option value="inativo"
+                            {% if usuario and usuario.status == 'inativo' %}selected{% endif %}>
+                            Inativo
+                        </option>
+
+                    </select>
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="d-flex justify-content-between">
+
+                <a href="{{ url_for('listar_usuarios') }}"
+                   class="btn btn-secondary">
+                    Voltar
+                </a>
+
+                <button type="submit"
+                        class="btn btn-primary">
+
+                    {% if usuario %}
+                        Salvar alterações
+                    {% else %}
+                        Cadastrar usuário
+                    {% endif %}
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

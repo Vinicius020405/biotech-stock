@@ -1,0 +1,312 @@
+{% extends "base.html" %}
+
+{% block title %}
+Localizações - Sistema de Estoque
+{% endblock %}
+
+{% block page_title %}
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .page-header {
+        background: linear-gradient(135deg, #408cce, midnightblue);
+        color: white;
+        border-radius: 16px;
+        padding: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, .12);
+    }
+
+    .page-header h3 {
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+
+
+    .card-localizacao {
+        border: none;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 6px 25px rgba(0, 0, 0, .08);
+    }
+
+    .table thead th {
+        background: midnightblue !important;
+        color: white !important;
+        border: none;
+        padding: 15px;
+        vertical-align: middle;
+    }
+
+    .table tbody td {
+        vertical-align: middle;
+        padding: 14px;
+    }
+
+    .table tbody tr {
+        transition: .2s;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8faff;
+    }
+
+    .localizacao-badge {
+        background: #e8eefc;
+        color: #2f4cb3;
+        font-weight: 600;
+        padding: 8px 12px;
+        border-radius: 8px;
+    }
+
+    .btn-novo {
+        border-radius: 10px;
+        padding: 10px 18px;
+        font-weight: 600;
+    }
+
+    .btn-action {
+        width: 38px;
+        height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+    }
+
+    .empty-box {
+        text-align: center;
+        padding: 60px;
+    }
+
+    .empty-box i {
+        font-size: 60px;
+        color: #adb5bd;
+    }
+
+    .modal-content {
+        border: none;
+        border-radius: 18px;
+    }
+
+    .modal-header {
+        background: linear-gradient(135deg, #408cce, midnightblue);
+        color: white;
+        border-bottom: none;
+    }
+
+    .modal-header .btn-close {
+        filter: brightness(0) invert(1);
+    }
+
+    .info-badge {
+        background: #f1f5f9;
+        color: #334155;
+        padding: 6px 10px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 500;
+    }
+</style>
+
+<div class="page-header d-flex justify-content-between align-items-center">
+
+    <div>
+        <h3>
+            <i class="bi bi-geo-alt-fill"></i>
+            Cadastro de Localizações
+        </h3>
+
+        <p class="mb-0">
+            Locais onde os produtos podem ser armazenados
+        </p>
+    </div>
+
+    <a href="{{ url_for('nova_localizacao') }}" class="btn btn-light btn-novo">
+        <i class="bi bi-plus-circle"></i>
+        Nova Localização
+    </a>
+
+</div>
+
+<div class="card card-localizacao">
+
+    <div class="card-body p-0">
+
+        {% if localizacoes %}
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Setor</th>
+                        <th>Corredor</th>
+                        <th>Prateleira</th>
+                        <th>Observação</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for localizacao in localizacoes %}
+
+                    <tr>
+
+                        <td>
+                            <strong>#{{ localizacao.id_localizacao }}</strong>
+                        </td>
+
+                        <td>
+                            <span class="localizacao-badge">
+                                {{ localizacao.nome }}
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="info-badge">
+                                {{ localizacao.setor }}
+                            </span>
+                        </td>
+
+                        <td>{{ localizacao.corredor }}</td>
+
+                        <td>{{ localizacao.prateleira }}</td>
+
+                        <td>
+                            {% if localizacao.observacao %}
+                            {{ localizacao.observacao }}
+                            {% else %}
+                            <span class="text-muted">
+                                Sem observações
+                            </span>
+                            {% endif %}
+                        </td>
+
+                        <td class="text-center">
+
+                            <a href="{{ url_for('editar_localizacao', id_localizacao=localizacao.id_localizacao) }}"
+                                class="btn btn-warning btn-action" title="Editar">
+
+                                <i class="bi bi-pencil-fill"></i>
+
+                            </a>
+
+                            <button type="button" class="btn btn-danger btn-action" data-bs-toggle="modal"
+                                data-bs-target="#modalExcluirLocalizacao{{ localizacao.id_localizacao }}"
+                                title="Excluir">
+
+                                <i class="bi bi-trash-fill"></i>
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% for localizacao in localizacoes %}
+
+        <div class="modal fade" id="modalExcluirLocalizacao{{ localizacao.id_localizacao }}" tabindex="-1">
+
+            <div class="modal-dialog modal-dialog-centered">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirmar Exclusão</h5>
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal">
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <p>Deseja realmente excluir a localização?</p>
+
+                        <div class="border rounded p-3 bg-light">
+                            <strong>{{ localizacao.nome }}</strong>
+                            <br>
+                            <small class="text-muted">
+                                Setor: {{ localizacao.setor }}
+                            </small>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            Cancelar
+                        </button>
+
+                        <form action="{{ url_for('excluir_localizacao', id_localizacao=localizacao.id_localizacao) }}"
+                            method="POST">
+
+                            <button type="submit" class="btn btn-danger">
+                                Sim, excluir
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+
+
+
+
+
+
+        {% else %}
+
+        <div class="empty-box">
+
+            <i class="bi bi-geo-alt"></i>
+
+            <h4 class="mt-3">
+                Nenhuma localização cadastrada
+            </h4>
+
+            <p class="text-muted">
+                Ainda não existem localizações registradas no sistema.
+            </p>
+
+            <a href="{{ url_for('nova_localizacao') }}" class="btn btn-primary">
+
+                Criar Primeira Localização
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

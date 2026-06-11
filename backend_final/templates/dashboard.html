@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard - Sistema de Estoque
+{% endblock %}
+
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .card-dashboard {
+        border: none;
+        border-radius: 20px;
+        overflow: hidden;
+        background: linear-gradient(145deg, #ffffff, #f8fafc);
+        box-shadow: 0 8px 25px rgba(15, 23, 42, 0.08),
+            0 2px 8px rgba(15, 23, 42, 0.04);
+        transition: all .3s ease;
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+    .card-dashboard::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        background: linear-gradient(180deg, #2563eb, #06b6d4);
+    }
+
+    .card-dashboard:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 18px 40px rgba(15, 23, 42, 0.15),
+            0 4px 12px rgba(15, 23, 42, 0.08);
+    }
+
+    .card-dashboard .card-body {
+        padding: 1.6rem;
+    }
+
+    .card-dashboard .card-title {
+        font-size: .90rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #64748b;
+        margin-bottom: 10px;
+    }
+
+    .card-dashboard h3 {
+        font-size: 2.3rem;
+        font-weight: 800;
+        margin-bottom: 6px;
+        color: #0f172a;
+    }
+
+    .card-dashboard p {
+        margin: 0;
+        font-size: .92rem;
+        color: #94a3b8 !important;
+    }
+
+    .dashboard-header {
+        background: linear-gradient(135deg, #0f172a, #1e3a8a);
+        border-radius: 20px;
+        padding: 35px;
+        margin-bottom: 25px;
+        color: white;
+        box-shadow: 0 15px 40px rgba(30, 58, 138, .25);
+    }
+
+    .dashboard-header h2 {
+        font-weight: 800;
+        margin-bottom: 8px;
+    }
+
+    .dashboard-header p {
+        opacity: .8;
+        margin-bottom: 0;
+    }
+
+
+    .chart-card {
+        margin-top: 25px;
+        border-radius: 20px;
+        border: none;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        padding: 20px;
+    }
+
+    .chart-container {
+        height: 280px;
+    }
+</style>
+
+<div class="dashboard-header">
+    <h2>Dashboard do Sistema</h2>
+    <p>Monitoramento geral do estoque, usuários, sensores e movimentações.</p>
+</div>
+
+<!-- CARDS -->
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="card card-dashboard">
+            <div class="card-body">
+                <h6 class="card-title">Produtos</h6>
+                <h3>{{ total_produtos }}</h3>
+                <p>Produtos cadastrados</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-dashboard">
+            <div class="card-body">
+                <h6 class="card-title">Estoque</h6>
+                <h3>{{ total_estoque }}</h3>
+                <p>Produtos com saldo</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-dashboard">
+            <div class="card-body">
+                <h6 class="card-title">Entradas</h6>
+                <h3>{{ total_entradas }}</h3>
+                <p>Pedidos de entrada</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-dashboard">
+            <div class="card-body">
+                <h6 class="card-title">Saídas</h6>
+                <h3>{{ total_saidas }}</h3>
+                <p>Pedidos de saída</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-dashboard">
+            <div class="card-body">
+                <h6 class="card-title">Usuários</h6>
+                <h3>{{ total_usuarios }}</h3>
+                <p>Usuários cadastrados</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-dashboard">
+            <div class="card-body">
+                <h6 class="card-title">Sensores</h6>
+                <h3>{{ total_sensores }}</h3>
+                <p>Sensores cadastrados</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-4">
+        <div class="card card-dashboard">
+            <div class="card-body">
+                <h6 class="card-title">Caminhões</h6>
+                <h3>{{ total_caminhoes }}</h3>
+                <p>Caminhões cadastrados</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card card-dashboard">
+            <div class="card-body">
+                <h6 class="card-title">Fornecedores</h6>
+                <h3>{{ total_fornecedor }}</h3>
+                <p>Fornecedores cadastrados</p>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<!-- GRAFICO -->
+<div class="card chart-card">
+    <h5 class="mb-3">Visão Geral do Sistema</h5>
+
+    <div class="chart-container">
+        <canvas id="graficoSistema"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const dataValues = [
+            Number("{{ total_produtos or 0 }}"),
+            Number("{{ total_estoque or 0 }}"),
+            Number("{{ total_entradas or 0 }}"),
+            Number("{{ total_saidas or 0 }}"),
+            Number("{{ total_usuarios or 0 }}"),
+            Number("{{ total_sensores or 0 }}"),
+            Number("{{ total_caminhoes or 0}}"),
+            Number("{{ total_fornecedor or 0 }}")
+
+        ];
+
+        const ctx = document.getElementById('graficoSistema');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [
+                    'Produtos',
+                    'Estoque',
+                    'Entradas',
+                    'Saídas',
+                    'Usuários',
+                    'Sensores',
+                    'Caminhões',
+                    "Fornecedor"
+                ],
+                datasets: [{
+                    label: 'Quantidade',
+                    data: dataValues,
+                    backgroundColor: 'rgba(37, 99, 235, 0.7)',
+                    borderRadius: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,255 @@
+{% extends "base.html" %}
+
+{% block title %}
+Estoque - Sistema de Estoque
+{% endblock %}
+
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .page-header {
+        background: linear-gradient(135deg, #408cce, midnightblue);
+        color: white;
+        border-radius: 16px;
+        padding: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 8px 25px rgba(0,0,0,.12);
+    }
+
+    .page-header h3 {
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .card-estoque {
+        border: none;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 6px 25px rgba(0,0,0,.08);
+    }
+
+    .table thead th {
+        background: midnightblue !important;
+        color: white !important;
+        border: none;
+        padding: 15px;
+        vertical-align: middle;
+    }
+
+    .table tbody td {
+        padding: 14px;
+        vertical-align: middle;
+    }
+
+    .table tbody tr {
+        transition: .2s;
+    }
+
+    .table tbody tr:hover {
+        background: #f8faff;
+        transform: scale(1.002);
+    }
+
+    .codigo-badge {
+        background: #e8eefc;
+        color: #2f4cb3;
+        font-weight: 600;
+        padding: 8px 12px;
+        border-radius: 8px;
+    }
+
+    .estoque-ok {
+        background: #d1fae5;
+        color: #065f46;
+        font-weight: 700;
+        padding: 8px 12px;
+        border-radius: 8px;
+    }
+
+    .estoque-baixo {
+        background: #fef3c7;
+        color: #92400e;
+        font-weight: 700;
+        padding: 8px 12px;
+        border-radius: 8px;
+    }
+
+    .estoque-zero {
+        background: #fee2e2;
+        color: #991b1b;
+        font-weight: 700;
+        padding: 8px 12px;
+        border-radius: 8px;
+    }
+
+    .produto-nome {
+        font-weight: 600;
+        color: #1e293b;
+    }
+
+    .localizacao-badge {
+        background: #f1f5f9;
+        color: #334155;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+    .empty-box {
+        text-align: center;
+        padding: 60px;
+    }
+
+    .empty-box i {
+        font-size: 70px;
+        color: #cbd5e1;
+    }
+
+    .empty-box h4 {
+        margin-top: 15px;
+        color: #334155;
+        font-weight: 700;
+    }
+
+    .empty-box p {
+        color: #64748b;
+    }
+</style>
+
+<div class="page-header">
+
+    <h3>
+        <i class="bi bi-box-seam-fill"></i>
+        Controle de Estoque
+    </h3>
+
+    <p class="mb-0">
+        Consulta dos produtos disponíveis por localização
+    </p>
+
+</div>
+
+<div class="card card-estoque">
+
+    <div class="card-body p-0">
+
+        {% if estoque %}
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Código</th>
+                            <th>Produto</th>
+                            <th>Localização</th>
+                            <th>Setor</th>
+                            <th>Quantidade Atual</th>
+                            <th>Unidade</th>
+                            <th>Atualizado em</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        {% for item in estoque %}
+
+                            <tr>
+
+                                <td>
+                                    <strong>#{{ item.id_estoque }}</strong>
+                                </td>
+
+                                <td>
+                                    <span class="codigo-badge">
+                                        {{ item.codigo }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="produto-nome">
+                                        {{ item.produto }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="localizacao-badge">
+                                        {{ item.localizacao }}
+                                    </span>
+                                </td>
+
+                                <td>
+                                    {{ item.setor }}
+                                </td>
+
+                                <td>
+
+                                    {% if item.quantidade_atual|float <= 0 %}
+
+                                        <span class="estoque-zero">
+                                            {{ item.quantidade_atual }}
+                                        </span>
+
+                                    {% elif item.quantidade_atual|float <= 5 %}
+
+                                        <span class="estoque-baixo">
+                                            {{ item.quantidade_atual }}
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="estoque-ok">
+                                            {{ item.quantidade_atual }}
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+                                <td>
+                                    {{ item.unidade_medida }}
+                                </td>
+
+                                <td>
+                                    {{ item.atualizado_em }}
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-box">
+
+                <i class="bi bi-box-seam"></i>
+
+                <h4>
+                    Nenhum saldo encontrado
+                </h4>
+
+                <p>
+                    Registre um pedido de entrada para movimentar o estoque.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

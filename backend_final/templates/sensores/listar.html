@@ -1,0 +1,387 @@
+{% extends "base.html" %}
+
+{% block title %}
+Sensores - Sistema de Estoque
+{% endblock %}
+
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .page-header {
+        background: linear-gradient(135deg, #408cce, midnightblue);
+        color: white;
+        border-radius: 16px;
+        padding: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 8px 25px rgba(0,0,0,.12);
+    }
+
+    .page-header h3 {
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .card-sensor {
+        border: none;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 6px 25px rgba(0,0,0,.08);
+    }
+
+    .table thead th {
+        background: midnightblue !important;
+        color: white !important;
+        border: none;
+        padding: 15px;
+        vertical-align: middle;
+    }
+
+    .table tbody td {
+        vertical-align: middle;
+        padding: 14px;
+    }
+
+    .table tbody tr {
+        transition: .2s;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8faff;
+    }
+
+    .sensor-badge {
+        background: #e8eefc;
+        color: #2f4cb3;
+        font-weight: 600;
+        padding: 8px 12px;
+        border-radius: 8px;
+    }
+
+    .tipo-badge {
+        background: #dbeafe;
+        color: #1e40af;
+        font-weight: 600;
+        padding: 8px 12px;
+        border-radius: 8px;
+    }
+
+    .status-ativo {
+        background: #d1fae5;
+        color: #065f46;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+    .status-inativo {
+        background: #fee2e2;
+        color: #991b1b;
+        padding: 8px 12px;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+    .btn-novo {
+        border-radius: 10px;
+        padding: 10px 18px;
+        font-weight: 600;
+    }
+
+    .btn-action {
+        width: 38px;
+        height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+    }
+
+    .empty-box {
+        text-align: center;
+        padding: 60px;
+    }
+
+    .empty-box i {
+        font-size: 60px;
+        color: #adb5bd;
+    }
+
+    .modal-content {
+        border: none;
+        border-radius: 18px;
+    }
+
+    .modal-header {
+        background: linear-gradient(135deg, #408cce, midnightblue);
+        color: white;
+        border-bottom: none;
+    }
+
+    .modal-header .btn-close {
+        filter: brightness(0) invert(1);
+    }
+
+    .info-badge {
+        background: #f1f5f9;
+        color: #334155;
+        padding: 6px 10px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 500;
+    }
+</style>
+
+<div class="page-header d-flex justify-content-between align-items-center">
+
+    <div>
+        <h3>
+            <i class="bi bi-cpu-fill"></i>
+            Cadastro de Sensores
+        </h3>
+
+        <p class="mb-0">
+            Sensores vinculados a localizações ou produtos
+        </p>
+    </div>
+
+    <a href="{{ url_for('novo_sensor') }}" class="btn btn-light btn-novo">
+        <i class="bi bi-plus-circle"></i>
+        Novo Sensor
+    </a>
+
+</div>
+
+<div class="card card-sensor">
+
+    <div class="card-body p-0">
+
+        {% if sensores %}
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle mb-0">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Tipo</th>
+                        <th>Código</th>
+                        <th>Localização</th>
+                        <th>Produto</th>
+                        <th>Status</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for sensor in sensores %}
+
+                    <tr>
+
+                        <td>
+                            <strong>#{{ sensor.id_sensor }}</strong>
+                        </td>
+
+                        <td>
+                            <span class="sensor-badge">
+                                {{ sensor.nome }}
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="tipo-badge">
+                                {{ sensor.tipo_sensor }}
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="info-badge">
+                                {{ sensor.codigo_sensor }}
+                            </span>
+                        </td>
+
+                        <td>
+                            {{ sensor.id_localizacao }}
+                        </td>
+
+                        <td>
+
+                            {% if sensor.id_produto %}
+                                <span class="info-badge">
+                                    {{ sensor.id_produto }}
+                                </span>
+                            {% else %}
+                                <span class="text-muted">
+                                    Não vinculado
+                                </span>
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            {% if sensor.status == 'ativo' %}
+                                <span class="status-ativo">
+                                    Ativo
+                                </span>
+                            {% else %}
+                                <span class="status-inativo">
+                                    Inativo
+                                </span>
+                            {% endif %}
+
+                        </td>
+
+                        <td class="text-center">
+
+                            <a
+                                href="{{ url_for('editar_sensor', id_sensor=sensor.id_sensor) }}"
+                                class="btn btn-warning btn-action"
+                                title="Editar">
+
+                                <i class="bi bi-pencil-fill"></i>
+
+                            </a>
+
+                            <button
+                                type="button"
+                                class="btn btn-danger btn-action"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalExcluirSensor{{ sensor.id_sensor }}"
+                                title="Excluir">
+
+                                <i class="bi bi-trash-fill"></i>
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                    <!-- MODAL -->
+
+                    <div
+                        class="modal fade"
+                        id="modalExcluirSensor{{ sensor.id_sensor }}"
+                        tabindex="-1">
+
+                        <div class="modal-dialog modal-dialog-centered">
+
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+
+                                    <h5 class="modal-title">
+                                        Confirmar Exclusão
+                                    </h5>
+
+                                    <button
+                                        type="button"
+                                        class="btn-close"
+                                        data-bs-dismiss="modal">
+                                    </button>
+
+                                </div>
+
+                                <div class="modal-body">
+
+                                    <p>
+                                        Deseja realmente excluir o sensor?
+                                    </p>
+
+                                    <div class="border rounded p-3 bg-light">
+
+                                        <strong>
+                                            {{ sensor.nome }}
+                                        </strong>
+
+                                        <br>
+
+                                        <small class="text-muted">
+                                            Código: {{ sensor.codigo_sensor }}
+                                        </small>
+
+                                    </div>
+
+                                    <div class="alert alert-warning mt-3 mb-0">
+
+                                        <strong>Atenção:</strong>
+
+                                        Se este sensor possuir leituras registradas,
+                                        o banco poderá impedir a exclusão.
+
+                                    </div>
+
+                                </div>
+
+                                <div class="modal-footer">
+
+                                    <button
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        data-bs-dismiss="modal">
+
+                                        Cancelar
+
+                                    </button>
+
+                                    <a
+                                        href="{{ url_for('excluir_sensor', id_sensor=sensor.id_sensor) }}"
+                                        class="btn btn-danger">
+
+                                        Sim, excluir
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-box">
+
+            <i class="bi bi-cpu"></i>
+
+            <h4 class="mt-3">
+                Nenhum sensor cadastrado
+            </h4>
+
+            <p class="text-muted">
+                Ainda não existem sensores registrados no sistema.
+            </p>
+
+            <a href="{{ url_for('novo_sensor') }}"
+               class="btn btn-primary">
+
+                Cadastrar Primeiro Sensor
+
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}
