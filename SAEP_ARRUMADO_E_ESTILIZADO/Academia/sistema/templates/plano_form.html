@@ -1,0 +1,62 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="heading">
+    <div>
+        <h1>{{ 'Editar plano' if antigo else 'Novo plano' }}</h1>
+        <p>Preencha as informações do plano de treinamento.</p>
+    </div>
+</div>
+
+<section class="panel narrow">
+
+    <form method="post">
+
+        <label for="descricao">Descrição do plano</label>
+        <input
+            type="text"
+            id="descricao"
+            name="descricao"
+            value="{{ antigo.descricao if antigo else '' }}"
+            placeholder="Ex.: Musculação A"
+            required
+        >
+
+        <label for="objetivo">Objetivo</label>
+        <input
+            type="text"
+            id="objetivo"
+            name="objetivo"
+            value="{{ antigo.objetivo if antigo else '' }}"
+            placeholder="Ex.: Condicionamento físico"
+            required
+        >
+
+        <label for="aluno_id">Aluno vinculado</label>
+        <select id="aluno_id" name="aluno_id" required>
+            <option value="">Selecione um aluno</option>
+
+            {% for a in alunos %}
+            <option
+                value="{{ a.id }}"
+                {% if antigo and antigo.aluno_id == a.id %}selected{% endif %}
+            >
+                {{ a.nome }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <div class="form-acoes">
+            <button type="submit" class="btn-salvar">Salvar plano</button>
+
+            <a href="{{ url_for('listar_planos') }}"
+               class="btn btn-cancelar">Cancelar</a>
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}

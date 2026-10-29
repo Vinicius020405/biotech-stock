@@ -1,0 +1,74 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="heading">
+    <div>
+        <h1>Agendamentos</h1>
+        <p>Consulte e gerencie os horários de treinamento.</p>
+    </div>
+
+    <a class="btn" href="{{ url_for('salvar_agendamento') }}">
+        + Novo agendamento
+    </a>
+</div>
+
+<section class="panel">
+
+    <div class="scroll">
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Horário</th>
+                    <th>Aluno</th>
+                    <th>Plano</th>
+                    <th>Objetivo</th>
+                    <th>Observação</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for ag in rows %}
+                <tr>
+                    <td>{{ ag.data.strftime('%d/%m/%Y') if ag.data else '' }}</td>
+                    <td>{{ ag.horario }}</td>
+                    <td>{{ ag.aluno }}</td>
+                    <td>{{ ag.plano }}</td>
+                    <td>{{ ag.objetivo }}</td>
+                    <td>{{ ag.observacao or 'Sem observação' }}</td>
+
+                    <td class="acoes-tabela">
+                        <a class="btn btn-editar"
+                           href="{{ url_for('salvar_agendamento', ag_id=ag.id) }}">
+                            Editar
+                        </a>
+
+                        <form class="inline"
+                              method="post"
+                              action="{{ url_for('excluir_agendamento', ag_id=ag.id) }}"
+                              onsubmit="return confirm('Deseja realmente excluir este agendamento?')">
+
+                            <button type="submit" class="btn-excluir">
+                                Excluir
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+
+                {% else %}
+                <tr>
+                    <td colspan="7" class="tabela-vazia">
+                        Nenhum agendamento cadastrado.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</section>
+
+{% endblock %}

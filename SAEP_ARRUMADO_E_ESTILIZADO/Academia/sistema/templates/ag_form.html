@@ -1,0 +1,72 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="heading">
+    <div>
+        <h1>{{ 'Editar agendamento' if antigo else 'Novo agendamento' }}</h1>
+        <p>Preencha os dados para organizar o treinamento.</p>
+    </div>
+</div>
+
+<section class="panel narrow">
+
+    <form method="post">
+
+        <label for="plano_id">Plano e aluno</label>
+        <select id="plano_id" name="plano_id" required>
+            <option value="">Selecione um plano</option>
+
+            {% for p in planos %}
+            <option
+                value="{{ p.id }}"
+                {% if antigo and antigo.plano_id == p.id %}selected{% endif %}
+            >
+                {{ p.descricao }} — {{ p.aluno }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <label for="data">Data</label>
+        <input
+            type="date"
+            id="data"
+            name="data"
+            value="{{ antigo.data.isoformat() if antigo and antigo.data else '' }}"
+            required
+        >
+
+        <label for="horario">Horário</label>
+        <input
+            type="time"
+            id="horario"
+            name="horario"
+            value="{{ antigo.horario if antigo else '' }}"
+            required
+        >
+
+        <label for="observacao">Observação</label>
+        <textarea
+            id="observacao"
+            name="observacao"
+            rows="4"
+            placeholder="Informações adicionais (opcional)"
+        >{{ antigo.observacao if antigo and antigo.observacao else '' }}</textarea>
+
+        <div class="form-acoes">
+            <button type="submit" class="btn-salvar">
+                Salvar agendamento
+            </button>
+
+            <a href="{{ url_for('listar_agendamentos') }}"
+               class="btn btn-cancelar">
+                Cancelar
+            </a>
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}

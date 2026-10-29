@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="heading">
+    <div>
+        <h1>{{ 'Editar aluno' if antigo else 'Cadastrar aluno' }}</h1>
+        <p>Preencha os dados abaixo para {{ 'atualizar' if antigo else 'cadastrar' }} o aluno.</p>
+    </div>
+</div>
+
+<section class="panel narrow">
+
+    <form method="post">
+
+        <label for="nome">Nome completo</label>
+        <input
+            type="text"
+            id="nome"
+            name="nome"
+            value="{{ antigo.nome if antigo else '' }}"
+            placeholder="Digite o nome completo"
+            required
+        >
+
+        <label for="cpf">CPF</label>
+        {% if antigo %}
+            <p class="campo-ajuda">Deixe em branco para manter o CPF atual.</p>
+        {% endif %}
+        <input
+            type="text"
+            id="cpf"
+            name="cpf"
+            minlength="11"
+            maxlength="14"
+            inputmode="numeric"
+            placeholder="Digite o CPF"
+            {% if not antigo %}required{% endif %}
+        >
+
+        <label for="email">E-mail</label>
+        <input
+            type="email"
+            id="email"
+            name="email"
+            value="{{ antigo.email if antigo else '' }}"
+            placeholder="exemplo@email.com"
+            required
+        >
+
+        <label for="telefone">Telefone</label>
+        <input
+            type="tel"
+            id="telefone"
+            name="telefone"
+            value="{{ antigo.telefone if antigo else '' }}"
+            placeholder="Digite o telefone"
+        >
+
+        <div class="form-acoes">
+            <button type="submit" class="btn-salvar">Salvar aluno</button>
+
+            <a href="{{ url_for('listar_alunos') }}"
+               class="btn btn-cancelar">Cancelar</a>
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}
