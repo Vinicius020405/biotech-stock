@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+    <title>Pagamento | BioTech Stock</title>
+ 
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style-pagamento.css') }}">
+       
+</head>
+ 
+<body>
+ 
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+ 
+    <header class="pagamento-header">
+ 
+        <a href="{{ url_for('index') }}" class="logo-link">
+ 
+            <img
+                src="{{ url_for('static',
+                filename='imagens-laddingpage/logobranca2.png') }}"
+                alt="BioTech Stock">
+ 
+        </a>
+ 
+        <a href="{{ url_for('index') }}" class="voltar">
+            ← Voltar para o site
+        </a>
+ 
+    </header>
+ 
+ 
+    <!-- =====================================================
+         CONTEÚDO
+    ====================================================== -->
+ 
+    <main class="pagamento-container">
+ 
+        <!-- =================================================
+             TÍTULO
+        ================================================== -->
+ 
+        <div class="pagamento-titulo">
+ 
+            <span class="tag">
+                BIO TECH STOCK
+            </span>
+ 
+            <h1>
+                Finalize sua assinatura
+            </h1>
+ 
+            <p>
+                Complete seus dados para ativar seu plano
+                e começar a utilizar a BioTech Stock.
+            </p>
+ 
+        </div>
+ 
+ 
+        <!-- =================================================
+             GRID
+        ================================================== -->
+ 
+        <div class="pagamento-grid">
+ 
+ 
+            <!-- =================================================
+                 RESUMO DO PLANO
+            ================================================== -->
+ 
+            <section class="resumo-card">
+ 
+                <div class="resumo-topo">
+ 
+                    <span class="nivel">
+                        {{ plano.nivel }}
+                    </span>
+ 
+                    <div class="icone-plano">
+                        {{ plano.icone }}
+                    </div>
+ 
+                </div>
+ 
+ 
+                <h2>
+                    {{ plano.nome }}
+                </h2>
+ 
+ 
+                <p class="subtitulo">
+                    {{ plano.descricao }}
+                </p>
+ 
+ 
+                <!-- PREÇO -->
+ 
+                <div class="preco">
+ 
+                    <span class="moeda">
+                        R$
+                    </span>
+ 
+                    <strong>
+                        {{ plano.preco }}
+                    </strong>
+ 
+                    <span class="periodo">
+                        /mês
+                    </span>
+ 
+                </div>
+ 
+ 
+                <div class="linha"></div>
+ 
+ 
+                <!-- RECURSOS -->
+ 
+                <h3>
+                    Recursos incluídos
+                </h3>
+ 
+ 
+                <ul class="recursos">
+ 
+                    {% for recurso in plano.recursos %}
+ 
+                    <li>
+ 
+                        <span>
+                            ✓
+                        </span>
+ 
+                        {{ recurso }}
+ 
+                    </li>
+ 
+                    {% endfor %}
+ 
+                </ul>
+ 
+ 
+                <!-- SEGURANÇA -->
+ 
+                <div class="seguranca">
+ 
+                    <span>
+                        ✓
+                    </span>
+ 
+                    <p>
+                        Assinatura segura e proteção
+                        dos seus dados.
+                    </p>
+ 
+                </div>
+ 
+            </section>
+ 
+ 
+ 
+            <!-- =================================================
+                 PAGAMENTO
+            ================================================== -->
+ 
+            <section class="pagamento-card">
+ 
+ 
+                <!-- CABEÇALHO -->
+ 
+                <div class="card-header">
+ 
+                    <div>
+ 
+                        <span class="mini-tag">
+                            ASSINATURA
+                        </span>
+ 
+                        <h2>
+                            Dados do cliente
+                        </h2>
+ 
+                    </div>
+ 
+                    <div class="cadeado">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8 0a4 4 0 0 1 4 4v2.05a2.5 2.5 0 0 1 2 2.45v5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 13.5v-5a2.5 2.5 0 0 1 2-2.45V4a4 4 0 0 1 4-4M4.5 7A1.5 1.5 0 0 0 3 8.5v5A1.5 1.5 0 0 0 4.5 15h7a1.5 1.5 0 0 0 1.5-1.5v-5A1.5 1.5 0 0 0 11.5 7zM8 1a3 3 0 0 0-3 3v2h6V4a3 3 0 0 0-3-3"/>
+</svg>
+                    </div>
+ 
+                </div>
+ 
+ 
+                <!-- =================================================
+                     FORMULÁRIO
+                ================================================== -->
+ 
+                <form
+                    action="{{ url_for('processar_pagamento') }}"
+                    method="POST"
+                    id="formPagamento">
+ 
+ 
+                    <!-- =================================================
+                         PLANO
+                    ================================================== -->
+ 
+                    <input
+                        type="hidden"
+                        name="plano"
+                        value="{{ plano.id }}">
+ 
+ 
+                    <!-- =================================================
+                         DADOS DO CLIENTE
+                    ================================================== -->
+ 
+                    <div class="campo">
+ 
+                        <label for="nome">
+                            Nome completo
+                        </label>
+ 
+                        <input
+                            type="text"
+                            id="nome"
+                            name="nome"
+                            placeholder="Digite seu nome completo"
+                            autocomplete="name"
+                            required>
+ 
+                    </div>
+ 
+ 
+                    <div class="campo">
+ 
+                        <label for="email">
+                            E-mail para contato
+                        </label>
+ 
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="seuemail@gmail.com"
+                            autocomplete="email">
+ 
+                    </div>
+ 
+ 
+                    <!-- =================================================
+                         MÉTODO DE PAGAMENTO
+                    ================================================== -->
+ 
+                    <div class="card-header"
+                         style="margin-top: 25px; margin-bottom: 15px;">
+ 
+                        <div>
+ 
+                            <span class="mini-tag">
+                                PAGAMENTO
+                            </span>
+ 
+                            <h2>
+                                Forma de pagamento
+                            </h2>
+ 
+                        </div>
+ 
+                    </div>
+ 
+ 
+                    <div class="metodos">
+ 
+                        <button
+                            type="button"
+                            class="metodo ativo"
+                            onclick="selecionarMetodo('cartao', this)">
+ 
+                            <span class="metodo-icone">
+                                💳
+                            </span>
+ 
+                            <span>
+                                Cartão
+                            </span>
+ 
+                        </button>
+ 
+ 
+                        <button
+                            type="button"
+                            class="metodo"
+                            onclick="selecionarMetodo('pix', this)">
+ 
+                            <span class="metodo-icone">
+                                ◈
+                            </span>
+ 
+                            <span>
+                                PIX
+                            </span>
+ 
+                        </button>
+ 
+                    </div>
+ 
+ 
+                    <!-- =================================================
+                         CARTÃO
+                    ================================================== -->
+ 
+                    <div
+                        id="cartao-form"
+                        class="metodo-conteudo">
+ 
+ 
+                        <div class="campo">
+ 
+                            <label for="numero">
+                                Número do cartão
+                            </label>
+ 
+                            <input
+                                type="text"
+                                id="numero"
+                                name="numero"
+                                placeholder="0000 0000 0000 0000"
+                                maxlength="19"
+                                inputmode="numeric">
+ 
+                        </div>
+ 
+ 
+                        <div class="campos-duplos">
+ 
+ 
+                            <div class="campo">
+ 
+                                <label for="validade">
+                                    Validade
+                                </label>
+ 
+                                <input
+                                    type="text"
+                                    id="validade"
+                                    name="validade"
+                                    placeholder="MM/AA"
+                                    maxlength="5"
+                                    inputmode="numeric">
+ 
+                            </div>
+ 
+ 
+                            <div class="campo">
+ 
+                                <label for="cvv">
+                                    CVV
+                                </label>
+ 
+                                <input
+                                    type="password"
+                                    id="cvv"
+                                    name="cvv"
+                                    placeholder="•••"
+                                    maxlength="4"
+                                    inputmode="numeric">
+ 
+                            </div>
+ 
+ 
+                        </div>
+ 
+ 
+                        <div class="campo">
+ 
+                            <label for="titular">
+                                Nome do titular
+                            </label>
+ 
+                            <input
+                                type="text"
+                                id="titular"
+                                name="titular"
+                                placeholder="Nome como está no cartão">
+ 
+                        </div>
+ 
+                    </div>
+ 
+ 
+ 
+                    <!-- =================================================
+                         PIX
+                    ================================================== -->
+ 
+                    <div
+                        id="pix-form"
+                        class="metodo-conteudo pix-conteudo"
+                        style="display: none;">
+ 
+                        <div class="pix-icon">
+                            ◈
+                        </div>
+ 
+                        <h3>
+                            Pagamento via PIX
+                        </h3>
+ 
+                        <p>
+                            Após confirmar a assinatura,
+                            você poderá realizar o pagamento
+                            utilizando PIX.
+                        </p>
+ 
+                    </div>
+ 
+ 
+                    <!-- =================================================
+                         TOTAL
+                    ================================================== -->
+ 
+                    <div class="total">
+ 
+                        <span>
+                            Total da assinatura
+                        </span>
+ 
+                        <strong>
+                            R$ {{ plano.preco }}
+                        </strong>
+ 
+                    </div>
+ 
+ 
+                    <!-- =================================================
+                         BOTÃO
+                    ================================================== -->
+ 
+                    <button
+                        type="submit"
+                        class="btn-pagar">
+ 
+                        <span>
+                           
+                        </span>
+ 
+                        Confirmar assinatura
+ 
+                        <strong>
+                            →
+                        </strong>
+ 
+                    </button>
+ 
+ 
+                    <p class="aviso">
+ 
+                        Ao continuar, você concorda com os
+                        termos de uso da BioTech Stock.
+ 
+                    </p>
+ 
+                </form>
+ 
+            </section>
+ 
+        </div>
+ 
+    </main>
+ 
+ 
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+ 
+    <script>
+ 
+        // =====================================================
+        // MÉTODO DE PAGAMENTO
+        // =====================================================
+ 
+        function selecionarMetodo(metodo, botao) {
+ 
+            const botoes =
+                document.querySelectorAll(".metodo");
+ 
+            botoes.forEach(function(btn) {
+ 
+                btn.classList.remove("ativo");
+ 
+            });
+ 
+ 
+            botao.classList.add("ativo");
+ 
+ 
+            const cartao =
+                document.getElementById("cartao-form");
+ 
+            const pix =
+                document.getElementById("pix-form");
+ 
+ 
+            if (metodo === "cartao") {
+ 
+                cartao.style.display = "block";
+ 
+                pix.style.display = "none";
+ 
+            } else {
+ 
+                cartao.style.display = "none";
+ 
+                pix.style.display = "flex";
+ 
+            }
+ 
+        }
+ 
+ 
+        // =====================================================
+        // MÁSCARA DO CARTÃO
+        // =====================================================
+ 
+        const numero =
+            document.getElementById("numero");
+ 
+ 
+        if (numero) {
+ 
+            numero.addEventListener("input", function(e) {
+ 
+                let valor =
+                    e.target.value.replace(/\D/g, "");
+ 
+                valor =
+                    valor.substring(0, 16);
+ 
+                valor =
+                    valor.replace(
+                        /(\d{4})(?=\d)/g,
+                        "$1 "
+                    );
+ 
+                e.target.value = valor;
+ 
+            });
+ 
+        }
+ 
+ 
+        // =====================================================
+        // MÁSCARA DA VALIDADE
+        // =====================================================
+ 
+        const validade =
+            document.getElementById("validade");
+ 
+ 
+        if (validade) {
+ 
+            validade.addEventListener(
+                "input",
+                function(e) {
+ 
+                    let valor =
+                        e.target.value.replace(/\D/g, "");
+ 
+                    valor =
+                        valor.substring(0, 4);
+ 
+                    if (valor.length >= 3) {
+ 
+                        valor =
+                            valor.substring(0, 2)
+                            + "/"
+                            + valor.substring(2);
+ 
+                    }
+ 
+                    e.target.value = valor;
+ 
+                }
+            );
+ 
+        }
+ 
+ 
+        // =====================================================
+        // APENAS NÚMEROS NO CVV
+        // =====================================================
+ 
+        const cvv =
+            document.getElementById("cvv");
+ 
+ 
+        if (cvv) {
+ 
+            cvv.addEventListener(
+                "input",
+                function(e) {
+ 
+                    e.target.value =
+                        e.target.value
+                        .replace(/\D/g, "")
+                        .substring(0, 4);
+ 
+                }
+            );
+ 
+        }
+ 
+    </script>
+ 
+</body>
+ 
+</html>

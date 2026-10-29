@@ -1,0 +1,226 @@
+/* ==========================================
+   MAPA / LOCALIZAÇÕES - PADRÃO DO MÓDULO
+========================================== */
+
+/* ================================
+   CABEÇALHO
+================================ */
+
+.mapa-topo {
+    background: linear-gradient(135deg, #408cce, midnightblue);
+    color: white;
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 25px;
+    margin-top: -35px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .12);
+}
+
+.mapa-topo h2 {
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.mapa-topo p {
+    margin: 0;
+    color: rgba(255, 255, 255, .85);
+}
+
+
+/* ================================
+   CARD DE LOCALIZAÇÃO
+================================ */
+
+.localizacao-card {
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, .08);
+    transition: .2s;
+    height: 100%;
+}
+
+.localizacao-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .12);
+}
+
+.localizacao-header {
+    background: linear-gradient(135deg, #408cce, midnightblue);
+    color: white;
+    padding: 20px;
+}
+
+.localizacao-header h5 {
+    margin: 0;
+    font-weight: 700;
+}
+
+.localizacao-header i {
+    margin-right: 8px;
+}
+
+.localizacao-body {
+    padding: 22px;
+}
+
+
+/* ================================
+   INFORMAÇÕES
+================================ */
+
+.info-localizacao {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    color: #334155;
+}
+
+.info-localizacao i {
+    color: #408cce;
+    font-size: 18px;
+    width: 22px;
+}
+
+.info-localizacao strong {
+    color: #1f2937;
+}
+
+.observacao {
+    background: #f8fafc;
+    border-left: 4px solid #408cce;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-top: 18px;
+}
+
+.observacao strong {
+    color: #173b5f;
+}
+
+.localizacao-footer {
+    padding: 15px 22px;
+    border-top: 1px solid #e5e7eb;
+    background: #f8fafc;
+}
+
+
+/* ================================
+   STATUS
+================================ */
+
+.status-localizacao {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: #d1fae5;
+    color: #065f46;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status-bolinha {
+    width: 8px;
+    height: 8px;
+    background: #198754;
+    border-radius: 50%;
+}
+
+
+/* ================================
+   ESTADO VAZIO
+================================ */
+
+.sem-localizacao {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 60px 30px;
+    text-align: center;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, .08);
+}
+
+.sem-localizacao i {
+    font-size: 60px;
+    color: #408cce;
+    margin-bottom: 20px;
+}
+
+.sem-localizacao h4 {
+    color: #1f2937;
+    font-weight: 700;
+}
+
+
+/* ================================
+   BOTÃO
+================================ */
+
+.btn-nova-localizacao {
+    background: linear-gradient(135deg, #408cce, midnightblue);
+    border: none;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: .2s;
+}
+
+.btn-nova-localizacao:hover {
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, .15);
+}
+
+
+/* ================================
+   MODO ESCURO
+================================ */
+
+body.modo-escuro .localizacao-card {
+    background: #0c1c2d;
+    color: #e5edf7;
+}
+
+body.modo-escuro .localizacao-header {
+    background: linear-gradient(135deg, #163b5c, #1f4e79);
+}
+
+body.modo-escuro .info-localizacao {
+    color: #cbd5e1;
+}
+
+body.modo-escuro .info-localizacao strong {
+    color: #f8fafc;
+}
+
+body.modo-escuro .observacao {
+    background: #12283d;
+    border-left-color: #408cce;
+}
+
+body.modo-escuro .observacao strong {
+    color: #93c5fd;
+}
+
+body.modo-escuro .localizacao-footer {
+    background: #12283d;
+    border-color: #263f58;
+}
+
+body.modo-escuro .sem-localizacao {
+    background: #0c1c2d;
+    color: #e5edf7;
+}
+
+body.modo-escuro .sem-localizacao h4 {
+    color: #93c5fd;
+}
+
+body.modo-escuro .status-localizacao {
+    background: #14532d;
+    color: #bbf7d0;
+}

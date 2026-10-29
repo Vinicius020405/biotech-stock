@@ -1,0 +1,131 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f172a, #111827, #1f2937);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* ACESSIBILIDADE: Foco visível em elementos focáveis via teclado */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+    outline: 3px solid #f59e0b !important;
+    outline-offset: 3px !important;
+}
+
+.login-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.login-card {
+    width: 420px;
+    max-width: 100%;
+    padding: 40px;
+    border-radius: 24px;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, .45);
+    color: #ffffff;
+}
+
+.icon-glow {
+    font-size: 65px;
+    color: #afeeee;
+    margin-bottom: 10px;
+}
+
+.login-card h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: .5px;
+    margin-bottom: 5px;
+}
+
+.login-card p {
+    color: #e2e8f0;
+    margin-bottom: 25px;
+}
+
+.form-label {
+    color: #ffffff;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.form-control {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.form-control::placeholder {
+    color: #cbd5e1;
+}
+
+.form-control:focus {
+    background: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    border-color: #afeeee;
+}
+
+.btn-login {
+    background: #2563eb;
+    border: none;
+    color: #ffffff;
+    font-weight: 700;
+    border-radius: 12px;
+    padding: 12px;
+    transition: background 0.2s;
+}
+
+.btn-login:hover {
+    background: #1d4ed8;
+    color: #ffffff;
+}
+
+.btn-outline-site {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: #ffffff;
+    border-radius: 12px;
+    padding: 10px;
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn-outline-site:hover {
+    background: #ffffff;
+    color: #0f172a;
+}
+
+hr {
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+@media(max-width:576px) {
+
+    .login-card {
+        padding: 25px;
+    }
+
+    .icon-glow {
+        font-size: 55px;
+    }
+
+}

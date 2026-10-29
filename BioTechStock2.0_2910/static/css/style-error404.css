@@ -1,0 +1,602 @@
+/* ==========================================================
+   BIOTECH STOCK — ERROR PAGE
+   PALETA DA LANDING PAGE
+   ========================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 100vh;
+    overflow: hidden;
+    color: #163b59;
+}
+
+/* ==========================================================
+   BACKGROUND
+   ========================================================== */
+
+.background {
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 15% 25%,
+            rgba(52, 155, 216, 0.16),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 85% 70%,
+            rgba(68, 174, 226, 0.14),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #f4fbff 48%,
+            #e7f5fc 100%
+        );
+}
+
+/* ==========================================================
+   DECORAÇÕES DE FUNDO
+   ========================================================== */
+
+.circle {
+    position: absolute;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(39, 145, 202, 0.13);
+
+    pointer-events: none;
+}
+
+.circle-1 {
+    width: 600px;
+    height: 600px;
+
+    top: -300px;
+    left: -220px;
+}
+
+.circle-2 {
+    width: 700px;
+    height: 700px;
+
+    right: -350px;
+    bottom: -400px;
+}
+
+.circle-3 {
+    width: 280px;
+    height: 280px;
+
+    right: 10%;
+    top: 10%;
+
+    border-color: rgba(39, 145, 202, 0.10);
+}
+
+/* ==========================================================
+   PEQUENOS ELEMENTOS DECORATIVOS
+   ========================================================== */
+
+.background::before {
+    content: "";
+
+    position: absolute;
+
+    width: 7px;
+    height: 7px;
+
+    top: 18%;
+    left: 8%;
+
+    border-radius: 50%;
+
+    background: #2995ca;
+
+    box-shadow:
+        0 0 0 7px rgba(41, 149, 202, 0.08),
+        0 0 20px rgba(41, 149, 202, 0.25);
+}
+
+.background::after {
+    content: "";
+
+    position: absolute;
+
+    width: 5px;
+    height: 5px;
+
+    bottom: 18%;
+    right: 13%;
+
+    border-radius: 50%;
+
+    background: #4caed8;
+
+    box-shadow:
+        0 0 0 8px rgba(76, 174, 216, 0.08);
+}
+
+/* ==========================================================
+   CONTAINER
+   ========================================================== */
+
+.error-container {
+    position: relative;
+    z-index: 10;
+
+    width: 92%;
+    max-width: 850px;
+
+    text-align: center;
+
+    padding: 35px 30px;
+
+    animation: appear 0.7s ease forwards;
+}
+
+/* ==========================================================
+   LOGO
+   ========================================================== */
+
+.logo {
+    display: inline-block;
+
+    margin-bottom: 25px;
+
+    color: #123d5d;
+
+    font-size: 24px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.5px;
+}
+
+.logo span {
+    color: #187db7;
+}
+
+/* ==========================================================
+   ÍCONE
+   ========================================================== */
+
+.status-icon {
+    position: relative;
+
+    width: 82px;
+    height: 82px;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 22px;
+
+    color: #1683bd;
+
+    font-size: 34px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #e9f7fd
+        );
+
+    border: 1px solid rgba(33, 145, 200, 0.20);
+
+    box-shadow:
+        0 15px 35px rgba(35, 126, 171, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+    animation: iconFloat 3s ease-in-out infinite;
+}
+
+.pulse {
+    position: absolute;
+
+    inset: -1px;
+
+    border-radius: 22px;
+
+    border: 1px solid rgba(30, 139, 194, 0.35);
+
+    animation: pulse 2.2s infinite;
+}
+
+/* ==========================================================
+   404
+   ========================================================== */
+
+.error-number {
+    font-size: 90px;
+
+    line-height: 0.95;
+
+    font-weight: 900;
+
+    letter-spacing: 5px;
+
+    color: transparent;
+
+    background:
+        linear-gradient(
+            180deg,
+            #278fca 0%,
+            #176fa7 100%
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    text-shadow:
+        0 10px 30px rgba(28, 126, 178, 0.13);
+}
+
+/* ==========================================================
+   LINHA
+   ========================================================== */
+
+.line {
+    width: 75px;
+    height: 3px;
+
+    margin: 18px auto 24px;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #1978b3,
+            #3ba5d6,
+            #72c8e8
+        );
+
+    box-shadow:
+        0 3px 12px rgba(30, 135, 190, 0.25);
+}
+
+/* ==========================================================
+   TÍTULO
+   ========================================================== */
+
+h1 {
+    color: #143d5b;
+
+    font-size: 30px;
+
+    line-height: 1.35;
+
+    font-weight: 750;
+
+    margin-bottom: 18px;
+}
+
+/* ==========================================================
+   TEXTO
+   ========================================================== */
+
+p {
+    max-width: 680px;
+
+    margin: 0 auto;
+
+    color: #67859b;
+
+    font-size: 16px;
+
+    line-height: 1.75;
+}
+
+.wait-message {
+    margin-top: 8px;
+}
+
+.wait-message strong {
+    color: #197eb8;
+
+    font-weight: 700;
+}
+
+/* ==========================================================
+   BOTÕES
+   ========================================================== */
+
+.buttons {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 14px;
+
+    margin-top: 30px;
+
+    flex-wrap: wrap;
+}
+
+.buttons a,
+.buttons button {
+
+    min-height: 50px;
+
+    padding: 0 26px;
+
+    border-radius: 9px;
+
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+/* ==========================================================
+   BOTÃO PRINCIPAL
+   ========================================================== */
+
+.btn-primary {
+
+    border: none;
+
+    color: #ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #126da4,
+            #218cc5
+        );
+
+    box-shadow:
+        0 8px 22px rgba(28, 126, 178, 0.22);
+}
+
+.btn-primary:hover {
+
+    transform: translateY(-3px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #0f6195,
+            #187fb6
+        );
+
+    box-shadow:
+        0 12px 28px rgba(28, 126, 178, 0.30);
+}
+
+/* ==========================================================
+   BOTÃO SECUNDÁRIO
+   ========================================================== */
+
+.btn-secondary {
+
+    color: #176b9e;
+
+    background: rgba(255, 255, 255, 0.75);
+
+    border: 1px solid #cfe5f0;
+
+    box-shadow:
+        0 5px 18px rgba(41, 113, 145, 0.06);
+}
+
+.btn-secondary:hover {
+
+    transform: translateY(-3px);
+
+    color: #115d8b;
+
+    background: #ffffff;
+
+    border-color: #a9d3e6;
+
+    box-shadow:
+        0 10px 25px rgba(41, 113, 145, 0.12);
+}
+
+/* ==========================================================
+   STATUS DO SISTEMA
+   ========================================================== */
+
+.system-status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    margin-top: 32px;
+
+    padding: 9px 16px;
+
+    border-radius: 30px;
+
+    color: #66859a;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    background: rgba(255, 255, 255, 0.72);
+
+    border: 1px solid #d7e9f2;
+
+    box-shadow:
+        0 5px 18px rgba(35, 113, 145, 0.06);
+}
+
+.status-dot {
+
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #2998cb;
+
+    box-shadow:
+        0 0 0 4px rgba(41, 152, 203, 0.10),
+        0 0 12px rgba(41, 152, 203, 0.35);
+
+    animation: blink 1.7s infinite;
+}
+
+/* ==========================================================
+   CÓDIGO DO ERRO
+   ========================================================== */
+
+.error-code {
+
+    margin-top: 16px;
+
+    color: #9bb2c1;
+
+    font-family: monospace;
+
+    font-size: 10px;
+
+    letter-spacing: 1px;
+}
+
+/* ==========================================================
+   ANIMAÇÕES
+   ========================================================== */
+
+@keyframes appear {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes iconFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-7px);
+    }
+}
+
+@keyframes pulse {
+
+    0% {
+        transform: scale(1);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: scale(1.35);
+        opacity: 0;
+    }
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.35;
+    }
+}
+
+/* ==========================================================
+   RESPONSIVO
+   ========================================================== */
+
+@media (max-width: 600px) {
+
+    body {
+        overflow: auto;
+    }
+
+    .error-container {
+        padding: 30px 20px;
+    }
+
+    .logo {
+        font-size: 21px;
+    }
+
+    .status-icon {
+        width: 70px;
+        height: 70px;
+
+        font-size: 29px;
+    }
+
+    .error-number {
+        font-size: 65px;
+    }
+
+    h1 {
+        font-size: 23px;
+    }
+
+    p {
+        font-size: 14px;
+
+        line-height: 1.65;
+    }
+
+    .buttons {
+        flex-direction: column;
+
+        width: 100%;
+    }
+
+    .buttons a,
+    .buttons button {
+        width: 100%;
+    }
+}

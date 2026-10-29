@@ -1,0 +1,1023 @@
+/* ================================
+       PÁGINA
+    ================================= */
+
+    .notificacoes-page {
+        max-width: 1500px;
+        margin: 0 auto;
+        margin-top: -40px;
+    }
+
+
+    /* ================================
+       HERO
+    ================================= */
+
+    .notificacoes-hero {
+        position: relative;
+        overflow: hidden;
+        border-radius: 24px;
+        padding: 38px;
+        color: white;
+
+        background:
+            linear-gradient(135deg,
+                #102f4a 0%,
+                #163b5c 35%,
+                #1f4e79 68%,
+                #2878bd 100%);
+
+        box-shadow:
+            0 20px 45px rgba(22, 59, 92, 0.22);
+
+        margin-bottom: 28px;
+    }
+
+
+    .notificacoes-hero::before {
+        content: "";
+        position: absolute;
+
+        width: 280px;
+        height: 280px;
+
+        border-radius: 50%;
+
+        background: rgba(255, 255, 255, 0.07);
+
+        top: -150px;
+        right: 80px;
+    }
+
+
+    .notificacoes-hero::after {
+        content: "";
+        position: absolute;
+
+        width: 180px;
+        height: 180px;
+
+        border-radius: 50%;
+
+        background: rgba(255, 255, 255, 0.05);
+
+        bottom: -100px;
+        right: 300px;
+    }
+
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+    }
+
+
+    .hero-icon {
+        width: 72px;
+        height: 72px;
+
+        border-radius: 20px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 34px;
+
+        background: rgba(255, 255, 255, 0.14);
+
+        border: 1px solid rgba(255, 255, 255, 0.18);
+
+        backdrop-filter: blur(10px);
+
+        box-shadow:
+            0 10px 30px rgba(0, 0, 0, 0.12);
+    }
+
+
+    .hero-label {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 2px;
+
+        opacity: 0.65;
+    }
+
+
+    .hero-title {
+        font-size: 32px;
+        font-weight: 800;
+
+        margin: 4px 0 5px;
+    }
+
+
+    .hero-description {
+        margin: 0;
+
+        font-size: 15px;
+
+        opacity: 0.72;
+    }
+
+
+    .btn-hero {
+        position: relative;
+        z-index: 5;
+
+        border: none;
+
+        padding: 13px 22px;
+
+        border-radius: 12px;
+
+        font-weight: 700;
+
+        color: #163b5c;
+
+        background: white;
+
+        transition: 0.25s;
+    }
+
+
+    .btn-hero:hover {
+        transform: translateY(-2px);
+
+        background: #f1f7fc;
+
+        box-shadow:
+            0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+
+    /* ================================
+       RESUMO
+    ================================= */
+
+    .resumo-card {
+        background: white;
+
+        border: 1px solid #e8eef5;
+
+        border-radius: 18px;
+
+        padding: 22px;
+
+        height: 100%;
+
+        box-shadow:
+            0 8px 25px rgba(31, 78, 121, 0.06);
+
+        transition: 0.25s;
+    }
+
+
+    .resumo-card:hover {
+        transform: translateY(-3px);
+
+        box-shadow:
+            0 15px 35px rgba(31, 78, 121, 0.11);
+    }
+
+
+    .resumo-icon {
+        width: 52px;
+        height: 52px;
+
+        border-radius: 15px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 23px;
+    }
+
+
+    .resumo-icon.azul {
+        background: #edf5fc;
+        color: #1f4e79;
+    }
+
+
+    .resumo-icon.vermelho {
+        background: #fff1f2;
+        color: #dc3545;
+    }
+
+
+    .resumo-icon.verde {
+        background: #edf9f2;
+        color: #198754;
+    }
+
+
+    .resumo-label {
+        color: #8a98a8;
+
+        font-size: 11px;
+
+        font-weight: 700;
+
+        letter-spacing: 1px;
+    }
+
+
+    .resumo-numero {
+        font-size: 27px;
+
+        font-weight: 800;
+
+        color: #182b3c;
+    }
+
+
+    .resumo-texto {
+        color: #8a98a8;
+
+        font-size: 12px;
+    }
+
+
+    /* ================================
+       ÁREA PRINCIPAL
+    ================================= */
+
+    .notificacoes-container {
+        background: white;
+
+        border: 1px solid #e8eef5;
+
+        border-radius: 22px;
+
+        box-shadow:
+            0 10px 35px rgba(31, 78, 121, 0.07);
+
+        overflow: hidden;
+    }
+
+
+    .notificacoes-header {
+        padding: 25px 28px;
+
+        border-bottom: 1px solid #edf1f5;
+    }
+
+
+    .notificacoes-header h3 {
+        margin: 0;
+
+        color: #172b3d;
+
+        font-size: 19px;
+
+        font-weight: 800;
+    }
+
+
+    .notificacoes-header p {
+        margin: 5px 0 0;
+
+        color: #91a0ae;
+
+        font-size: 13px;
+    }
+
+
+    /* ================================
+       STATUS
+    ================================= */
+
+    .status-online {
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        padding: 8px 13px;
+
+        border-radius: 50px;
+
+        background: #effaf3;
+
+        color: #198754;
+
+        font-size: 12px;
+
+        font-weight: 700;
+    }
+
+
+    .status-dot {
+        width: 7px;
+        height: 7px;
+
+        border-radius: 50%;
+
+        background: #198754;
+
+        box-shadow:
+            0 0 0 4px rgba(25, 135, 84, 0.10);
+    }
+
+
+    /* ================================
+       NOTIFICAÇÃO
+    ================================= */
+
+    .notificacao {
+        position: relative;
+
+        display: flex;
+
+        gap: 18px;
+
+        padding: 22px 28px;
+
+        border-bottom: 1px solid #f0f3f6;
+
+        transition: 0.25s;
+    }
+
+
+    .notificacao:last-child {
+        border-bottom: none;
+    }
+
+
+    .notificacao:hover {
+        background: #f9fbfd;
+    }
+
+
+    .notificacao.nao-lida {
+        background:
+            linear-gradient(90deg,
+                #f4f9fe 0%,
+                #ffffff 70%);
+    }
+
+
+    .notificacao.nao-lida::before {
+        content: "";
+
+        position: absolute;
+
+        left: 0;
+        top: 0;
+        bottom: 0;
+
+        width: 4px;
+
+        background:
+            linear-gradient(180deg,
+                #1f4e79,
+                #3b82c4);
+    }
+
+
+    /* ================================
+       ÍCONE
+    ================================= */
+
+    .notificacao-icon {
+        flex-shrink: 0;
+
+        width: 54px;
+        height: 54px;
+
+        border-radius: 16px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 22px;
+
+        background:
+            linear-gradient(135deg,
+                #edf5fc,
+                #dcecf9);
+
+        box-shadow:
+            inset 0 0 0 1px rgba(31, 78, 121, 0.05);
+    }
+
+
+    /* ================================
+       CONTEÚDO
+    ================================= */
+
+    .notificacao-content {
+        flex: 1;
+
+        min-width: 0;
+    }
+
+
+    .notificacao-topo {
+        display: flex;
+
+        align-items: center;
+
+        gap: 10px;
+
+        margin-bottom: 5px;
+    }
+
+
+    .notificacao-titulo {
+        color: #1b2d3d;
+
+        font-size: 15px;
+
+        font-weight: 800;
+
+        margin: 0;
+    }
+
+
+    .notificacao-mensagem {
+        color: #6f7f8f;
+
+        font-size: 13px;
+
+        line-height: 1.6;
+
+        margin: 0 0 12px;
+    }
+
+
+    /* ================================
+       BADGES
+    ================================= */
+
+    .badge-nova {
+        padding: 4px 9px;
+
+        border-radius: 50px;
+
+        background: #eaf2fb;
+
+        color: #1f4e79;
+
+        font-size: 9px;
+
+        font-weight: 800;
+
+        letter-spacing: 0.7px;
+    }
+
+
+    .badge-lida {
+        padding: 4px 9px;
+
+        border-radius: 50px;
+
+        background: #edf8f1;
+
+        color: #198754;
+
+        font-size: 10px;
+
+        font-weight: 700;
+    }
+
+
+    /* ================================
+       RODAPÉ DA NOTIFICAÇÃO
+    ================================= */
+
+    .notificacao-footer {
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 15px;
+    }
+
+
+    .notificacao-data {
+        color: #9aa7b3;
+
+        font-size: 11px;
+    }
+
+
+    .btn-lida {
+        border: 1px solid #dbe7f2;
+
+        background: white;
+
+        color: #1f4e79;
+
+        padding: 7px 13px;
+
+        border-radius: 9px;
+
+        font-size: 11px;
+
+        font-weight: 700;
+
+        text-decoration: none;
+
+        transition: 0.2s;
+    }
+
+
+    .btn-lida:hover {
+        background: #1f4e79;
+
+        color: white;
+
+        border-color: #1f4e79;
+    }
+
+
+    /* ================================
+       VAZIO
+    ================================= */
+
+    .notificacoes-vazia {
+        background: white;
+
+        border: 1px solid #e8eef5;
+
+        border-radius: 22px;
+
+        padding: 80px 30px;
+
+        text-align: center;
+
+        box-shadow:
+            0 10px 35px rgba(31, 78, 121, 0.07);
+    }
+
+
+    .vazia-icon {
+        width: 100px;
+        height: 100px;
+
+        margin: 0 auto 25px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 28px;
+
+        font-size: 40px;
+
+        background:
+            linear-gradient(135deg,
+                #edf5fc,
+                #dbeafe);
+
+        box-shadow:
+            0 15px 30px rgba(31, 78, 121, 0.08);
+    }
+
+
+    .notificacoes-vazia h2 {
+        color: #1b2d3d;
+
+        font-size: 24px;
+
+        font-weight: 800;
+    }
+
+
+    .notificacoes-vazia p {
+        max-width: 480px;
+
+        margin: 10px auto 20px;
+
+        color: #8795a3;
+
+        font-size: 14px;
+
+        line-height: 1.7;
+    }
+
+
+    /* ================================
+       RESPONSIVO
+    ================================= */
+
+    @media (max-width: 768px) {
+
+        .notificacoes-hero {
+            padding: 25px;
+        }
+
+
+        .hero-title {
+            font-size: 24px;
+        }
+
+
+        .hero-icon {
+            width: 58px;
+            height: 58px;
+
+            font-size: 27px;
+        }
+
+
+        .btn-hero {
+            width: 100%;
+
+            margin-top: 20px;
+        }
+
+
+        .notificacao {
+            padding: 18px;
+        }
+
+
+        .notificacao-icon {
+            width: 45px;
+            height: 45px;
+
+            font-size: 18px;
+        }
+
+
+        .notificacao-footer {
+            align-items: flex-start;
+
+            flex-direction: column;
+        }
+
+    }
+
+    /* =========================================================
+   MODO ESCURO - NOTIFICAÇÕES PREMIUM BIOTECH
+   ========================================================= */
+
+
+    /* PÁGINA */
+
+    body.modo-escuro .notificacoes-page {
+        color: #f4f8fc;
+    }
+
+
+    /* =========================================================
+   RESUMO
+   ========================================================= */
+
+    body.modo-escuro .resumo-card {
+        background: linear-gradient(145deg,
+                #1b3048,
+                #223d58) !important;
+
+        border: 1px solid #38566f !important;
+
+        box-shadow:
+            0 10px 30px rgba(0, 0, 0, 0.25),
+            0 0 20px rgba(64, 140, 206, 0.05);
+
+        color: #f4f8fc !important;
+    }
+
+
+    body.modo-escuro .resumo-card:hover {
+        background: linear-gradient(145deg,
+                #213b56,
+                #294965) !important;
+
+        border-color: #4d7392 !important;
+
+        box-shadow:
+            0 15px 35px rgba(0, 0, 0, 0.30),
+            0 0 20px rgba(64, 140, 206, 0.10);
+    }
+
+
+    /* ÍCONES DO RESUMO */
+
+    body.modo-escuro .resumo-icon.azul {
+        background: linear-gradient(135deg,
+                #244f73,
+                #2f70a3) !important;
+
+        color: #8fd0ff !important;
+    }
+
+
+    body.modo-escuro .resumo-icon.vermelho {
+        background: linear-gradient(135deg,
+                #613842,
+                #75434c) !important;
+
+        color: #ff9da5 !important;
+    }
+
+
+    body.modo-escuro .resumo-icon.verde {
+        background: linear-gradient(135deg,
+                #245544,
+                #28664f) !important;
+
+        color: #75e0a7 !important;
+    }
+
+
+    /* TEXTOS DO RESUMO */
+
+    body.modo-escuro .resumo-label {
+        color: #9fb3c6 !important;
+    }
+
+
+    body.modo-escuro .resumo-numero {
+        color: #ffffff !important;
+    }
+
+
+    body.modo-escuro .resumo-texto {
+        color: #aebfd0 !important;
+    }
+
+
+    /* =========================================================
+   CONTAINER PRINCIPAL
+   ========================================================= */
+
+    body.modo-escuro .notificacoes-container {
+        background: #1a2e44 !important;
+
+        border: 1px solid #38566f !important;
+
+        box-shadow:
+            0 15px 40px rgba(0, 0, 0, 0.28),
+            0 0 25px rgba(64, 140, 206, 0.05);
+    }
+
+
+    /* =========================================================
+   CABEÇALHO
+   ========================================================= */
+
+    body.modo-escuro .notificacoes-header {
+        background: linear-gradient(135deg,
+                #203d59,
+                #294c6c) !important;
+
+        border-bottom: 1px solid #42627d !important;
+    }
+
+
+    body.modo-escuro .notificacoes-header h3 {
+        color: #ffffff !important;
+    }
+
+
+    body.modo-escuro .notificacoes-header p {
+        color: #b4c6d7 !important;
+    }
+
+
+    /* =========================================================
+   STATUS ONLINE
+   ========================================================= */
+
+    body.modo-escuro .status-online {
+        background: rgba(43, 157, 96, 0.16) !important;
+
+        border: 1px solid rgba(77, 203, 135, 0.25);
+
+        color: #72e0a4 !important;
+    }
+
+
+    body.modo-escuro .status-dot {
+        background: #54d98a !important;
+
+        box-shadow:
+            0 0 0 4px rgba(84, 217, 138, 0.12),
+            0 0 10px rgba(84, 217, 138, 0.35);
+    }
+
+
+    /* =========================================================
+   NOTIFICAÇÃO
+   ========================================================= */
+
+    body.modo-escuro .notificacao {
+        background: #1a2e44 !important;
+
+        border-bottom: 1px solid #324e67 !important;
+
+        color: #f4f8fc !important;
+
+        transition:
+            background 0.25s ease,
+            transform 0.25s ease;
+    }
+
+
+    /* HOVER */
+
+    body.modo-escuro .notificacao:hover {
+        background: linear-gradient(90deg,
+                #223e59,
+                #284965) !important;
+    }
+
+
+    /* NOTIFICAÇÃO NÃO LIDA */
+
+    body.modo-escuro .notificacao.nao-lida {
+        background: linear-gradient(90deg,
+                #203d59 0%,
+                #1d354e 70%,
+                #1a2e44 100%) !important;
+    }
+
+
+    /* BARRA AZUL DA NOTIFICAÇÃO */
+
+    body.modo-escuro .notificacao.nao-lida::before {
+        background: linear-gradient(180deg,
+                #4da4e4,
+                #70c2f4) !important;
+
+        box-shadow:
+            0 0 12px rgba(77, 164, 228, 0.35);
+    }
+
+
+    /* =========================================================
+   ÍCONE DA NOTIFICAÇÃO
+   ========================================================= */
+
+    body.modo-escuro .notificacao-icon {
+        background: linear-gradient(135deg,
+                #244f73,
+                #316f9f) !important;
+
+        color: #8fd2ff !important;
+
+        box-shadow:
+            inset 0 0 0 1px rgba(112, 194, 244, 0.15),
+            0 6px 15px rgba(0, 0, 0, 0.18);
+    }
+
+
+    /* =========================================================
+   CONTEÚDO
+   ========================================================= */
+
+    body.modo-escuro .notificacao-titulo {
+        color: #ffffff !important;
+    }
+
+
+    body.modo-escuro .notificacao-mensagem {
+        color: #c1d0de !important;
+    }
+
+
+    body.modo-escuro .notificacao-data {
+        color: #91a8bc !important;
+    }
+
+
+    /* =========================================================
+   BADGE NOVA
+   ========================================================= */
+
+    body.modo-escuro .badge-nova {
+        background: linear-gradient(135deg,
+                #285e88,
+                #347aae) !important;
+
+        color: #d9f1ff !important;
+
+        border: 1px solid #4c91c1;
+    }
+
+
+    /* =========================================================
+   BADGE LIDA
+   ========================================================= */
+
+    body.modo-escuro .badge-lida {
+        background: linear-gradient(135deg,
+                #255540,
+                #2c684e) !important;
+
+        color: #91e7b5 !important;
+
+        border: 1px solid #438463;
+    }
+
+
+    /* =========================================================
+   BOTÃO MARCAR COMO LIDA
+   ========================================================= */
+
+    body.modo-escuro .btn-lida {
+        background: linear-gradient(135deg,
+                #234866,
+                #2d6289) !important;
+
+        border: 1px solid #477797 !important;
+
+        color: #d9edfc !important;
+
+        box-shadow:
+            0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+
+    body.modo-escuro .btn-lida:hover {
+        background: linear-gradient(135deg,
+                #347db2,
+                #4596ce) !important;
+
+        border-color: #63b5e7 !important;
+
+        color: #ffffff !important;
+
+        transform: translateY(-1px);
+
+        box-shadow:
+            0 7px 15px rgba(47, 127, 193, 0.30);
+    }
+
+
+    /* =========================================================
+   PÁGINA SEM NOTIFICAÇÕES
+   ========================================================= */
+
+    body.modo-escuro .notificacoes-vazia {
+        background: linear-gradient(145deg,
+                #1b3048,
+                #223d58) !important;
+
+        border: 1px solid #38566f !important;
+
+        box-shadow:
+            0 15px 40px rgba(0, 0, 0, 0.25);
+
+        color: #f4f8fc !important;
+    }
+
+
+    body.modo-escuro .vazia-icon {
+        background: linear-gradient(135deg,
+                #244f73,
+                #316f9f) !important;
+
+        color: #8fd2ff !important;
+
+        box-shadow:
+            0 12px 25px rgba(0, 0, 0, 0.20),
+            0 0 20px rgba(64, 140, 206, 0.08);
+    }
+
+
+    body.modo-escuro .notificacoes-vazia h2 {
+        color: #ffffff !important;
+    }
+
+
+    body.modo-escuro .notificacoes-vazia p {
+        color: #aebfd0 !important;
+    }
+
+
+    /* =========================================================
+   BOTÃO DO HERO
+   ========================================================= */
+
+    body.modo-escuro .btn-hero {
+        background: linear-gradient(135deg,
+                #ffffff,
+                #e7f3fc) !important;
+
+        color: #1f4e79 !important;
+
+        box-shadow:
+            0 8px 20px rgba(0, 0, 0, 0.18);
+    }
+
+
+    body.modo-escuro .btn-hero:hover {
+        background: #ffffff !important;
+
+        color: #163b5c !important;
+
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 12px 25px rgba(0, 0, 0, 0.25);
+    }

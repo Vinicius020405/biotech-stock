@@ -1,0 +1,182 @@
+{% extends "base.html" %}
+
+{% block title %}
+Mapa de Estoque - BioTech Stock
+{% endblock %}
+
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style-mapa.css') }}">
+
+<div class="container-fluid">
+
+    <!-- CABEÇALHO -->
+
+    <div class="mapa-topo">
+
+        <h2>
+            <i class="bi bi-grid-3x3-gap-fill"></i>
+            Mapa de Estoque
+        </h2>
+
+        <p>
+            Visualização das localizações cadastradas no estoque da BioTech Stock.
+        </p>
+
+    </div>
+
+
+    <!-- LOCALIZAÇÕES -->
+
+    {% if localizacoes %}
+
+    <div class="row">
+
+        {% for localizacao in localizacoes %}
+
+        <div class="col-md-6 col-xl-4 mb-4">
+
+            <div class="localizacao-card">
+
+                <!-- CABEÇALHO DO CARD -->
+
+                <div class="localizacao-header">
+
+                    <h5>
+
+                        <i class="bi bi-geo-alt-fill"></i>
+
+                        {{ localizacao.nome }}
+
+                    </h5>
+
+                </div>
+
+
+                <!-- INFORMAÇÕES -->
+
+                <div class="localizacao-body">
+
+                    <div class="info-localizacao">
+
+                        <i class="bi bi-building"></i>
+
+                        <div>
+
+                            <strong>Setor</strong><br>
+
+                            {{ localizacao.setor or "Não informado" }}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-localizacao">
+
+                        <i class="bi bi-arrow-left-right"></i>
+
+                        <div>
+
+                            <strong>Corredor</strong><br>
+
+                            {{ localizacao.corredor or "Não informado" }}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="info-localizacao">
+
+                        <i class="bi bi-layers"></i>
+
+                        <div>
+
+                            <strong>Prateleira</strong><br>
+
+                            {{ localizacao.prateleira or "Não informado" }}
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="observacao">
+
+                        <strong>
+                            <i class="bi bi-chat-left-text"></i>
+                            Observação
+                        </strong>
+
+                        <br>
+
+                        <span>
+                            {{ localizacao.observacao or "Nenhuma observação cadastrada." }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RODAPÉ -->
+
+                <div class="localizacao-footer">
+
+                    <span class="status-localizacao">
+
+                        <span class="status-bolinha"></span>
+
+                        Localização ativa
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+
+    {% else %}
+
+    <!-- SEM LOCALIZAÇÕES -->
+
+    <div class="sem-localizacao">
+
+        <i class="bi bi-geo-alt"></i>
+
+        <h4>
+            Nenhuma localização cadastrada
+        </h4>
+
+        <p class="text-muted">
+            Cadastre uma localização para começar a organizar o mapa do estoque.
+        </p>
+
+        <a
+            href="{{ url_for('nova_localizacao') }}"
+            class="btn btn-nova-localizacao">
+
+            <i class="bi bi-plus-circle"></i>
+
+            Cadastrar localização
+
+        </a>
+
+    </div>
+
+    {% endif %}
+
+
+</div>
+
+{% endblock %}

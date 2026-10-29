@@ -1,0 +1,460 @@
+{% extends "base.html" %}
+
+{% block title %}
+Notificações - Sistema de Estoque
+{% endblock %}
+
+{% block page_title %}
+
+{% endblock %}
+
+{% block content %}
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-notificacao.css') }}">
+</head>
+
+<div class="notificacoes-page">
+
+
+    <!-- =================================
+         HERO
+    ================================= -->
+
+    <div class="notificacoes-hero">
+
+        <div class="hero-content">
+
+            <div class="row align-items-center">
+
+                <div class="col-lg-8">
+
+                    <div class="d-flex align-items-center gap-3">
+
+                        <div class="hero-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-bell-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901" />
+                            </svg>
+                        </div>
+
+                        <div>
+
+                            <div class="hero-label">
+                                BIOTECH STOCK
+                            </div>
+
+                            <div class="hero-title">
+                                Central de notificações
+                            </div>
+
+                            <p class="hero-description">
+                                Monitoramento das notificações.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-4 text-lg-end">
+
+                    {% if notificacoes %}
+
+                    <a href="/notificacoes/ler-todas" class="btn btn-hero">
+
+                        ✓
+                        Marcar todas como lidas
+
+                    </a>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    {% if notificacoes %}
+
+
+    <!-- =================================
+         RESUMO
+    ================================= -->
+
+    <div class="row g-4 mb-4">
+
+
+        <!-- TOTAL -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="resumo-card">
+
+                <div class="d-flex align-items-center">
+
+                    <div class="resumo-icon azul me-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-bell-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901" />
+                        </svg>
+                    </div>
+
+                    <div>
+
+                        <div class="resumo-label">
+                            TOTAL
+                        </div>
+
+                        <div class="resumo-numero">
+                            {{ notificacoes|length }}
+                        </div>
+
+                        <div class="resumo-texto">
+                            notificações registradas
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- NÃO LIDAS -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="resumo-card">
+
+                <div class="d-flex align-items-center">
+
+                    <div class="resumo-icon vermelho me-3">
+                        ●
+                    </div>
+
+                    <div>
+
+                        <div class="resumo-label">
+                            NÃO LIDAS
+                        </div>
+
+                        <div class="resumo-numero">
+
+                            {% set contador = namespace(valor=0) %}
+
+                            {% for notificacao in notificacoes %}
+
+                            {% if notificacao.lida == 0 %}
+
+                            {% set contador.valor = contador.valor + 1 %}
+
+                            {% endif %}
+
+                            {% endfor %}
+
+                            {{ contador.valor }}
+
+                        </div>
+
+                        <div class="resumo-texto">
+                            aguardando atenção
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- STATUS -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <div class="resumo-card">
+
+                <div class="d-flex align-items-center">
+
+                    <div class="resumo-icon verde me-3">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <div class="resumo-label">
+                            STATUS
+                        </div>
+
+                        <div class="resumo-numero">
+                            Ativo
+                        </div>
+
+                        <div class="resumo-texto">
+                            sistema funcionando normalmente
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================
+         LISTA
+    ================================= -->
+
+    <div class="notificacoes-container">
+
+
+        <!-- CABEÇALHO -->
+
+        <div class="notificacoes-header">
+
+            <div class="row align-items-center">
+
+                <div class="col">
+
+                    <h3>
+                        Últimas notificações
+                    </h3>
+
+                    <p>
+                        Histórico das atividades realizadas no sistema
+                    </p>
+
+                </div>
+
+                <div class="col-auto">
+
+                    <div class="status-online">
+
+                        <span class="status-dot"></span>
+
+                        Sistema online
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- NOTIFICAÇÕES -->
+
+        <div>
+
+            {% for notificacao in notificacoes %}
+
+
+            <div class="notificacao
+                {% if notificacao.lida == 0 %}
+                    nao-lida
+                {% endif %}">
+
+
+                <!-- ÍCONE -->
+
+                <div class="notificacao-icon">
+
+                    {% if "estoque" in notificacao.titulo|lower %}
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                    </svg>
+
+                    {% elif "produto" in notificacao.titulo|lower %}
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-box-fill" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M15.528 2.973a.75.75 0 0 1 .472.696v8.662a.75.75 0 0 1-.472.696l-7.25 2.9a.75.75 0 0 1-.557 0l-7.25-2.9A.75.75 0 0 1 0 12.331V3.669a.75.75 0 0 1 .471-.696L7.443.184l.004-.001.274-.11a.75.75 0 0 1 .558 0l.274.11.004.001zm-1.374.527L8 5.962 1.846 3.5 1 3.839v.4l6.5 2.6v7.922l.5.2.5-.2V6.84l6.5-2.6v-.4l-.846-.339Z" />
+                    </svg>
+
+                    {% elif "pedido" in notificacao.titulo|lower %}
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-truck" viewBox="0 0 16 16">
+                        <path
+                            d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5zm1.294 7.456A2 2 0 0 1 4.732 11h5.536a2 2 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456M12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2" />
+                    </svg>
+
+                    {% elif "fornecedor" in notificacao.titulo|lower %}
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-buildings" viewBox="0 0 16 16">
+                        <path
+                            d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022M6 8.694 1 10.36V15h5zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5z" />
+                        <path
+                            d="M2 11h1v1H2zm2 0h1v1H4zm-2 2h1v1H2zm2 0h1v1H4zm4-4h1v1H8zm2 0h1v1h-1zm-2 2h1v1H8zm2 0h1v1h-1zm2-2h1v1h-1zm0 2h1v1h-1zM8 7h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zM8 5h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zm0-2h1v1h-1z" />
+                    </svg>
+
+                    {% elif "sensor" in notificacao.titulo|lower %}
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-life-preserver" viewBox="0 0 16 16">
+                        <path
+                            d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m6.43-5.228a7.03 7.03 0 0 1-3.658 3.658l-1.115-2.788a4 4 0 0 0 1.985-1.985zM5.228 14.43a7.03 7.03 0 0 1-3.658-3.658l2.788-1.115a4 4 0 0 0 1.985 1.985zm9.202-9.202-2.788 1.115a4 4 0 0 0-1.985-1.985l1.115-2.788a7.03 7.03 0 0 1 3.658 3.658m-8.087-.87a4 4 0 0 0-1.985 1.985L1.57 5.228A7.03 7.03 0 0 1 5.228 1.57zM8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                    </svg>
+
+                    {% elif "usuário" in notificacao.titulo|lower
+                    or "usuario" in notificacao.titulo|lower %}
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-person" viewBox="0 0 16 16">
+                        <path
+                            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                    </svg>
+
+                    {% else %}
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-bell-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901" />
+                    </svg>
+
+                    {% endif %}
+
+                </div>
+
+
+                <!-- CONTEÚDO -->
+
+                <div class="notificacao-content">
+
+
+                    <div class="notificacao-topo">
+
+                        <h4 class="notificacao-titulo">
+                            {{ notificacao.titulo }}
+                        </h4>
+
+
+                        {% if notificacao.lida == 0 %}
+
+                        <span class="badge-nova">
+                            NOVA
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge-lida">
+                            ✓ Lida
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <p class="notificacao-mensagem">
+                        {{ notificacao.mensagem }}
+                    </p>
+
+
+                    <div class="notificacao-footer">
+
+                        <span class="notificacao-data">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-alarm" viewBox="0 0 16 16">
+                                <path
+                                    d="M8.5 5.5a.5.5 0 0 0-1 0v3.362l-1.429 2.38a.5.5 0 1 0 .858.515l1.5-2.5A.5.5 0 0 0 8.5 9z" />
+                                <path
+                                    d="M6.5 0a.5.5 0 0 0 0 1H7v1.07a7.001 7.001 0 0 0-3.273 12.474l-.602.602a.5.5 0 0 0 .707.708l.746-.746A6.97 6.97 0 0 0 8 16a6.97 6.97 0 0 0 3.422-.892l.746.746a.5.5 0 0 0 .707-.708l-.601-.602A7.001 7.001 0 0 0 9 2.07V1h.5a.5.5 0 0 0 0-1zm1.038 3.018a6 6 0 0 1 .924 0 6 6 0 1 1-.924 0M0 3.5c0 .753.333 1.429.86 1.887A8.04 8.04 0 0 1 4.387 1.86 2.5 2.5 0 0 0 0 3.5M13.5 1c-.753 0-1.429.333-1.887.86a8.04 8.04 0 0 1 3.527 3.527A2.5 2.5 0 0 0 13.5 1" />
+                            </svg>
+                            {{ notificacao.data_hora }}
+
+                        </span>
+
+
+                        {% if notificacao.lida == 0 %}
+
+                        <a href="/notificacoes/lida/{{ notificacao.id_notificacao }}" class="btn-lida">
+
+                            ✓
+                            Marcar como lida
+
+                        </a>
+
+                        {% endif %}
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+
+    {% else %}
+
+
+    <!-- =================================
+         SEM NOTIFICAÇÕES
+    ================================= -->
+
+    <div class="notificacoes-vazia">
+
+        <div class="vazia-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell-fill"
+                viewBox="0 0 16 16">
+                <path
+                    d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2m.995-14.901a1 1 0 1 0-1.99 0A5 5 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901" />
+            </svg>
+        </div>
+
+        <h2>
+            Tudo tranquilo por aqui
+        </h2>
+
+        <p>
+            No momento não existem novas notificações.
+            Quando uma atividade acontecer no sistema,
+            ela aparecerá automaticamente nesta área.
+        </p>
+
+        <span class="status-online">
+
+            <span class="status-dot"></span>
+
+            Aguardando novas atividades
+
+        </span>
+
+    </div>
+
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

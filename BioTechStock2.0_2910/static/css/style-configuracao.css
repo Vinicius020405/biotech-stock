@@ -1,0 +1,333 @@
+/* ==========================================
+CONFIGURAÇÕES
+========================================== */
+
+.configuracoes-container {
+margin-top: -35px;
+}
+
+/* ================================
+HEADER
+================================ */
+
+.configuracoes-header {
+background: linear-gradient(135deg, #173b5f, #408cce);
+color: white;
+border-radius: 18px;
+padding: 30px;
+margin-bottom: 25px;
+box-shadow: 0 8px 25px rgba(0,0,0,.12);
+
+
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+
+}
+
+.configuracoes-label {
+font-size: 13px;
+font-weight: 700;
+letter-spacing: 2px;
+opacity: .75;
+}
+
+.configuracoes-header h2 {
+margin: 6px 0;
+font-weight: 700;
+}
+
+.configuracoes-header p {
+margin: 0;
+opacity: .85;
+}
+
+.configuracoes-icon {
+width: 70px;
+height: 70px;
+
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+background: rgba(255,255,255,.15);
+border: 1px solid rgba(255,255,255,.2);
+
+border-radius: 18px;
+
+font-size: 30px;
+
+
+}
+
+/* ================================
+CARD
+================================ */
+
+.configuracoes-card {
+background: white;
+border-radius: 18px;
+overflow: hidden;
+
+
+box-shadow: 0 6px 25px rgba(0,0,0,.08);
+
+
+}
+
+/* ================================
+CARD HEADER
+================================ */
+
+.configuracoes-card-header {
+padding: 25px;
+
+
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+border-bottom: 1px solid #e9ecef;
+
+
+}
+
+.configuracoes-card-header h5 {
+margin: 0 0 5px;
+font-weight: 700;
+color: #173b5f;
+}
+
+.configuracoes-card-header p {
+margin: 0;
+color: #6c757d;
+}
+
+.configuracoes-card-header > i {
+font-size: 28px;
+color: #408cce;
+}
+
+/* ================================
+ITEM
+================================ */
+
+.configuracoes-item {
+padding: 22px 25px;
+
+
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+border-bottom: 1px solid #eef0f4;
+
+
+}
+
+.configuracoes-item:last-child {
+border-bottom: none;
+}
+
+.configuracoes-item-info {
+display: flex;
+align-items: center;
+gap: 15px;
+}
+
+.configuracoes-item-icon {
+width: 45px;
+height: 45px;
+
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+background: #e8f1fb;
+color: #408cce;
+
+border-radius: 12px;
+
+font-size: 20px;
+
+
+}
+
+.configuracoes-item-info strong {
+display: block;
+color: #173b5f;
+font-weight: 600;
+}
+
+.configuracoes-item-info small {
+display: block;
+margin-top: 3px;
+color: #6c757d;
+}
+
+/* ================================
+BOTÕES
+================================ */
+
+.configuracoes-item .btn {
+border-radius: 10px;
+font-weight: 600;
+padding: 9px 16px;
+}
+
+.controle-fonte {
+display: flex;
+gap: 8px;
+}
+
+.controle-fonte .btn {
+min-width: 48px;
+}
+
+/* ================================
+MODO ESCURO
+================================ */
+
+body.modo-escuro .configuracoes-card {
+background: #172033;
+color: #e5e7eb;
+}
+
+body.modo-escuro .configuracoes-card-header {
+border-color: #26334a;
+}
+
+body.modo-escuro .configuracoes-card-header h5 {
+color: #93c5fd;
+}
+
+body.modo-escuro .configuracoes-card-header p {
+color: #94a3b8;
+}
+
+body.modo-escuro .configuracoes-item {
+border-color: #26334a;
+}
+
+body.modo-escuro .configuracoes-item-icon {
+background: #0f172a;
+color: #93c5fd;
+}
+
+body.modo-escuro .configuracoes-item-info strong {
+color: #f8fafc;
+}
+
+body.modo-escuro .configuracoes-item-info small {
+color: #94a3b8;
+}
+
+/* ================================
+ALTO CONTRASTE
+================================ */
+
+body.alto-contraste {
+background: #000 !important;
+color: #fff !important;
+}
+
+body.alto-contraste .content {
+background: #000 !important;
+color: #fff !important;
+}
+
+body.alto-contraste .configuracoes-card {
+background: #000 !important;
+color: #fff !important;
+
+
+border: 2px solid #fff;
+box-shadow: none;
+
+
+}
+
+body.alto-contraste .configuracoes-header {
+background: #000 !important;
+color: #fff !important;
+
+
+border: 2px solid #fff;
+box-shadow: none;
+
+
+}
+
+body.alto-contraste .configuracoes-card-header {
+border-color: #fff !important;
+}
+
+body.alto-contraste .configuracoes-card-header h5,
+body.alto-contraste .configuracoes-card-header p,
+body.alto-contraste .configuracoes-item-info strong,
+body.alto-contraste .configuracoes-item-info small {
+color: #fff !important;
+}
+
+body.alto-contraste .configuracoes-card-header > i {
+color: #fff !important;
+}
+
+body.alto-contraste .configuracoes-item {
+border-color: #fff !important;
+}
+
+body.alto-contraste .configuracoes-item-icon {
+background: #000 !important;
+color: #fff !important;
+
+
+border: 1px solid #fff;
+
+
+}
+
+body.alto-contraste .configuracoes-item .btn {
+background: #000 !important;
+color: #fff !important;
+
+
+border: 2px solid #fff !important;
+
+
+}
+
+body.alto-contraste .configuracoes-item .btn:hover,
+body.alto-contraste .configuracoes-item .btn:focus {
+background: #fff !important;
+color: #000 !important;
+}
+
+/* ================================
+RESPONSIVO
+================================ */
+
+@media (max-width: 767.98px) {
+
+
+.configuracoes-header {
+    padding: 22px;
+}
+
+.configuracoes-icon {
+    width: 55px;
+    height: 55px;
+    font-size: 24px;
+}
+
+.configuracoes-item {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+}
+
+
+}

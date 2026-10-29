@@ -1,0 +1,499 @@
+{% extends "base.html" %} 
+
+
+
+{% block title %} 
+
+{% if caminhao %} 
+
+Editar Caminhão - Sistema de Estoque 
+
+{% else %} 
+
+Novo Caminhão - Sistema de Estoque 
+
+{% endif %} 
+
+{% endblock %} 
+
+
+
+{% block page_title %} 
+
+{% if caminhao %} 
+
+Editar Caminhão 
+
+{% else %} 
+
+
+
+{% endif %} 
+
+{% endblock %} 
+
+
+
+{% block content %} 
+
+
+
+ <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/style-caminhao.css') }}">
+
+
+<div class="page-card"> 
+
+    <!-- HEADER --> 
+
+    <div class="card-header-custom"> 
+
+
+
+        {% if caminhao %} 
+
+
+
+            <h5>Editar caminhão</h5> 
+
+
+
+            <small> 
+
+                Altere as informações do caminhão selecionado 
+
+            </small> 
+
+
+
+        {% else %} 
+
+
+
+            <h5>Cadastrar novo caminhão</h5> 
+
+
+
+            <small> 
+
+                Preencha os dados para cadastrar um novo caminhão 
+
+            </small> 
+
+
+
+        {% endif %} 
+
+
+
+    </div> 
+
+
+
+
+
+    <!-- BODY --> 
+
+    <div class="form-body"> 
+
+
+
+        <form method="POST" enctype="multipart/form-data"> 
+
+
+
+            <!-- DADOS PRINCIPAIS --> 
+
+            <div class="row"> 
+
+
+
+                <div class="col-md-4 mb-3"> 
+
+
+
+                    <label for="placa" class="form-label"> 
+
+                        Placa 
+
+                    </label> 
+
+
+
+                    <input 
+
+                        type="text" 
+
+                        class="form-control" 
+
+                        id="placa" 
+
+                        name="placa" 
+
+                        value="{{ caminhao.placa if caminhao else '' }}" 
+
+                        placeholder="Ex: ABC1D23" 
+
+                        required 
+
+                    > 
+
+
+
+                </div> 
+
+
+
+
+
+                <div class="col-md-4 mb-3"> 
+
+
+
+                    <label for="modelo" class="form-label"> 
+
+                        Modelo 
+
+                    </label> 
+
+
+
+                    <input 
+
+                        type="text" 
+
+                        class="form-control" 
+
+                        id="modelo" 
+
+                        name="modelo" 
+
+                        value="{{ caminhao.modelo if caminhao else '' }}" 
+
+                        placeholder="Ex: Delivery 11.180" 
+
+                        required 
+
+                    > 
+
+
+
+                </div> 
+
+
+
+
+
+                <div class="col-md-4 mb-3"> 
+
+
+
+                    <label for="marca" class="form-label"> 
+
+                        Marca 
+
+                    </label> 
+
+
+
+                    <input 
+
+                        type="text" 
+
+                        class="form-control" 
+
+                        id="marca" 
+
+                        name="marca" 
+
+                        value="{{ caminhao.marca if caminhao else '' }}" 
+
+                        placeholder="Ex: Volkswagen" 
+
+                        required 
+
+                    > 
+
+
+
+                </div> 
+
+
+
+            </div> 
+
+
+
+
+
+            <!-- CARACTERÍSTICAS --> 
+
+            <div class="row"> 
+
+
+
+                <div class="col-md-6 mb-3"> 
+
+
+
+                    <label for="cor" class="form-label"> 
+
+                        Cor 
+
+                    </label> 
+
+
+
+                    <input 
+
+                        type="text" 
+
+                        class="form-control" 
+
+                        id="cor" 
+
+                        name="cor" 
+
+                        value="{{ caminhao.cor if caminhao else '' }}" 
+
+                        placeholder="Ex: Branco" 
+
+                    > 
+
+
+
+                </div> 
+
+
+
+
+
+                <div class="col-md-6 mb-3"> 
+
+
+
+                    <label for="chassi" class="form-label"> 
+
+                        Chassi 
+
+                    </label> 
+
+
+
+                    <input 
+
+                        type="text" 
+
+                        class="form-control" 
+
+                        id="chassi" 
+
+                        name="chassi" 
+
+                        value="{{ caminhao.chassi if caminhao else '' }}" 
+
+                        placeholder="Número do chassi" 
+
+                    > 
+
+
+
+                </div> 
+
+
+
+            </div> 
+
+
+
+
+
+            <!-- IMAGEM --> 
+
+            <div class="row"> 
+
+
+
+                <div class="col-md-6 mb-3"> 
+
+
+
+                    <label for="imagem" class="form-label"> 
+
+                        Imagem do Caminhão 
+
+                    </label> 
+
+
+
+                    <input 
+
+                        type="file" 
+
+                        class="form-control" 
+
+                        id="imagem" 
+
+                        name="imagem" 
+
+                        accept="image/png,image/jpeg,image/jpg,image/webp" 
+
+                    > 
+
+
+
+                    <small class="form-help"> 
+
+                        Formatos permitidos: PNG, JPG, JPEG ou WEBP. 
+
+                    </small> 
+
+
+
+                </div> 
+
+
+
+
+
+                <div class="col-md-6 mb-3"> 
+
+
+
+                    <label class="form-label"> 
+
+                        Imagem Atual 
+
+                    </label> 
+
+
+
+
+
+                    {% if caminhao and caminhao.imagem_base64 %} 
+
+
+
+                        <div class="current-image"> 
+
+
+
+                            <img 
+
+                                src="data:{{ caminhao.imagem_tipo }};base64,{{ caminhao.imagem_base64 }}" 
+
+                                alt="Imagem do caminhão" 
+
+                            > 
+
+
+
+                            <small class="current-image-name"> 
+
+                                Arquivo atual: {{ caminhao.imagem_nome }} 
+
+                            </small> 
+
+
+
+                        </div> 
+
+
+
+                    {% else %} 
+
+
+
+                        <div class="alert alert-image mb-0"> 
+
+                            Nenhuma imagem cadastrada para este caminhão. 
+
+                        </div> 
+
+
+
+                    {% endif %} 
+
+
+
+                </div> 
+
+
+
+            </div> 
+
+
+
+
+
+            <hr> 
+
+
+
+
+
+            <!-- BOTÕES --> 
+
+            <div class="d-flex justify-content-between"> 
+
+
+
+                <a 
+
+                    href="{{ url_for('listar_caminhoes') }}" 
+
+                    class="btn btn-secondary" 
+
+                > 
+
+                    Voltar 
+
+                </a> 
+
+
+
+
+
+                <button 
+
+                    type="submit" 
+
+                    class="btn btn-primary" 
+
+                > 
+
+
+
+                    {% if caminhao %} 
+
+                        Salvar alterações 
+
+                    {% else %} 
+
+                        Cadastrar caminhão 
+
+                    {% endif %} 
+
+
+
+                </button> 
+
+
+
+            </div> 
+
+
+
+        </form> 
+
+
+
+    </div> 
+
+
+
+</div> 
+
+
+
+{% endblock %}

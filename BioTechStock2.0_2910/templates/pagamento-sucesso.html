@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+ 
+<head>
+ 
+    <meta charset="UTF-8">
+ 
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+ 
+    <title>Assinatura Confirmada | BioTech Stock</title>
+ 
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style-pagamento-sucesso.css') }}">
+ 
+</head>
+ 
+<body>
+ 
+    <main class="sucesso-container">
+ 
+        <section class="sucesso-card">
+ 
+            <!-- ÍCONE -->
+ 
+            <div class="icone-sucesso">
+                ✓
+            </div>
+ 
+ 
+            <!-- TÍTULO -->
+ 
+            <span class="tag">
+                BIOTECH STOCK
+            </span>
+ 
+            <h1>
+                Assinatura confirmada!
+            </h1>
+ 
+            <p class="descricao">
+ 
+                Seu pagamento foi processado com sucesso.
+                Sua conta está pronta para acessar o sistema.
+ 
+            </p>
+ 
+ 
+            <!-- PLANO -->
+ 
+            <div class="plano-confirmado">
+ 
+                <span>
+                    PLANO CONTRATADO
+                </span>
+ 
+                <strong>
+                    {{ plano.nome }}
+                </strong>
+ 
+                <small>
+                    R$ {{ plano.preco }} / mês
+                </small>
+ 
+            </div>
+ 
+ 
+        </a>
+ 
+    </div>
+ 
+</div>
+ 
+            <!-- DADOS DE ACESSO -->
+ 
+            <div class="acesso">
+ 
+                <div class="acesso-header">
+ 
+                    <div>
+ 
+                        <span>
+                            ACESSO AO SISTEMA
+                        </span>
+ 
+                        <h2>
+                            Seus dados de acesso
+                        </h2>
+ 
+                    </div>
+ 
+                    <div class="cadeado">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8 0a4 4 0 0 1 4 4v2.05a2.5 2.5 0 0 1 2 2.45v5a2.5 2.5 0 0 1-2.5 2.5h-7A2.5 2.5 0 0 1 2 13.5v-5a2.5 2.5 0 0 1 2-2.45V4a4 4 0 0 1 4-4M4.5 7A1.5 1.5 0 0 0 3 8.5v5A1.5 1.5 0 0 0 4.5 15h7a1.5 1.5 0 0 0 1.5-1.5v-5A1.5 1.5 0 0 0 11.5 7zM8 1a3 3 0 0 0-3 3v2h6V4a3 3 0 0 0-3-3"/>
+</svg>
+                    </div>
+ 
+                </div>
+ 
+ 
+                <!-- NOME -->
+ 
+                <div class="dado">
+ 
+                    <div class="dado-icone">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-check" viewBox="0 0 16 16">
+  <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m1.679-4.493-1.335 2.226a.75.75 0 0 1-1.174.144l-.774-.773a.5.5 0 0 1 .708-.708l.547.548 1.17-1.951a.5.5 0 1 1 .858.514M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+  <path d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z"/>
+</svg>
+                    </div>
+ 
+                    <div class="dado-info">
+ 
+                        <span>
+                            Nome
+                        </span>
+ 
+                        <strong>
+                            {{ nome }}
+                        </strong>
+ 
+                    </div>
+ 
+                </div>
+ 
+ 
+                <!-- EMAIL -->
+ 
+                <div class="dado">
+ 
+                    <div class="dado-icone">
+                        ✉
+                    </div>
+ 
+                    <div class="dado-info">
+ 
+                        <span>
+                            E-mail
+                        </span>
+ 
+                        <strong>
+                            {{ email }}
+                        </strong>
+ 
+                    </div>
+ 
+                </div>
+ 
+ 
+                <!-- SENHA -->
+ 
+                <div class="dado">
+ 
+                    <div class="dado-icone">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-key" viewBox="0 0 16 16">
+  <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8m4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5"/>
+  <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+</svg>
+                    </div>
+ 
+                    <div class="dado-info">
+ 
+                        <span>
+                            Senha
+                        </span>
+ 
+                        <strong class="senha">
+                            {{ senha }}
+                        </strong>
+ 
+                    </div>
+ 
+                </div>
+ 
+            </div>
+ 
+ 
+            <!-- AVISO -->
+ 
+            <div class="aviso">
+ 
+                <span>✓</span>
+ 
+                <p>
+                    Guarde seus dados de acesso.
+                    Você poderá utilizá-los para entrar
+                    no sistema BioTech Stock.
+                </p>
+ 
+            </div>
+ 
+ 
+            <!-- BOTÃO -->
+ 
+            <a href="{{ url_for('login') }}"
+               class="btn-login">
+ 
+                Entrar no sistema
+ 
+                <strong>→</strong>
+ 
+            </a>
+ 
+ 
+            <!-- RODAPÉ -->
+ 
+            <p class="rodape">
+ 
+                BioTech Stock · Gestão inteligente de estoque
+ 
+            </p>
+ 
+        </section>
+ 
+    </main>
+ 
+</body>
+ 
+</html>

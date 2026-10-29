@@ -1,0 +1,963 @@
+/* ==========================================================
+   BIOTECH STOCK
+   PAGAMENTO — ESTILO PREMIUM
+   ========================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+
+    min-height: 100vh;
+
+    color: #173b55;
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(66,165,245,.15),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(25,80,120,.12),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            135deg,
+            #eef8fd,
+            #f5faff
+        );
+}
+
+
+/* ==========================================================
+   HEADER
+   ========================================================== */
+
+.pagamento-header {
+
+    height: 76px;
+
+    padding: 8px 6%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    background:
+        linear-gradient(
+            135deg,
+            #3187c9,
+            #16568d 55%,
+            #0c3158
+        );
+
+    box-shadow:
+        0 5px 20px rgba(10,48,80,.18);
+}
+
+
+.logo-link img {
+
+    height: 56px;
+
+    width: auto;
+}
+
+
+.voltar {
+
+    color: rgba(255,255,255,.92);
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    padding: 10px 16px;
+
+    border-radius: 9px;
+
+    border: 1px solid rgba(255,255,255,.18);
+
+    background: rgba(255,255,255,.08);
+
+    transition: .25s ease;
+}
+
+.voltar:hover {
+
+    background: rgba(255,255,255,.18);
+
+    color: white;
+}
+
+
+/* ==========================================================
+   CONTAINER
+   ========================================================== */
+
+.pagamento-container {
+
+    width: min(1120px, 90%);
+
+    margin: auto;
+
+    padding: 65px 0 90px;
+}
+
+
+/* ==========================================================
+   TÍTULO
+   ========================================================== */
+
+.pagamento-titulo {
+
+    text-align: center;
+
+    max-width: 700px;
+
+    margin: 0 auto 45px;
+}
+
+
+.tag {
+
+    display: inline-block;
+
+    padding: 7px 15px;
+
+    margin-bottom: 13px;
+
+    border-radius: 30px;
+
+    background: rgba(255,255,255,.75);
+
+    border: 1px solid rgba(56,142,195,.18);
+
+    color: #287db1;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+}
+
+
+.pagamento-titulo h1 {
+
+    font-size: 40px;
+
+    line-height: 1.15;
+
+    color: #173b55;
+
+    margin-bottom: 12px;
+
+    font-weight: 800;
+}
+
+
+.pagamento-titulo p {
+
+    color: #6a8498;
+
+    line-height: 1.6;
+
+    font-size: 15px;
+}
+
+
+/* ==========================================================
+   GRID
+   ========================================================== */
+
+.pagamento-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(320px, .85fr)
+        minmax(400px, 1.15fr);
+
+    gap: 25px;
+
+    align-items: start;
+}
+
+
+/* ==========================================================
+   RESUMO
+   ========================================================== */
+
+.resumo-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 30px;
+
+    min-height: 570px;
+
+    border-radius: 23px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            145deg,
+            #67bdeb,
+            #419bd5 48%,
+            #2c7fbd
+        );
+
+    border:
+        1px solid rgba(255,255,255,.35);
+
+    border-top:
+        3px solid #b6e7ff;
+
+    box-shadow:
+        0 20px 45px rgba(30,80,115,.20);
+}
+
+
+.resumo-card::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    right: -160px;
+    top: -170px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.22),
+            transparent 70%
+        );
+
+    pointer-events: none;
+}
+
+
+.resumo-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 230px;
+    height: 230px;
+
+    left: -150px;
+    bottom: -160px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid rgba(255,255,255,.14);
+
+    pointer-events: none;
+}
+
+
+.resumo-topo {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+}
+
+
+.nivel {
+
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,.15);
+
+    border:
+        1px solid rgba(255,255,255,.22);
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+
+.icone-plano {
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,.17);
+
+    border:
+        1px solid rgba(255,255,255,.25);
+
+    font-size: 21px;
+}
+
+
+.resumo-card h2 {
+
+    font-size: 29px;
+
+    margin-bottom: 7px;
+}
+
+
+.subtitulo {
+
+    color:
+        rgba(255,255,255,.85);
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    margin-bottom: 24px;
+}
+
+
+/* ==========================================================
+   PREÇO
+   ========================================================== */
+
+.preco {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    margin-bottom: 20px;
+}
+
+
+.preco .moeda {
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    margin-right: 4px;
+
+    margin-bottom: 20px;
+
+    color:
+        rgba(255,255,255,.82);
+}
+
+
+.preco strong {
+
+    font-size: 43px;
+
+    line-height: 1;
+
+    letter-spacing: -1.5px;
+}
+
+
+.preco .periodo {
+
+    font-size: 12px;
+
+    margin-left: 6px;
+
+    margin-bottom: 4px;
+
+    color:
+        rgba(255,255,255,.75);
+}
+
+
+.linha {
+
+    height: 1px;
+
+    width: 100%;
+
+    background:
+        rgba(255,255,255,.22);
+
+    margin-bottom: 22px;
+}
+
+
+.resumo-card h3 {
+
+    font-size: 15px;
+
+    margin-bottom: 15px;
+}
+
+
+/* ==========================================================
+   RECURSOS
+   ========================================================== */
+
+.recursos {
+
+    list-style: none;
+}
+
+
+.recursos li {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 12px;
+
+    font-size: 13px;
+
+    color:
+        rgba(255,255,255,.94);
+}
+
+
+.recursos li span {
+
+    width: 21px;
+    height: 21px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,.16);
+
+    font-size: 10px;
+
+    font-weight: 800;
+}
+
+
+/* ==========================================================
+   SEGURANÇA
+   ========================================================== */
+
+.seguranca {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 25px;
+
+    padding: 13px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,.10);
+
+    border:
+        1px solid rgba(255,255,255,.12);
+}
+
+
+.seguranca span {
+
+    width: 25px;
+    height: 25px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,.16);
+}
+
+
+.seguranca p {
+
+    font-size: 11px;
+
+    color:
+        rgba(255,255,255,.85);
+}
+
+
+/* ==========================================================
+   CARD PAGAMENTO
+   ========================================================== */
+
+.pagamento-card {
+
+    padding: 30px;
+
+    background: rgba(255,255,255,.90);
+
+    border:
+        1px solid #dcecf5;
+
+    border-radius: 23px;
+
+    box-shadow:
+        0 18px 45px rgba(30,80,115,.10);
+}
+
+
+.card-header {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+
+.mini-tag {
+
+    display: flex;
+
+    justify-content: center;
+
+    color: #287db1;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+}
+
+
+.card-header h2 {
+    display: flex;
+
+    justify-content: center;
+
+    font-size: 23px;
+
+    color: #173b55;
+
+    margin-top: 5px;
+}
+
+
+.cadeado {
+
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #edf7fc;
+
+    border: 1px solid #d9edf7;
+
+    font-size: 18px;
+}
+
+
+/* ==========================================================
+   MÉTODOS
+   ========================================================== */
+
+.metodos {
+
+    display: flex;
+
+    justify-content: center     ;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 10px;
+
+    margin-bottom: 22px;
+
+    text-align: center;
+}
+
+
+.metodo {
+
+    padding: 13px;
+
+    border-radius: 11px;
+
+    border:
+        1px solid #d8e7ef;
+
+    background: #f8fcff;
+
+    color: #527084;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    transition: .2s ease;
+}
+
+
+.metodo:hover {
+
+    border-color: #6bb6df;
+}
+
+
+.metodo.ativo {
+
+    background:
+        linear-gradient(
+            135deg,
+            #e7f6fd,
+            #d9effa
+        );
+
+    border-color: #3d9bd0;
+
+    color: #17699d;
+}
+
+
+.metodo-icone {
+
+    font-size: 16px;
+}
+
+
+/* ==========================================================
+   CAMPOS
+   ========================================================== */
+
+.campo {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+
+    margin-bottom: 15px;
+}
+
+
+.campo label {
+
+    color: #38596d;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+.campo input {
+
+    width: 100%;
+
+    height: 45px;
+
+    padding: 0 13px;
+
+    border:
+        1px solid #d6e4ed;
+
+    border-radius: 9px;
+
+    outline: none;
+
+    background: white;
+
+    color: #173b55;
+
+    font-size: 13px;
+
+    transition: .2s ease;
+}
+
+
+.campo input:focus {
+
+    border-color: #3b9bd2;
+
+    box-shadow:
+        0 0 0 3px rgba(59,155,210,.10);
+}
+
+
+.campos-duplos {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+}
+
+
+
+
+/* ==========================================================
+   TOTAL
+   ========================================================== */
+
+.total {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-top: 10px;
+
+    padding: 18px 0;
+
+    border-top:
+        1px solid #e4edf2;
+
+    border-bottom:
+        1px solid #e4edf2;
+
+    color: #607b8e;
+
+    font-size: 13px;
+}
+
+
+.total strong {
+
+    color: #173b55;
+
+    font-size: 21px;
+}
+
+
+/* ==========================================================
+   BOTÃO PAGAR
+   ========================================================== */
+
+.btn-pagar {
+
+    width: 100%;
+
+    min-height: 50px;
+
+    margin-top: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    cursor: pointer;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1766a3,
+            #238fce
+        );
+
+    color: white;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 9px 22px rgba(30,110,165,.20);
+
+    transition: .25s ease;
+}
+
+
+.btn-pagar strong {
+
+    margin-left: auto;
+
+    margin-right: 16px;
+
+    font-size: 17px;
+}
+
+
+.btn-pagar:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 13px 28px rgba(30,110,165,.28);
+}
+
+
+.aviso {
+
+    text-align: center;
+
+    margin-top: 12px;
+
+    color: #8aa0af;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+
+/* ==========================================================
+   RESPONSIVO
+   ========================================================== */
+
+@media(max-width: 850px) {
+
+    .pagamento-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .resumo-card {
+
+        min-height: auto;
+    }
+
+}
+
+
+@media(max-width: 600px) {
+
+    .pagamento-header {
+
+        height: auto;
+
+        padding: 12px 18px;
+
+    }
+
+    .logo-link img {
+
+        height: 45px;
+    }
+
+    .voltar {
+
+        font-size: 11px;
+
+        padding: 8px 10px;
+    }
+
+    .pagamento-container {
+
+        width: 92%;
+
+        padding: 45px 0 60px;
+    }
+
+    .pagamento-titulo h1 {
+
+        font-size: 30px;
+    }
+
+    .pagamento-titulo p {
+
+        font-size: 13px;
+    }
+
+    .resumo-card,
+    .pagamento-card {
+
+        padding: 23px;
+
+        border-radius: 19px;
+    }
+
+    .preco strong {
+
+        font-size: 37px;
+    }
+
+    .campos-duplos {
+
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+}

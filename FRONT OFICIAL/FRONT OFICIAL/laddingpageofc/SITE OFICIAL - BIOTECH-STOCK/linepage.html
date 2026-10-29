@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BioTech Stock</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <div id="logo">
+            <img src="./imagens-videos/logobranca2.png" alt="BioTech Stock">
+        </div>
+
+           <a href="https://web.whatsapp.com/" id="whatsapp_fixo">
+        <img src="./imagens-videos/whatsapp.png" alt="whatsapp">
+    </a>
+
+        <nav class="menu">
+            <ul>
+                <a href="#inicio">
+                    <li>Inicio</li>
+                </a>
+
+                <a href="#sobre">
+                    <li>Sobre Nós</li>
+                </a>
+
+                <a href="#produtos">
+                    <li>Produtos</li>
+                </a>
+
+                <a href="#cadastro">
+                    <button id="btn-header">Área do Cliente</button>
+                </a>
+
+
+                <a href="#contato">
+                    <button>Contato</button>
+                </a>
+            </ul>
+        </nav>
+
+
+    </header>
+
+    <main class="main-container">
+
+        <aside class="main-texto">
+            <h2 id="nome_empresa">BioTech Stock</h2>
+          <h1>Gestão <span class="highlight">Inteligente</span> de Estoque</h1>
+
+            <p>
+                Plataforma integrada de controle de estoque com sensores inteligentes,
+                monitoramento em tempo real e previsão de reabastecimento para empresas
+            </p>
+
+            <a href="#cadastro">
+                <button>Começar Agora</button>
+            </a>
+        </aside>
+
+        <div class="main-img">
+            <img src="./imagens-videos/foto2.png" alt="bio-tech">
+        </div>
+
+    </main>
+
+    <section id="sobre">
+        <div class="sobre-container">
+
+            <div class="sobre-img">
+                <img src="./imagens-videos/fotofundo.png" alt="foto laboratório">
+            </div>
+
+            <div class="sobre-txt">
+                <h2>Sobre Nós</h2>
+                <p>
+                    A BioTech Stock desenvolve soluções inteligentes de monitoramento e gestão de
+                    estoque para empresas de biotecnologia, laboratórios e indústrias farmacêuticas. <br>
+                    Utilizamos sensores, automação e análise de dados em nuvem para controlar quantidade,
+                    validade, lote e condições ambientais em tempo real.
+
+                    Nosso sistema reduz erros, evita desperdícios e garante conformidade com normas técnicas,
+                    trazendo mais segurança, eficiência e precisão para o armazenamento de produtos sensíveis.
+                </p>
+
+            </div>
+        </div>
+    </section>
+
+   
+
+    <section id="parallax-video">
+        <video autoplay muted loop playsinline id="bg-video">
+            <source src="./imagens-videos/videoprincipal.mp4"
+                type="video/mp4">
+        </video>
+
+        <div class="parallax-text">
+            <h2>Tecnologia e Inovação</h2>
+            <p>Monitoramento que trabalha por você.</p>
+        </div>
+    </section>
+
+    <section id="indicadores">
+        <h2>Indicadores:</h2>
+        <p class="desc-indicadores">Esses são nossos <strong>indicadores</strong> de nosso estoque biomédico,
+            com os dados em tempo real.</p>
+
+        <div class="indicadores2">
+            <div id="card">
+                <h2>Temperatura</h2>
+                <p class="val">3°</p>
+                <h3>Estável</h3>
+            </div>
+            <div id="card">
+                <h2>Validade</h2>
+                <p class="val"></p>
+                <h3>Confiável</h3>
+            </div>
+            <div id="card">
+                <h2>Estoque</h2>
+                <p class="val">12,675 Itens</p>
+                <h3><strong>Cheio</strong></h3>
+            </div>
+            <div id="card">
+                <h2>Alertas</h2>
+                <p class="val">0</p>
+                <h3><strong>Seguro</strong></h3>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="produtos    ">
+        <h2>Nossos produtos</h2>
+
+        <div class="produtos2">
+
+            <div class="produto">
+                <img src="imagens-videos/kitt.jpg" alt="kit">
+                <h3>Kits de Testes Rápidos</h3>
+                <p>COVID-19, Dengue, Influenza e outros diagnósticos imediatos.</p>
+            </div>
+
+            <div class="produto">
+                <img src="imagens-videos/Reagentes-quimicos-para-laboratorio-2.webp" alt="Reagentes">
+                <h3>Reagentes Laboratoriais</h3>
+                <p>Reagentes de alta precisão para análises biomoleculares.</p>
+            </div>
+
+            <div class="produto">
+                <img src="imagens-videos/W19756_01_1200_1200_Kit-de-estruturas-de-orbitais-moleculares-para-a-quimica-organica-Molyorbital-Kit-de-4-modelos.jpg"
+                    alt="Equipamentos">
+                <h3>Equipamentos Biomoleculares</h3>
+                <p>Espectrofotômetros, centrífugas e leitores de placas.</p>
+            </div>
+
+            <div class="produto">
+                <img src="imagens-videos/conservacao-hemocomponentes-cadeia-frio-227.webp" alt="Armazenamento">
+                <h3>Armazenamento e Conservação</h3>
+                <p>Freezers, criotubos e sistemas de cadeia fria.</p>
+            </div>
+
+        </div>
+    </section>
+
+      
+
+    <section id="contato">
+        <div class="contato">
+            <h2>Entre em Contato conosco!</h2>
+            <p>Fale com nossa equipe para tirar dúvidas!</p>
+
+            <form class="contato2">
+                <div class="input">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" placeholder="Digite seu nome">
+                </div>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Digite seu email">
+                </div>
+
+                <div class="input-group">
+                    <label for="mensagem">Mensagem</label>
+                    <textarea id="mensagem" rows="5" placeholder="Digite sua mensagem"></textarea>
+                </div>
+
+                <button type="submit" class="btn-enviar">Enviar Mensagem</button>
+            </form>
+
+        </div>
+    </section>
+
+    <footer class="rodape">
+        <div class="footer">
+
+            <section id="final">
+                <div class="ctafinal">
+                    <div class="ctatexto">
+                        <h2>Pronto para transformar seu estoque?</h2>
+                        <a href="#cadastro" class="btn-cta">Comece Agora</a>
+                    </div>
+                </div>
+            </section>
+            <div class="footer1">
+                <h3>Siga-nos</h3>
+                <nav class="redes">
+                    <ul>
+                        <li><a href="https://www.facebook.com/"><img src="./imagens-videos/facebook.png"></a></li>
+                        <li><a href="https://www.instagram.com/biotech.stock/"><img
+                                    src="./imagens-videos/insta.png"></a></li>
+                        <li><a href="https://web.whatsapp.com/"><img src="./imagens-videos/whatsapp.png"></a></li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="footer1">
+                <h3>Contato</h3>
+                <address>
+                    Rua Mateo Forte, nº 216<br>
+                    São Paulo - SP<br>
+                    <a href="">📞 (19) 9 99193-4692</a><br>
+                    <a href="">✉️ biotechstockbr@gmail.com</a>
+                </address>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 BioTech Stock. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+
+</body>
+
+</html>

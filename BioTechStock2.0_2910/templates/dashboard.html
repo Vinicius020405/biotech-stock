@@ -1,0 +1,1517 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | BioTech Stock{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<div id="dashboard-biotech" class="container-fluid px-0">
+
+    <div class="db-cabecalho">
+        <div>
+            <span class="db-etiqueta"><i class="bi bi-grid-1x2-fill"></i> VISÃO GERAL</span>
+            <h2>Bem-vindo ao BioTech Stock</h2>
+            <p>Acompanhe os indicadores do estoque e o monitoramento dos sensores em um só lugar.</p>
+        </div>
+        <button type="button" class="db-atualizar" onclick="atualizarPainelCompleto()">
+            <i class="bi bi-arrow-clockwise"></i> Atualizar dados
+        </button>
+    </div>
+
+    <!-- INDICADORES PRINCIPAIS DO SISTEMA -->
+    <section class="db-grade-indicadores" aria-label="Indicadores do sistema">
+        <a class="db-card-indicador db-azul" href="{{ url_for('listar_produtos') }}">
+            <span class="db-icone"><i class="bi bi-box-seam"></i></span>
+            <span class="db-indicador-label">Produtos cadastrados</span>
+            <strong>{{ total_produtos|default(0) }}</strong>
+            <span class="db-indicador-rodape">Ver produtos <i class="bi bi-arrow-up-right"></i></span>
+        </a>
+
+        <a class="db-card-indicador db-verde" href="{{ url_for('listar_estoque') }}">
+            <span class="db-icone"><i class="bi bi-boxes"></i></span>
+            <span class="db-indicador-label">Registros de estoque</span>
+            <strong>{{ total_estoque|default(0) }}</strong>
+            <span class="db-indicador-rodape">Ver estoque <i class="bi bi-arrow-up-right"></i></span>
+        </a>
+
+        <a class="db-card-indicador db-ciano" href="{{ url_for('listar_pedidos_entrada') }}">
+            <span class="db-icone"><i class="bi bi-box-arrow-in-down"></i></span>
+            <span class="db-indicador-label">Pedidos de entrada</span>
+            <strong>{{ total_entradas|default(0) }}</strong>
+            <span class="db-indicador-rodape">Ver entradas <i class="bi bi-arrow-up-right"></i></span>
+        </a>
+
+        <a class="db-card-indicador db-laranja" href="{{ url_for('listar_pedidos_saida') }}">
+            <span class="db-icone"><i class="bi bi-box-arrow-up-right"></i></span>
+            <span class="db-indicador-label">Pedidos de saída</span>
+            <strong>{{ total_saidas|default(0) }}</strong>
+            <span class="db-indicador-rodape">Ver saídas <i class="bi bi-arrow-up-right"></i></span>
+        </a>
+
+        <a class="db-card-indicador db-roxo" href="{{ url_for('novo_usuario') }}">
+            <span class="db-icone"><i class="bi bi-people"></i></span>
+            <span class="db-indicador-label">Usuários</span>
+            <strong>{{ total_usuarios|default(0) }}</strong>
+            <span class="db-indicador-rodape">Gerenciar usuários <i class="bi bi-arrow-up-right"></i></span>
+        </a>
+
+        <a class="db-card-indicador db-verde" href="{{ url_for('listar_sensores') }}">
+            <span class="db-icone"><i class="bi bi-cpu"></i></span>
+            <span class="db-indicador-label">Sensores cadastrados</span>
+            <strong>{{ total_sensores|default(0) }}</strong>
+            <span class="db-indicador-rodape">Ver sensores <i class="bi bi-arrow-up-right"></i></span>
+        </a>
+
+        <a class="db-card-indicador db-ciano" href="{{ url_for('listar_caminhoes') }}">
+            <span class="db-icone"><i class="bi bi-truck"></i></span>
+            <span class="db-indicador-label">Caminhões</span>
+            <strong>{{ total_caminhoes|default(0) }}</strong>
+            <span class="db-indicador-rodape">Ver caminhões <i class="bi bi-arrow-up-right"></i></span>
+        </a>
+
+        <a class="db-card-indicador db-azul" href="{{ url_for('listar_fornecedor') }}">
+            <span class="db-icone"><i class="bi bi-building"></i></span>
+            <span class="db-indicador-label">Fornecedores</span>
+            <strong>{{ total_fornecedor|default(0) }}</strong>
+            <span class="db-indicador-rodape">Ver fornecedores <i class="bi bi-arrow-up-right"></i></span>
+        </a>
+    </section>
+
+    <!-- ALERTAS DE ESTOQUE -->
+    {% set lista_alertas = alertas|default(alertas_estoque|default([]), true) %}
+    {% if lista_alertas %}
+    <section class="db-painel db-alertas-painel">
+        <div class="db-titulo-painel">
+            <div>
+                <span class="db-mini-icone db-icone-alerta">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                </span>
+                <div>
+                    <h3>Alertas de estoque</h3>
+                    <p>Produtos que precisam de atenção</p>
+                </div>
+            </div>
+            <span class="db-contador-alerta">{{ lista_alertas|length }} alerta(s)</span>
+        </div>
+
+        <div class="db-lista-alertas">
+            {% for alerta in lista_alertas %}
+            <div class="db-alerta-item">
+                <i class="bi bi-exclamation-circle-fill"></i>
+                <div>
+                    <strong>{{ alerta.nome|default(alerta.produto_nome|default('Produto')) }}</strong>
+                    <span>Estoque baixo — confira a quantidade disponível.</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- GRÁFICO GERAL -->
+    <section class="db-painel">
+        <div class="db-titulo-painel">
+            <div>
+                <span class="db-mini-icone">
+                    <i class="bi bi-bar-chart-line-fill"></i>
+                </span>
+                <div>
+                    <h3>Resumo do sistema</h3>
+                    <p>Comparação dos principais indicadores</p>
+                </div>
+            </div>
+        </div>
+        <div class="db-grafico-geral">
+            <canvas id="dbGraficoGeral" aria-label="Gráfico dos indicadores do sistema"></canvas>
+        </div>
+    </section>
+
+    <!-- MONITORAMENTO IOT INTEGRADO -->
+    <section id="monitoramento-iot" class="db-iot">
+        <div class="db-iot-cabecalho">
+            <div>
+                <span class="db-etiqueta">
+                    <i class="bi bi-broadcast-pin"></i> INTERNET DAS COISAS
+                </span>
+                <h2>Monitoramento IoT</h2>
+                <p>Leituras dos sensores e movimentações RFID vinculadas à API do sistema.</p>
+            </div>
+
+            <div class="db-status-api">
+                <span id="dbIotPonto" class="db-status-ponto"></span>
+                <span id="dbIotStatus">Verificando conexão...</span>
+            </div>
+        </div>
+
+        <!-- INDICADORES IOT -->
+        <div class="db-iot-indicadores">
+            <article class="db-iot-card db-iot-temp">
+                <div class="db-iot-card-top">
+                    <span>Temperatura</span>
+                    <span class="db-iot-icone"><i class="bi bi-thermometer-half"></i></span>
+                </div>
+                <strong id="dbTemperatura">-- °C</strong>
+                <small id="dbTempHora">Aguardando leitura</small>
+            </article>
+
+            <article class="db-iot-card db-iot-umid">
+                <div class="db-iot-card-top">
+                    <span>Umidade</span>
+                    <span class="db-iot-icone"><i class="bi bi-droplet-half"></i></span>
+                </div>
+                <strong id="dbUmidade">-- %</strong>
+                <small id="dbUmidHora">Aguardando leitura</small>
+            </article>
+
+            <article class="db-iot-card db-iot-dist">
+                <div class="db-iot-card-top">
+                    <span>Distância</span>
+                    <span class="db-iot-icone"><i class="bi bi-rulers"></i></span>
+                </div>
+                <strong id="dbDistancia">-- cm</strong>
+                <small id="dbDistHora">Aguardando leitura</small>
+            </article>
+
+            <article class="db-iot-card db-iot-rfid">
+                <div class="db-iot-card-top">
+                    <span>Leituras RFID</span>
+                    <span class="db-iot-icone"><i class="bi bi-upc-scan"></i></span>
+                </div>
+                <strong id="dbTotalRFID">0</strong>
+                <small id="dbLeitorRFID">Leitor sem leitura recente</small>
+            </article>
+        </div>
+
+        <!-- GRÁFICOS IOT -->
+        <div class="db-iot-graficos">
+            <article class="db-painel db-iot-grafico">
+                <div class="db-titulo-painel">
+                    <div>
+                        <span class="db-mini-icone"><i class="bi bi-thermometer-half"></i></span>
+                        <div>
+                            <h3>Temperatura</h3>
+                            <p>Histórico de leituras em °C</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="db-grafico-iot">
+                    <canvas id="dbGraficoTemperatura"></canvas>
+                </div>
+            </article>
+
+            <article class="db-painel db-iot-grafico">
+                <div class="db-titulo-painel">
+                    <div>
+                        <span class="db-mini-icone"><i class="bi bi-droplet-half"></i></span>
+                        <div>
+                            <h3>Umidade</h3>
+                            <p>Histórico de leituras em %</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="db-grafico-iot">
+                    <canvas id="dbGraficoUmidade"></canvas>
+                </div>
+            </article>
+
+            <article class="db-painel db-iot-grafico">
+                <div class="db-titulo-painel">
+                    <div>
+                        <span class="db-mini-icone"><i class="bi bi-rulers"></i></span>
+                        <div>
+                            <h3>Distância</h3>
+                            <p>Histórico de leituras em cm</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="db-grafico-iot">
+                    <canvas id="dbGraficoDistancia"></canvas>
+                </div>
+            </article>
+
+            <article class="db-painel db-iot-grafico">
+                <div class="db-titulo-painel">
+                    <div>
+                        <span class="db-mini-icone"><i class="bi bi-upc-scan"></i></span>
+                        <div>
+                            <h3>Movimentações RFID</h3>
+                            <p>Entradas e saídas registradas</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="db-grafico-iot">
+                    <canvas id="dbGraficoRFID"></canvas>
+                </div>
+            </article>
+        </div>
+
+        <!-- TABELA RFID -->
+        <section class="db-painel db-tabela-painel">
+            <div class="db-titulo-painel">
+                <div>
+                    <span class="db-mini-icone"><i class="bi bi-list-ul"></i></span>
+                    <div>
+                        <h3>Últimas leituras RFID</h3>
+                        <p>Registros retornados pela API</p>
+                    </div>
+                </div>
+                <span id="dbRfidQuantidade" class="db-tag-neutra">0 registros</span>
+            </div>
+
+            <div class="table-responsive db-tabela-responsiva">
+                <table class="table align-middle mb-0 db-tabela-rfid">
+                    <thead>
+                        <tr>
+                            <th>Data e hora</th>
+                            <th>Dispositivo</th>
+                            <th>UID RFID</th>
+                            <th>Produto</th>
+                            <th>Movimento</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dbTabelaRFID">
+                        <tr>
+                            <td colspan="5" class="db-tabela-vazia">Aguardando dados RFID...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <p class="db-iot-atualizacao">
+            <i class="bi bi-arrow-repeat"></i>
+            Atualização automática a cada 30 segundos.
+            <span id="dbUltimaAtualizacao">Ainda não atualizado</span>
+        </p>
+    </section>
+</div>
+
+<style>
+#dashboard-biotech {
+    --db-fundo: #fff;
+    --db-card: #fff;
+    --db-texto: #172033;
+    --db-secundario: #64748b;
+    --db-borda: #e5eaf1;
+    --db-sombra: 0 8px 24px rgba(15,23,42,.045);
+    color: var(--db-texto);
+    padding-bottom: 24px;
+}
+
+#dashboard-biotech * {
+    box-sizing: border-box;
+}
+
+#dashboard-biotech .db-cabecalho,
+#dashboard-biotech .db-iot-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin: 4px 0 24px;
+}
+
+#dashboard-biotech h2 {
+    font-size: clamp(1.35rem, 2vw, 1.8rem);
+    font-weight: 750;
+    letter-spacing: -.04em;
+    margin: 8px 0;
+    color: var(--db-texto);
+}
+
+#dashboard-biotech p {
+    color: var(--db-secundario);
+    margin: 0;
+    line-height: 1.55;
+}
+
+#dashboard-biotech .db-etiqueta {
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .12em;
+    color: #2563eb;
+}
+
+#dashboard-biotech .db-atualizar {
+    border: 1px solid var(--db-borda);
+    background: var(--db-card);
+    color: var(--db-texto);
+    border-radius: 12px;
+    padding: 11px 15px;
+    font-weight: 650;
+    white-space: nowrap;
+    box-shadow: var(--db-sombra);
+    cursor: pointer;
+}
+
+#dashboard-biotech .db-atualizar:hover {
+    border-color: #60a5fa;
+    color: #2563eb;
+}
+
+#dashboard-biotech .db-grade-indicadores {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
+    margin-bottom: 22px;
+}
+
+#dashboard-biotech .db-card-indicador {
+    position: relative;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: var(--db-texto);
+    background: var(--db-card);
+    border: 1px solid var(--db-borda);
+    border-radius: 17px;
+    padding: 18px;
+    box-shadow: var(--db-sombra);
+    transition: transform .2s, border-color .2s;
+}
+
+#dashboard-biotech .db-card-indicador:hover {
+    transform: translateY(-3px);
+    border-color: #93c5fd;
+    color: var(--db-texto);
+}
+
+#dashboard-biotech .db-icone {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 13px;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 1.25rem;
+    margin-bottom: 15px;
+}
+
+#dashboard-biotech .db-verde .db-icone {
+    background: #ecfdf5;
+    color: #059669;
+}
+
+#dashboard-biotech .db-ciano .db-icone {
+    background: #ecfeff;
+    color: #0891b2;
+}
+
+#dashboard-biotech .db-laranja .db-icone {
+    background: #fff7ed;
+    color: #ea580c;
+}
+
+#dashboard-biotech .db-roxo .db-icone {
+    background: #f5f3ff;
+    color: #7c3aed;
+}
+
+#dashboard-biotech .db-indicador-label {
+    font-size: .82rem;
+    color: var(--db-secundario);
+    font-weight: 600;
+    min-height: 2.3em;
+}
+
+#dashboard-biotech .db-card-indicador strong {
+    font-size: 2rem;
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: -.04em;
+    margin: 4px 0 13px;
+}
+
+#dashboard-biotech .db-indicador-rodape {
+    font-size: .76rem;
+    color: var(--db-secundario);
+    border-top: 1px solid var(--db-borda);
+    padding-top: 11px;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+#dashboard-biotech .db-painel {
+    background: var(--db-card);
+    border: 1px solid var(--db-borda);
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 22px;
+    box-shadow: var(--db-sombra);
+    min-width: 0;
+}
+
+#dashboard-biotech .db-titulo-painel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+#dashboard-biotech .db-titulo-painel > div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+#dashboard-biotech .db-mini-icone {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 1.15rem;
+}
+
+#dashboard-biotech .db-titulo-painel h3 {
+    font-size: 1rem;
+    font-weight: 750;
+    margin: 0 0 4px;
+    color: var(--db-texto);
+}
+
+#dashboard-biotech .db-titulo-painel p {
+    font-size: .8rem;
+}
+
+#dashboard-biotech .db-grafico-geral {
+    height: 310px;
+    position: relative;
+    width: 100%;
+}
+
+#dashboard-biotech .db-alertas-painel {
+    border-color: #fecaca;
+}
+
+#dashboard-biotech .db-icone-alerta {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+#dashboard-biotech .db-contador-alerta {
+    border-radius: 999px;
+    padding: 6px 10px;
+    background: #fef2f2;
+    color: #b91c1c;
+    font-size: .75rem;
+    font-weight: 750;
+    white-space: nowrap;
+}
+
+#dashboard-biotech .db-lista-alertas {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+#dashboard-biotech .db-alerta-item {
+    display: flex;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 12px;
+    background: #fff7f7;
+    color: #b91c1c;
+}
+
+#dashboard-biotech .db-alerta-item > i {
+    padding-top: 2px;
+}
+
+#dashboard-biotech .db-alerta-item strong,
+#dashboard-biotech .db-alerta-item span {
+    display: block;
+}
+
+#dashboard-biotech .db-alerta-item strong {
+    font-size: .88rem;
+}
+
+#dashboard-biotech .db-alerta-item span {
+    font-size: .78rem;
+    margin-top: 3px;
+}
+
+#dashboard-biotech .db-iot {
+    margin-top: 30px;
+}
+
+#dashboard-biotech .db-iot-cabecalho {
+    padding: 23px;
+    border-radius: 20px;
+    background: linear-gradient(115deg, #0f2744, #173e63);
+    color: #fff;
+}
+
+#dashboard-biotech .db-iot-cabecalho h2 {
+    color: #fff;
+    margin: 8px 0;
+}
+
+#dashboard-biotech .db-iot-cabecalho p {
+    color: #d5e3f2;
+    max-width: 650px;
+}
+
+#dashboard-biotech .db-iot-cabecalho .db-etiqueta {
+    color: #7dd3fc;
+}
+
+#dashboard-biotech .db-status-api {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    padding: 9px 12px;
+    border: 1px solid rgba(255,255,255,.22);
+    background: rgba(255,255,255,.08);
+    border-radius: 999px;
+    font-size: .78rem;
+    color: #fff;
+}
+
+#dashboard-biotech .db-status-ponto {
+    width: 9px;
+    height: 9px;
+    background: #fbbf24;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(251,191,36,.15);
+}
+
+#dashboard-biotech .db-status-api.db-online .db-status-ponto {
+    background: #4ade80;
+    box-shadow: 0 0 0 4px rgba(74,222,128,.15);
+}
+
+#dashboard-biotech .db-status-api.db-offline .db-status-ponto {
+    background: #fb7185;
+    box-shadow: 0 0 0 4px rgba(251,113,133,.15);
+}
+
+#dashboard-biotech .db-iot-indicadores {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
+    margin-bottom: 18px;
+}
+
+#dashboard-biotech .db-iot-card {
+    padding: 18px;
+    border: 1px solid var(--db-borda);
+    border-radius: 17px;
+    background: var(--db-card);
+    box-shadow: var(--db-sombra);
+    min-width: 0;
+}
+
+#dashboard-biotech .db-iot-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    color: var(--db-secundario);
+    font-size: .82rem;
+    font-weight: 650;
+}
+
+#dashboard-biotech .db-iot-icone {
+    width: 36px;
+    height: 36px;
+    display: grid;
+    place-items: center;
+    border-radius: 11px;
+    font-size: 1.1rem;
+}
+
+#dashboard-biotech .db-iot-card > strong {
+    display: block;
+    font-size: clamp(1.55rem, 2.5vw, 2rem);
+    font-weight: 800;
+    letter-spacing: -.04em;
+    margin: 12px 0 7px;
+    color: var(--db-texto);
+    overflow-wrap: anywhere;
+}
+
+#dashboard-biotech .db-iot-card > small {
+    font-size: .74rem;
+    color: var(--db-secundario);
+}
+
+#dashboard-biotech .db-iot-temp .db-iot-icone {
+    background: #fff1f2;
+    color: #e11d48;
+}
+
+#dashboard-biotech .db-iot-umid .db-iot-icone {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+#dashboard-biotech .db-iot-dist .db-iot-icone {
+    background: #f5f3ff;
+    color: #7c3aed;
+}
+
+#dashboard-biotech .db-iot-rfid .db-iot-icone {
+    background: #fff7ed;
+    color: #ea580c;
+}
+
+#dashboard-biotech .db-iot-graficos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 16px;
+}
+
+#dashboard-biotech .db-iot-grafico {
+    padding: 18px;
+    margin-bottom: 16px;
+}
+
+#dashboard-biotech .db-grafico-iot {
+    height: 235px;
+    position: relative;
+    width: 100%;
+}
+
+#dashboard-biotech .db-tag-neutra {
+    font-size: .75rem;
+    color: var(--db-secundario);
+    background: rgba(148,163,184,.12);
+    padding: 6px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+#dashboard-biotech .db-tabela-responsiva {
+    overflow-x: auto;
+}
+
+#dashboard-biotech .db-tabela-rfid {
+    color: var(--db-texto);
+    font-size: .82rem;
+    min-width: 650px;
+}
+
+#dashboard-biotech .db-tabela-rfid thead th {
+    font-size: .72rem;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--db-secundario);
+    font-weight: 750;
+    border-bottom: 1px solid var(--db-borda);
+    white-space: nowrap;
+}
+
+#dashboard-biotech .db-tabela-rfid td {
+    border-color: var(--db-borda);
+    vertical-align: middle;
+}
+
+#dashboard-biotech .db-tabela-vazia {
+    text-align: center;
+    color: var(--db-secundario);
+    padding: 25px !important;
+}
+
+#dashboard-biotech .db-movimento {
+    display: inline-block;
+    border-radius: 999px;
+    padding: 5px 9px;
+    font-size: .7rem;
+    font-weight: 800;
+    background: #ecfdf5;
+    color: #047857;
+}
+
+#dashboard-biotech .db-movimento.saida {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+#dashboard-biotech .db-iot-atualizacao {
+    font-size: .76rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 0 3px 12px;
+}
+
+/* MODO ESCURO */
+body.modo-escuro #dashboard-biotech {
+    --db-card: #172337;
+    --db-fundo: #0f172a;
+    --db-texto: #e5edf8;
+    --db-secundario: #a9b8cb;
+    --db-borda: #2c3c52;
+    --db-sombra: 0 8px 24px rgba(0,0,0,.12);
+}
+
+body.modo-escuro #dashboard-biotech .db-icone,
+body.modo-escuro #dashboard-biotech .db-mini-icone {
+    background: #203752;
+    color: #93c5fd;
+}
+
+body.modo-escuro #dashboard-biotech .db-verde .db-icone {
+    background: #143b36;
+    color: #6ee7b7;
+}
+
+body.modo-escuro #dashboard-biotech .db-ciano .db-icone {
+    background: #153943;
+    color: #67e8f9;
+}
+
+body.modo-escuro #dashboard-biotech .db-laranja .db-icone {
+    background: #422b1b;
+    color: #fdba74;
+}
+
+body.modo-escuro #dashboard-biotech .db-roxo .db-icone {
+    background: #30264b;
+    color: #c4b5fd;
+}
+
+body.modo-escuro #dashboard-biotech .db-alerta-item {
+    background: #3b2028;
+    color: #fecaca;
+}
+
+body.modo-escuro #dashboard-biotech .db-contador-alerta {
+    background: #4a2028;
+    color: #fecaca;
+}
+
+body.modo-escuro #dashboard-biotech .db-iot-temp .db-iot-icone {
+    background: #47222b;
+    color: #fda4af;
+}
+
+body.modo-escuro #dashboard-biotech .db-iot-umid .db-iot-icone {
+    background: #1e3557;
+    color: #93c5fd;
+}
+
+body.modo-escuro #dashboard-biotech .db-iot-dist .db-iot-icone {
+    background: #34284f;
+    color: #c4b5fd;
+}
+
+body.modo-escuro #dashboard-biotech .db-iot-rfid .db-iot-icone {
+    background: #4a301c;
+    color: #fdba74;
+}
+
+body.modo-escuro #dashboard-biotech .db-tabela-rfid {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--db-texto);
+    --bs-table-border-color: var(--db-borda);
+}
+
+/* ALTO CONTRASTE */
+body.alto-contraste #dashboard-biotech {
+    --db-card: #fff;
+    --db-texto: #000;
+    --db-secundario: #222;
+    --db-borda: #000;
+    --db-sombra: none;
+}
+
+body.alto-contraste #dashboard-biotech .db-card-indicador,
+body.alto-contraste #dashboard-biotech .db-painel,
+body.alto-contraste #dashboard-biotech .db-iot-card {
+    border: 2px solid #000;
+}
+
+body.alto-contraste #dashboard-biotech .db-etiqueta {
+    color: #000;
+}
+
+body.alto-contraste #dashboard-biotech .db-iot-cabecalho {
+    background: #000;
+    border: 2px solid #000;
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 1200px) {
+    #dashboard-biotech .db-grade-indicadores {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    #dashboard-biotech .db-iot-indicadores {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+    #dashboard-biotech .db-cabecalho,
+    #dashboard-biotech .db-iot-cabecalho {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    #dashboard-biotech .db-grade-indicadores {
+        gap: 10px;
+    }
+
+    #dashboard-biotech .db-card-indicador {
+        padding: 13px;
+    }
+
+    #dashboard-biotech .db-card-indicador strong {
+        font-size: 1.6rem;
+    }
+
+    #dashboard-biotech .db-iot-graficos {
+        grid-template-columns: 1fr;
+    }
+
+    #dashboard-biotech .db-lista-alertas {
+        grid-template-columns: 1fr;
+    }
+
+    #dashboard-biotech .db-painel {
+        padding: 14px;
+    }
+
+    #dashboard-biotech .db-grafico-geral {
+        height: 260px;
+    }
+
+    #dashboard-biotech .db-iot-cabecalho {
+        padding: 18px;
+    }
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+(function () {
+    const intervaloIot = 30000;
+
+    let graficoGeral;
+    let graficoTemperatura;
+    let graficoUmidade;
+    let graficoDistancia;
+    let graficoRFID;
+
+    let dadosTemperatura = [];
+    let dadosDistancia = [];
+    let dadosRFID = [];
+
+    const cores = {
+        texto: () => document.body.classList.contains('modo-escuro')
+            ? '#d8e4f2'
+            : '#64748b',
+
+        grade: () => document.body.classList.contains('modo-escuro')
+            ? '#2c3c52'
+            : '#e5eaf1'
+    };
+
+    function criarGrafico(id, tipo, labels, datasets, opcoesExtras) {
+        const canvas = document.getElementById(id);
+
+        if (!canvas || typeof Chart === 'undefined') {
+            return null;
+        }
+
+        return new Chart(canvas, {
+            type: tipo,
+
+            data: {
+                labels: labels,
+                datasets: datasets
+            },
+
+            options: Object.assign({
+                responsive: true,
+                maintainAspectRatio: false,
+
+                animation: {
+                    duration: 250
+                },
+
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: cores.texto(),
+                            usePointStyle: true,
+                            boxWidth: 8
+                        }
+                    }
+                },
+
+                scales: {
+                    x: {
+                        ticks: {
+                            color: cores.texto(),
+                            maxRotation: 0,
+                            autoSkip: true
+                        },
+                        grid: {
+                            color: cores.grade()
+                        }
+                    },
+
+                    y: {
+                        beginAtZero: true,
+
+                        ticks: {
+                            color: cores.texto()
+                        },
+
+                        grid: {
+                            color: cores.grade()
+                        }
+                    }
+                }
+            }, opcoesExtras || {})
+        });
+    }
+
+    function atualizarGrafico(grafico, labels, datasets) {
+        if (!grafico) {
+            return;
+        }
+
+        grafico.data.labels = labels;
+        grafico.data.datasets = datasets;
+
+        grafico.options.plugins.legend.labels.color = cores.texto();
+
+        if (grafico.options.scales && grafico.options.scales.x) {
+            grafico.options.scales.x.ticks.color = cores.texto();
+            grafico.options.scales.x.grid.color = cores.grade();
+
+            grafico.options.scales.y.ticks.color = cores.texto();
+            grafico.options.scales.y.grid.color = cores.grade();
+        }
+
+        grafico.update();
+    }
+
+    function horaCurta(valor) {
+        if (!valor) {
+            return '--';
+        }
+
+        const data = new Date(String(valor).replace(' ', 'T'));
+
+        if (Number.isNaN(data.getTime())) {
+            return String(valor);
+        }
+
+        return data.toLocaleTimeString('pt-BR', {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    }
+
+    function numero(valor, casas) {
+        if (valor === null || valor === undefined || valor === '') {
+            return '--';
+        }
+
+        const n = Number(valor);
+
+        return Number.isFinite(n)
+            ? n.toLocaleString('pt-BR', {
+                maximumFractionDigits: casas || 1
+            })
+            : '--';
+    }
+
+    async function buscarJson(url) {
+        const resposta = await fetch(url, {
+            cache: 'no-store'
+        });
+
+        if (!resposta.ok) {
+            throw new Error(
+                'Falha ao consultar ' + url + ' (' + resposta.status + ')'
+            );
+        }
+
+        return resposta.json();
+    }
+
+    function definirStatus(estado, mensagem) {
+        const area = document.getElementById('dbIotStatus');
+        const pai = area ? area.parentElement : null;
+
+        if (area) {
+            area.textContent = mensagem;
+        }
+
+        if (pai) {
+            pai.className = 'db-status-api ' +
+                (estado === 'online'
+                    ? 'db-online'
+                    : estado === 'offline'
+                        ? 'db-offline'
+                        : '');
+        }
+    }
+
+    async function carregarResumo() {
+        const dados = await buscarJson('/api/resumo');
+
+        document.getElementById('dbTemperatura').textContent =
+            numero(dados.temperatura) + ' °C';
+
+        document.getElementById('dbUmidade').textContent =
+            numero(dados.umidade) + ' %';
+
+        document.getElementById('dbTotalRFID').textContent =
+            numero(dados.rfid_total, 0) === '--'
+                ? '0'
+                : numero(dados.rfid_total, 0);
+
+        document.getElementById('dbLeitorRFID').textContent =
+            dados.leitor_ativo
+                ? 'Leitor ativo'
+                : 'Sem leitura recente';
+
+        document.getElementById('dbTempHora').textContent =
+            dados.temperatura == null
+                ? 'Sem leitura disponível'
+                : 'Última leitura recebida';
+
+        document.getElementById('dbUmidHora').textContent =
+            dados.umidade == null
+                ? 'Sem leitura disponível'
+                : 'Última leitura recebida';
+
+        definirStatus('online', 'API conectada');
+    }
+
+    async function carregarSensores() {
+        const dados = await buscarJson('/api/sensores');
+
+        const lista = Array.isArray(dados)
+            ? dados
+            : (dados.sensores || []);
+
+        dadosTemperatura = lista;
+
+        const ultimo = lista.length
+            ? lista[lista.length - 1]
+            : null;
+
+        if (ultimo) {
+            if (ultimo.temperatura != null) {
+                document.getElementById('dbTemperatura').textContent =
+                    numero(ultimo.temperatura) + ' °C';
+            }
+
+            if (ultimo.umidade != null) {
+                document.getElementById('dbUmidade').textContent =
+                    numero(ultimo.umidade) + ' %';
+            }
+
+            document.getElementById('dbTempHora').textContent =
+                'Leitura: ' + horaCurta(ultimo.timestamp);
+
+            document.getElementById('dbUmidHora').textContent =
+                'Leitura: ' + horaCurta(ultimo.timestamp);
+        }
+
+        const recentes = lista.slice(-20);
+
+        const labels = recentes.map(function (item) {
+            return horaCurta(item.timestamp);
+        });
+
+        atualizarGrafico(
+            graficoTemperatura,
+            labels,
+            [{
+                label: 'Temperatura (°C)',
+                data: recentes.map(function (item) {
+                    return item.temperatura == null
+                        ? null
+                        : Number(item.temperatura);
+                }),
+                borderColor: '#f43f5e',
+                backgroundColor: 'rgba(244,63,94,.12)',
+                fill: true,
+                tension: .35,
+                spanGaps: true
+            }]
+        );
+
+        atualizarGrafico(
+            graficoUmidade,
+            labels,
+            [{
+                label: 'Umidade (%)',
+                data: recentes.map(function (item) {
+                    return item.umidade == null
+                        ? null
+                        : Number(item.umidade);
+                }),
+                borderColor: '#3b82f6',
+                backgroundColor: 'rgba(59,130,246,.12)',
+                fill: true,
+                tension: .35,
+                spanGaps: true
+            }]
+        );
+    }
+
+    async function carregarDistancia() {
+        const dados = await buscarJson('/api/distancia');
+
+        const lista = Array.isArray(dados)
+            ? dados
+            : (dados.distancia || []);
+
+        dadosDistancia = lista;
+
+        const ultimo = lista.length
+            ? lista[lista.length - 1]
+            : null;
+
+        if (ultimo && ultimo.distancia != null) {
+            document.getElementById('dbDistancia').textContent =
+                numero(ultimo.distancia) + ' cm';
+
+            document.getElementById('dbDistHora').textContent =
+                'Leitura: ' + horaCurta(ultimo.timestamp);
+        } else {
+            document.getElementById('dbDistancia').textContent = '-- cm';
+
+            document.getElementById('dbDistHora').textContent =
+                'Sem leitura disponível';
+        }
+
+        const recentes = lista.slice(-20);
+
+        atualizarGrafico(
+            graficoDistancia,
+            recentes.map(function (item) {
+                return horaCurta(item.timestamp);
+            }),
+            [{
+                label: 'Distância (cm)',
+                data: recentes.map(function (item) {
+                    return item.distancia == null
+                        ? null
+                        : Number(item.distancia);
+                }),
+                borderColor: '#8b5cf6',
+                backgroundColor: 'rgba(139,92,246,.12)',
+                fill: true,
+                tension: .35,
+                spanGaps: true
+            }]
+        );
+    }
+
+    async function carregarRFID() {
+        const dados = await buscarJson('/api/rfid');
+
+        const lista = Array.isArray(dados)
+            ? dados
+            : (dados.rfid || []);
+
+        dadosRFID = lista;
+
+        const tbody = document.getElementById('dbTabelaRFID');
+
+        document.getElementById('dbRfidQuantidade').textContent =
+            lista.length +
+            (lista.length === 1 ? ' registro' : ' registros');
+
+        if (!lista.length) {
+            tbody.innerHTML =
+                '<tr><td colspan="5" class="db-tabela-vazia">' +
+                'Nenhuma leitura RFID encontrada.</td></tr>';
+        } else {
+            tbody.innerHTML = lista.slice().reverse().slice(0, 12).map(
+                function (item) {
+                    const movimento = String(
+                        item.movimento || 'LEITURA'
+                    ).toUpperCase();
+
+                    const classe = movimento.includes('SAI')
+                        ? 'saida'
+                        : '';
+
+                    return '<tr>' +
+                        '<td>' + escapar(horaCompleta(item.timestamp)) + '</td>' +
+                        '<td>' + escapar(item.device_id || item.dispositivo || '--') + '</td>' +
+                        '<td><code>' + escapar(item.rfid_uid || '--') + '</code></td>' +
+                        '<td>' + escapar(item.produto || '--') + '</td>' +
+                        '<td><span class="db-movimento ' + classe + '">' +
+                        escapar(movimento) + '</span></td>' +
+                        '</tr>';
+                }
+            ).join('');
+        }
+
+        const ultimos = lista.slice(-20);
+
+        const entradas = ultimos.filter(function (item) {
+            return String(item.movimento || '')
+                .toUpperCase()
+                .includes('ENTR');
+        }).length;
+
+        const saidas = ultimos.filter(function (item) {
+            return String(item.movimento || '')
+                .toUpperCase()
+                .includes('SAI');
+        }).length;
+
+        atualizarGrafico(
+            graficoRFID,
+            ['Entradas', 'Saídas'],
+            [{
+                label: 'Movimentações',
+                data: [entradas, saidas],
+                backgroundColor: ['#10b981', '#f97316'],
+                borderRadius: 8,
+                maxBarThickness: 50
+            }]
+        );
+    }
+
+    function horaCompleta(valor) {
+        if (!valor) {
+            return '--';
+        }
+
+        const data = new Date(String(valor).replace(' ', 'T'));
+
+        return Number.isNaN(data.getTime())
+            ? String(valor)
+            : data.toLocaleString('pt-BR');
+    }
+
+    function escapar(valor) {
+        return String(valor == null ? '' : valor).replace(
+            /[&<>"']/g,
+            function (caractere) {
+                return {
+                    '&': '&amp;',
+                    '<': '&lt;',
+                    '>': '&gt;',
+                    '"': '&quot;',
+                    "'": '&#39;'
+                }[caractere];
+            }
+        );
+    }
+
+    async function atualizarPainelCompleto() {
+        try {
+            await Promise.all([
+                carregarResumo(),
+                carregarSensores(),
+                carregarDistancia(),
+                carregarRFID()
+            ]);
+
+            definirStatus('online', 'API conectada');
+        } catch (erro) {
+            console.error(
+                'Erro ao atualizar o monitoramento IoT:',
+                erro
+            );
+
+            definirStatus('offline', 'API indisponível');
+        }
+
+        document.getElementById('dbUltimaAtualizacao').textContent =
+            'Atualizado às ' + new Date().toLocaleTimeString('pt-BR');
+
+        atualizarCoresGraficos();
+    }
+
+    function atualizarCoresGraficos() {
+        [
+            graficoGeral,
+            graficoTemperatura,
+            graficoUmidade,
+            graficoDistancia,
+            graficoRFID
+        ].forEach(function (grafico) {
+            if (!grafico) {
+                return;
+            }
+
+            if (
+                grafico.options.plugins &&
+                grafico.options.plugins.legend
+            ) {
+                grafico.options.plugins.legend.labels.color =
+                    cores.texto();
+            }
+
+            if (grafico.options.scales) {
+                Object.keys(grafico.options.scales).forEach(
+                    function (eixo) {
+                        grafico.options.scales[eixo].ticks.color =
+                            cores.texto();
+
+                        if (grafico.options.scales[eixo].grid) {
+                            grafico.options.scales[eixo].grid.color =
+                                cores.grade();
+                        }
+                    }
+                );
+            }
+
+            grafico.update('none');
+        });
+    }
+
+    window.atualizarPainelCompleto = atualizarPainelCompleto;
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const labels = [
+            'Produtos',
+            'Estoque',
+            'Entradas',
+            'Saídas',
+            'Usuários',
+            'Sensores',
+            'Caminhões',
+            'Fornecedores'
+        ];
+
+        const valores = [
+            Number('{{ total_produtos|default(0) }}') || 0,
+            Number('{{ total_estoque|default(0) }}') || 0,
+            Number('{{ total_entradas|default(0) }}') || 0,
+            Number('{{ total_saidas|default(0) }}') || 0,
+            Number('{{ total_usuarios|default(0) }}') || 0,
+            Number('{{ total_sensores|default(0) }}') || 0,
+            Number('{{ total_caminhoes|default(0) }}') || 0,
+            Number('{{ total_fornecedor|default(0) }}') || 0
+        ];
+
+        graficoGeral = criarGrafico(
+            'dbGraficoGeral',
+            'bar',
+            labels,
+            [{
+                label: 'Quantidade',
+                data: valores,
+                backgroundColor: [
+                    '#3b82f6',
+                    '#10b981',
+                    '#06b6d4',
+                    '#f97316',
+                    '#8b5cf6',
+                    '#14b8a6',
+                    '#0ea5e9',
+                    '#6366f1'
+                ],
+                borderRadius: 7,
+                maxBarThickness: 42
+            }],
+            {
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        );
+
+        graficoTemperatura = criarGrafico(
+            'dbGraficoTemperatura',
+            'line',
+            [],
+            [{
+                label: 'Temperatura (°C)',
+                data: [],
+                borderColor: '#f43f5e',
+                backgroundColor: 'rgba(244,63,94,.12)',
+                fill: true,
+                tension: .35
+            }]
+        );
+
+        graficoUmidade = criarGrafico(
+            'dbGraficoUmidade',
+            'line',
+            [],
+            [{
+                label: 'Umidade (%)',
+                data: [],
+                borderColor: '#3b82f6',
+                backgroundColor: 'rgba(59,130,246,.12)',
+                fill: true,
+                tension: .35
+            }]
+        );
+
+        graficoDistancia = criarGrafico(
+            'dbGraficoDistancia',
+            'line',
+            [],
+            [{
+                label: 'Distância (cm)',
+                data: [],
+                borderColor: '#8b5cf6',
+                backgroundColor: 'rgba(139,92,246,.12)',
+                fill: true,
+                tension: .35
+            }]
+        );
+
+        graficoRFID = criarGrafico(
+            'dbGraficoRFID',
+            'bar',
+            ['Entradas', 'Saídas'],
+            [{
+                label: 'Movimentações',
+                data: [0, 0],
+                backgroundColor: ['#10b981', '#f97316'],
+                borderRadius: 8
+            }],
+            {
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        );
+
+        atualizarPainelCompleto();
+
+        window.setInterval(
+            atualizarPainelCompleto,
+            intervaloIot
+        );
+
+        const observador = new MutationObserver(
+            atualizarCoresGraficos
+        );
+
+        observador.observe(document.body, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+    });
+})();
+</script>
+{% endblock %}
