@@ -1,0 +1,2612 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BioTech Stock | Gestão Inteligente de Estoque</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-laddingpage.css') }}">
+
+
+    <style>
+        /* =========================================================
+           ACESSIBILIDADE
+        ========================================================== */
+
+        .acessibilidade {
+
+            position: fixed;
+
+            right: 20px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+
+            z-index: 9999;
+
+            background: rgba(255, 255, 255, 0.95);
+
+            padding: 8px;
+
+            border-radius: 14px;
+
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.20);
+
+            border: 1px solid #dbe5ee;
+
+        }
+
+
+        .acessibilidade button {
+
+            width: 45px;
+
+            height: 45px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: #1f4e79;
+
+            color: white;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+
+        }
+
+
+        .acessibilidade button:hover {
+
+            background: #408cce;
+
+            transform: scale(1.08);
+
+        }
+
+
+        .acessibilidade button:active {
+
+            transform: scale(0.95);
+
+        }
+
+
+        /* =========================================================
+   AUMENTO E DIMINUIÇÃO DAS LETRAS
+========================================================== */
+
+        body {
+            --tamanho-fonte: 100%;
+        }
+
+        body.fonte-personalizada {
+            font-size: var(--tamanho-fonte);
+        }
+
+        /* =========================================================
+           ALTO CONTRASTE
+        ========================================================== */
+
+        body.alto-contraste {
+
+            background: #000 !important;
+
+            color: #fff !important;
+
+        }
+
+
+        body.alto-contraste .header,
+
+        body.alto-contraste section,
+
+        body.alto-contraste footer {
+
+            background: #000 !important;
+
+            color: #fff !important;
+
+        }
+
+
+        body.alto-contraste h1,
+
+        body.alto-contraste h2,
+
+        body.alto-contraste h3,
+
+        body.alto-contraste p,
+
+        body.alto-contraste span,
+
+        body.alto-contraste a,
+
+        body.alto-contraste li {
+
+            color: #fff !important;
+
+        }
+
+
+        body.alto-contraste .highlight {
+
+            color: #ffff00 !important;
+
+        }
+
+
+        body.alto-contraste button,
+
+        body.alto-contraste .btn-principal,
+
+        body.alto-contraste .btn-secundario,
+
+        body.alto-contraste .btn-plano,
+
+        body.alto-contraste .video-button,
+
+        body.alto-contraste .btn-enviar {
+
+            background: #ffff00 !important;
+
+            color: #000 !important;
+
+            border: 2px solid #fff !important;
+
+        }
+
+
+        body.alto-contraste input,
+
+        body.alto-contraste textarea {
+
+            background: #000 !important;
+
+            color: #fff !important;
+
+            border: 2px solid #fff !important;
+
+        }
+
+
+        /* =========================================================
+           MODO ESCURO
+        ========================================================== */
+
+        body.modo-escuro {
+
+            background: #0f1b2d !important;
+
+            color: #f4f8fc !important;
+
+        }
+
+
+        /* HEADER */
+
+        body.modo-escuro .header {
+
+            background: linear-gradient(135deg,
+                    #173a5f,
+                    #1f5f95,
+                    #0d2945) !important;
+
+        }
+
+
+        body.modo-escuro .menu a {
+
+            color: #eaf4fc !important;
+
+        }
+
+
+        body.modo-escuro .menu a:hover {
+
+            color: #70c2f4 !important;
+
+        }
+
+
+        /* HERO */
+
+        body.modo-escuro .main-container {
+
+            background:
+                radial-gradient(circle at 80% 30%,
+                    rgba(64, 140, 206, .18),
+                    transparent 35%),
+                linear-gradient(135deg,
+                    #132238,
+                    #162b42) !important;
+
+            color: #f4f8fc !important;
+
+        }
+
+
+        body.modo-escuro .main-container h1,
+
+        body.modo-escuro .main-container h2,
+
+        body.modo-escuro .main-container p {
+
+            color: #f4f8fc !important;
+
+        }
+
+
+        body.modo-escuro .highlight {
+
+            color: #60b4f2 !important;
+
+        }
+
+
+        body.modo-escuro .hero-tag {
+
+            background: rgba(64, 140, 206, .15) !important;
+
+            border: 1px solid #38678a !important;
+
+            color: #8fd2ff !important;
+
+        }
+
+
+        body.modo-escuro .hero-info {
+
+            color: #b8c7d8 !important;
+
+        }
+
+
+        body.modo-escuro .btn-principal {
+
+            background: linear-gradient(135deg,
+                    #2f7fc1,
+                    #56a9e7) !important;
+
+            color: white !important;
+
+        }
+
+
+        body.modo-escuro .btn-secundario {
+
+            background: transparent !important;
+
+            border: 1px solid #4d7392 !important;
+
+            color: #dcecf8 !important;
+
+        }
+
+
+        body.modo-escuro .image-frame,
+
+        body.modo-escuro .floating-card {
+
+            background: linear-gradient(145deg,
+                    #1b3048,
+                    #223d58) !important;
+
+            border-color: #38566f !important;
+
+            color: #f4f8fc !important;
+
+        }
+
+
+        /* SOBRE */
+
+        body.modo-escuro #sobre {
+
+            background: #14253a !important;
+
+            color: #f4f8fc !important;
+
+        }
+
+
+        body.modo-escuro .sobre-txt h2,
+
+        body.modo-escuro .sobre-txt p,
+
+        body.modo-escuro .sobre-beneficios p {
+
+            color: #f4f8fc !important;
+
+        }
+
+
+        body.modo-escuro .mini-title,
+
+        body.modo-escuro .section-label {
+
+            color: #70c2f4 !important;
+
+        }
+
+
+        /* INDICADORES */
+
+        body.modo-escuro #indicadores {
+
+            background: linear-gradient(180deg,
+                    #14273c,
+                    #182f47) !important;
+
+        }
+
+
+        body.modo-escuro .section-heading h2,
+
+        body.modo-escuro .section-heading p {
+
+            color: #f4f8fc !important;
+
+        }
+
+
+        body.modo-escuro .indicador-card {
+
+            background: linear-gradient(145deg,
+                    #1b3048,
+                    #223d58) !important;
+
+            border: 1px solid #38566f !important;
+
+            color: #f4f8fc !important;
+
+        }
+
+
+        body.modo-escuro .indicador-card h3,
+
+        body.modo-escuro .indicador-card p,
+
+        body.modo-escuro .indicador-card span {
+
+            color: #f4f8fc !important;
+
+        }
+
+
+        /* PRODUTOS */
+
+        body.modo-escuro .produtos {
+
+            background: #14273c !important;
+
+        }
+
+
+        body.modo-escuro .produto {
+
+            background: linear-gradient(145deg,
+                    #1b3048,
+                    #223d58) !important;
+
+            border: 1px solid #38566f !important;
+
+        }
+
+
+        body.modo-escuro .produto-content h3,
+
+        body.modo-escuro .produto-content p {
+
+            color: #f4f8fc !important;
+
+        }
+
+
+        body.modo-escuro .produto-tag {
+
+            color: #8fd2ff !important;
+
+        }
+
+
+        /* PLANOS */
+
+        body.modo-escuro #planos {
+
+            background: #0f1b2d !important;
+
+        }
+
+
+        body.modo-escuro .planos-header h2,
+
+        body.modo-escuro .planos-header p {
+
+            color: #f4f8fc !important;
+
+        }
+
+
+        body.modo-escuro .planos-tag {
+
+            color: #8fd2ff !important;
+
+        }
+
+
+        body.modo-escuro .plano {
+
+            border-color: #38566f !important;
+
+        }
+
+
+        /* CONTATO */
+
+        body.modo-escuro #contato {
+
+            background: linear-gradient(135deg,
+                    #14273c,
+                    #172f47) !important;
+
+        }
+
+
+        body.modo-escuro .contato-header h2,
+
+        body.modo-escuro .contato-header p {
+
+            color: #f4f8fc !important;
+
+        }
+
+
+        body.modo-escuro .contato2 {
+
+            background: linear-gradient(145deg,
+                    #1b3048,
+                    #223d58) !important;
+
+            border: 1px solid #38566f !important;
+
+        }
+
+
+        body.modo-escuro .input-group label {
+
+            color: #dce7f0 !important;
+
+        }
+
+
+        body.modo-escuro input,
+
+        body.modo-escuro textarea {
+
+            background: #14273c !important;
+
+            border: 1px solid #38566f !important;
+
+            color: #f4f8fc !important;
+
+        }
+
+
+        body.modo-escuro input::placeholder,
+
+        body.modo-escuro textarea::placeholder {
+
+            color: #8096aa !important;
+
+        }
+
+
+        body.modo-escuro .btn-enviar {
+
+            background: linear-gradient(135deg,
+                    #2f7fc1,
+                    #56a9e7) !important;
+
+            color: white !important;
+
+        }
+
+
+        /* FOOTER */
+
+        body.modo-escuro .rodape {
+
+            background: linear-gradient(135deg,
+                    #091b2e,
+                    #102f4a,
+                    #15456a) !important;
+
+            color: #f4f8fc !important;
+
+        }
+
+
+        body.modo-escuro .footer-links a,
+
+        body.modo-escuro .footer1 h3,
+
+        body.modo-escuro .footer1 address,
+
+        body.modo-escuro .footer1 address a,
+
+        body.modo-escuro .footer-brand p {
+
+            color: #dce7f0 !important;
+
+        }
+
+
+        /* =========================================================
+           VLibras
+        ========================================================== */
+
+        .vlibras-wrapper {
+
+            position: fixed;
+
+            left: 20px;
+
+            bottom: 20px;
+
+            z-index: 9999;
+
+        }
+
+
+        /* =========================================================
+           RESPONSIVO - ACESSIBILIDADE
+        ========================================================== */
+
+        @media (max-width: 700px) {
+
+            .acessibilidade {
+
+                right: 10px;
+
+                top: auto;
+
+                bottom: 20px;
+
+                transform: none;
+
+            }
+
+
+            .acessibilidade button {
+
+                width: 40px;
+
+                height: 40px;
+
+                font-size: 16px;
+
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+         HEADER
+    ========================================================== -->
+
+    <header class="header">
+
+        <div id="logo">
+
+            <a href="#inicio">
+
+                <img src="{{ url_for('static', filename='imagens-laddingpage/logobranca2.png') }}" alt="BioTech Stock">
+
+            </a>
+
+        </div>
+
+
+        <nav class="menu">
+
+            <ul>
+
+                <li>
+
+                    <a href="#inicio">
+                        Início
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="#sobre">
+                        Sobre Nós
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="#produtos">
+                        Produtos
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="#planos">
+                        Planos
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="#contato">
+                        Contato
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="{{ url_for('login') }}" id="btn-header">
+
+                        Área do cliente
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =========================================================
+         WHATSAPP
+    ========================================================== -->
+
+    <a href="https://web.whatsapp.com/" id="whatsapp_fixo" target="_blank" rel="noopener noreferrer"
+        aria-label="Falar pelo WhatsApp">
+
+        <img src="{{ url_for('static', filename='imagens-laddingpage/whatsapp.png') }}" alt="WhatsApp">
+
+    </a>
+
+
+
+    <main>
+
+
+        <!-- =====================================================
+             HERO
+        ====================================================== -->
+
+        <section id="inicio" class="main-container">
+
+            <div class="hero-glow"></div>
+
+
+            <div class="main-texto">
+
+                <span class="hero-tag">
+
+                    TECNOLOGIA PARA ESTOQUES INTELIGENTES
+
+                </span>
+
+
+                <h2 id="nome_empresa">
+
+                    BioTech Stock
+
+                </h2>
+
+
+                <h1>
+
+                    Gestão
+
+                    <span class="highlight">
+                        Inteligente
+                    </span>
+
+                    de Estoque
+
+                </h1>
+
+
+                <p>
+
+                    Plataforma integrada de controle de estoque com
+                    sensores inteligentes, monitoramento em tempo real
+                    e previsão de reabastecimento para empresas.
+
+                </p>
+
+
+                <div class="hero-botoes">
+
+                    <a href="#planos">
+
+                        <button class="btn-principal">
+
+                            Começar Agora
+
+                            <span>→</span>
+
+                        </button>
+
+                    </a>
+
+
+                    <a href="#sobre" class="btn-secundario">
+
+                        Conheça a BioTech
+
+                    </a>
+
+                </div>
+
+
+                <div class="hero-info">
+
+                    <div>
+
+                        <strong>24/7</strong>
+
+                        <span>
+                            Monitoramento
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>100%</strong>
+
+                        <span>
+                            Controle
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        <strong>Smart</strong>
+
+                        <span>
+                            Tecnologia
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="main-img">
+
+                <div class="image-decoration decoration-one"></div>
+
+                <div class="image-decoration decoration-two"></div>
+
+
+                <div class="image-frame">
+
+                    <div class="image-status">
+
+                        <span class="status-dot"></span>
+
+                        Sistema operacional
+
+                    </div>
+
+
+                    <img src="{{ url_for('static', filename='imagens-laddingpage/foto2.png') }}"
+                        alt="Sistema BioTech Stock">
+
+                </div>
+
+
+                <div class="floating-card floating-card-one">
+
+                    <span class="floating-icon">
+                        ✓
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Estoque seguro
+                        </strong>
+
+                        <small>
+                            Monitoramento ativo
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="floating-card floating-card-two">
+
+                    <span class="floating-icon">
+                        ↗
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Dados em tempo real
+                        </strong>
+
+                        <small>
+                            Atualização automática
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             SOBRE
+        ====================================================== -->
+
+        <section id="sobre">
+
+            <div class="section-label">
+
+                SOBRE A BIOTECH
+
+            </div>
+
+
+            <div class="sobre-container">
+
+
+                <div class="sobre-img">
+
+                    <div class="sobre-img-decoration"></div>
+
+
+                    <img src="{{ url_for('static', filename='imagens-laddingpage/fotofundo.png') }}"
+                        alt="Laboratório BioTech Stock">
+
+
+                    <div class="sobre-badge">
+
+                        <strong>
+                            +100%
+                        </strong>
+
+                        <span>
+                            Controle operacional
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="sobre-txt">
+
+                    <span class="mini-title">
+
+                        INOVAÇÃO E PRECISÃO
+
+                    </span>
+
+
+                    <h2>
+
+                        Tecnologia que transforma
+                        a gestão do seu estoque
+
+                    </h2>
+
+
+                    <p>
+
+                        A BioTech Stock desenvolve soluções inteligentes
+                        de monitoramento e gestão de estoque para empresas
+                        de biotecnologia, laboratórios e indústrias
+                        farmacêuticas.
+
+                    </p>
+
+
+                    <p>
+
+                        Utilizamos sensores, automação e análise de dados
+                        para controlar quantidade, validade, lote e
+                        condições ambientais em tempo real.
+
+                    </p>
+
+
+                    <p>
+
+                        Nosso sistema reduz erros, evita desperdícios e
+                        aumenta a segurança e a eficiência da operação.
+
+                    </p>
+
+
+                    <div class="sobre-beneficios">
+
+                        <div>
+
+                            <span>✓</span>
+
+                            <p>
+                                Controle em tempo real
+                            </p>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>✓</span>
+
+                            <p>
+                                Redução de desperdícios
+                            </p>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>✓</span>
+
+                            <p>
+                                Maior segurança operacional
+                            </p>
+
+                        </div>
+
+
+                        <div>
+
+                            <span>✓</span>
+
+                            <p>
+                                Gestão inteligente
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             VÍDEO
+        ====================================================== -->
+
+        <section id="parallax-video">
+
+            <video autoplay muted loop playsinline id="bg-video">
+
+                <source src="{{ url_for('static', filename='imagens-laddingpage/videoprincipal.mp4') }}"
+                    type="video/mp4">
+
+            </video>
+
+
+            <div class="video-overlay"></div>
+
+
+            <div class="parallax-text">
+
+                <span class="video-tag">
+
+                    BIOTECH STOCK
+
+                </span>
+
+
+                <h2>
+
+                    Tecnologia e Inovação
+
+                </h2>
+
+
+                <p>
+
+                    Monitoramento inteligente que trabalha por você.
+
+                </p>
+
+
+                <a href="#planos" class="video-button">
+
+                    Conheça nossas soluções
+
+                    <span>→</span>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             INDICADORES
+        ====================================================== -->
+
+        <section id="indicadores">
+
+            <div class="section-heading">
+
+                <span class="section-label">
+
+                    MONITORAMENTO
+
+                </span>
+
+
+                <h2>
+
+                    Indicadores em tempo real
+
+                </h2>
+
+
+                <p class="desc-indicadores">
+
+                    Acompanhe os principais dados da sua operação
+                    de forma rápida, visual e inteligente.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="indicadores2">
+
+
+                <div class="card indicador-card">
+
+                    <div class="card-top">
+
+                        <div class="indicador-icon temperature">
+
+                            °C
+
+                        </div>
+
+
+                        <span class="indicador-status">
+
+                            ATIVO
+
+                        </span>
+
+                    </div>
+
+
+                    <h3>
+                        Temperatura
+                    </h3>
+
+
+                    <p class="val">
+                        3°
+                    </p>
+
+
+                    <div class="indicador-bottom">
+
+                        <span class="status-green"></span>
+
+                        Estável
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="card indicador-card">
+
+                    <div class="card-top">
+
+                        <div class="indicador-icon validade">
+
+                            ✓
+
+                        </div>
+
+
+                        <span class="indicador-status">
+
+                            OK
+
+                        </span>
+
+                    </div>
+
+
+                    <h3>
+                        Validade
+                    </h3>
+
+
+                    <p class="val">
+                        98%
+                    </p>
+
+
+                    <div class="indicador-bottom">
+
+                        <span class="status-green"></span>
+
+                        Confiável
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="card indicador-card">
+
+                    <div class="card-top">
+
+                        <div class="indicador-icon estoque">
+
+                            ▦
+
+                        </div>
+
+
+                        <span class="indicador-status">
+
+                            ATIVO
+
+                        </span>
+
+                    </div>
+
+
+                    <h3>
+                        Estoque
+                    </h3>
+
+
+                    <p class="val">
+                        12.675
+                    </p>
+
+
+                    <div class="indicador-bottom">
+
+                        <span class="status-green"></span>
+
+                        Itens disponíveis
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="card indicador-card">
+
+                    <div class="card-top">
+
+                        <div class="indicador-icon alertas">
+
+                            !
+
+                        </div>
+
+
+                        <span class="indicador-status">
+
+                            SEGURO
+
+                        </span>
+
+                    </div>
+
+
+                    <h3>
+                        Alertas
+                    </h3>
+
+
+                    <p class="val">
+                        0
+                    </p>
+
+
+                    <div class="indicador-bottom">
+
+                        <span class="status-green"></span>
+
+                        Nenhum alerta
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             PRODUTOS
+        ====================================================== -->
+
+        <section id="produtos" class="produtos">
+
+            <div class="section-heading">
+
+                <span class="section-label">
+
+                    NOSSO CATÁLOGO
+
+                </span>
+
+
+                <h2>
+
+                    Nossos produtos
+
+                </h2>
+
+
+                <p>
+
+                    Produtos e soluções para uma operação biomédica
+                    mais eficiente e segura.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="produtos2">
+
+
+                <article class="produto">
+
+                    <div class="produto-img">
+
+                        <img src="{{ url_for('static', filename='imagens-laddingpage/teste-rapido.png') }}"
+                            alt="Kits de testes rápidos">
+
+
+                        <span class="produto-number">
+
+                            01
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="produto-content">
+
+                        <span class="produto-tag">
+
+                            DIAGNÓSTICO
+
+                        </span>
+
+
+                        <h3>
+
+                            Kits de Testes Rápidos
+
+                        </h3>
+
+
+                        <p>
+
+                            COVID-19, Dengue, Influenza e outros
+                            diagnósticos imediatos.
+
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+
+                <article class="produto">
+
+                    <div class="produto-img">
+
+                        <img src="{{ url_for('static', filename='imagens-laddingpage/reajentes-quimicos.png') }}"
+                            alt="Reagentes laboratoriais">
+
+
+                        <span class="produto-number">
+
+                            02
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="produto-content">
+
+                        <span class="produto-tag">
+
+                            LABORATÓRIO
+
+                        </span>
+
+
+                        <h3>
+
+                            Reagentes Laboratoriais
+
+                        </h3>
+
+
+                        <p>
+
+                            Reagentes de alta precisão para análises
+                            biomoleculares.
+
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+
+                <article class="produto">
+
+                    <div class="produto-img">
+
+                        <img src="{{ url_for('static', filename='imagens-laddingpage/equipamentos-biomoleculares.png') }}"
+                            alt="Equipamentos biomoleculares">
+
+
+                        <span class="produto-number">
+
+                            03
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="produto-content">
+
+                        <span class="produto-tag">
+
+                            EQUIPAMENTOS
+
+                        </span>
+
+
+                        <h3>
+
+                            Equipamentos Biomoleculares
+
+                        </h3>
+
+
+                        <p>
+
+                            Espectrofotômetros, centrífugas e
+                            leitores de placas.
+
+                        </p>
+
+                    </div>
+
+                </article>
+
+
+
+                <article class="produto">
+
+                    <div class="produto-img">
+
+                        <img src="{{ url_for('static', filename='imagens-laddingpage/armazem.png') }}"
+                            alt="Armazenamento e conservação">
+
+
+                        <span class="produto-number">
+
+                            04
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="produto-content">
+
+                        <span class="produto-tag">
+
+                            CONSERVAÇÃO
+
+                        </span>
+
+
+                        <h3>
+
+                            Armazenamento e Conservação
+
+                        </h3>
+
+
+                        <p>
+
+                            Freezers, criotubos e sistemas de
+                            cadeia fria.
+
+                        </p>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             PLANOS
+        ====================================================== -->
+
+        <section id="planos" class="planos-section">
+
+            <div class="planos-bg-circle circle-one"></div>
+
+            <div class="planos-bg-circle circle-two"></div>
+
+
+            <div class="planos-header">
+
+                <span class="planos-tag">
+
+                    SOLUÇÕES BIOTECH STOCK
+
+                </span>
+
+
+                <h2>
+
+                    Escolha o nível de gestão
+
+                    <span>
+                        ideal para sua operação
+                    </span>
+
+                </h2>
+
+
+                <p>
+
+                    Tenha mais controle, segurança e inteligência
+                    para administrar seu estoque de forma eficiente.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="planos-container">
+
+
+                <!-- PLANO 1 -->
+
+                <article class="plano plano-essencial">
+
+                    <div class="plano-decoration"></div>
+
+
+                    <div class="plano-topo">
+
+                        <div class="plano-icone">
+
+                            ◈
+
+                        </div>
+
+
+                        <span class="plano-nivel">
+
+                            NÍVEL 01
+
+                        </span>
+
+
+                        <h3>
+
+                            Controle
+
+                        </h3>
+
+
+                        <p class="plano-subtitulo">
+
+                            O essencial para começar
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="plano-preco">
+
+                        <small>R$</small>
+
+                        <strong>
+                            49,90
+                        </strong>
+
+                        <span>
+                            /mês
+                        </span>
+
+                    </div>
+
+
+                    <div class="plano-linha"></div>
+
+
+                    <ul class="plano-recursos">
+
+                        <li>
+
+                            <span class="check">✓</span>
+
+                            Cadastro de produtos
+
+                        </li>
+
+
+                        <li>
+
+                            <span class="check">✓</span>
+
+                            Controle de estoque
+
+                        </li>
+
+
+                        <li>
+
+                            <span class="check">✓</span>
+
+                            Entrada e saída de produtos
+
+                        </li>
+
+
+                        <li>
+
+                            <span class="check">✓</span>
+
+                            Cadastro de fornecedores
+
+                        </li>
+
+
+                        <li class="indisponivel">
+
+                            <span class="x">×</span>
+
+                            Gestão avançada de usuários
+
+                        </li>
+
+
+                        <li class="indisponivel">
+
+                            <span class="x">×</span>
+
+                            Monitoramento inteligente
+
+                        </li>
+
+                    </ul>
+
+
+                    <a href="{{ url_for('pagamento', plano='controle') }}" class="btn-plano">
+
+                        Escolher Controle
+
+                        <span>→</span>
+
+                    </a>
+
+                </article>
+
+
+
+                <!-- PLANO 2 -->
+
+                <article class="plano plano-gestao destaque">
+
+                    <div class="plano-popular">
+
+                        MAIS POPULAR
+
+                    </div>
+
+
+                    <div class="plano-decoration"></div>
+
+
+                    <div class="plano-topo">
+
+                        <div class="plano-icone">
+
+                            ◆
+
+                        </div>
+
+
+                        <span class="plano-nivel">
+
+                            NÍVEL 02
+
+                        </span>
+
+
+                        <h3>
+
+                            Gestão
+
+                        </h3>
+
+
+                        <p class="plano-subtitulo">
+
+                            Gestão profissional e integrada
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="plano-preco">
+
+                        <small>R$</small>
+
+                        <strong>
+                            99,90
+                        </strong>
+
+                        <span>
+                            /mês
+                        </span>
+
+                    </div>
+
+
+                    <div class="plano-linha"></div>
+
+
+                    <ul class="plano-recursos">
+
+                        <li>
+
+                            <span class="check">✓</span>
+
+                            Tudo do plano Controle
+
+                        </li>
+
+
+                        <li>
+
+                            <span class="check">✓</span>
+
+                            Gestão de usuários e funcionários
+
+                        </li>
+
+
+                        <li>
+
+                            <span class="check">✓</span>
+
+                            Controle de pedidos
+
+                        </li>
+
+
+                        <li>
+
+                            <span class="check">✓</span>
+
+                            Gestão de localizações
+
+                        </li>
+
+
+                        <li>
+
+                            <span class="check">✓</span>
+
+                            Dashboard com indicadores
+
+                        </li>
+
+
+                        <li>
+
+                            <span class="check">✓</span>
+
+                            Gestão de fornecedores e clientes
+
+                        </li>
+
+                    </ul>
+
+
+                    <a href="{{ url_for('pagamento', plano='gestao') }}" class="btn-plano">
+
+                        Escolher Gestão
+
+                        <span>→</span>
+
+                    </a>
+
+                </article>
+
+
+
+                <!-- PLANO 3 -->
+
+                <article class="plano plano-inteligencia">
+
+                    <div class="plano-decoration"></div>
+
+
+                    <div class="plano-topo">
+
+                        <div class="plano-icone">
+
+                            ✦
+
+                        </div>
+
+
+                        <span class="plano-nivel">
+
+                            NÍVEL 03
+
+                        </span>
+
+
+                        <h3>
+
+                            Inteligência
+
+                        </h3>
+
+
+                        <p class="plano-subtitulo">
+
+                            Tecnologia para operações avançadas
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="plano-preco">
+
+                        <small>R$</small>
+
+                        <strong>
+                            149,90
+                        </strong>
+
+                        <span>
+                            /mês
+                        </span>
+
+                    </div>
+
+
+                    <div class="plano-linha"></div>
+
+
+                    <ul class="plano-recursos">
+
+                        <li>
+
+                            <span class="check">✓</span>
+
+                            Tudo do plano Gestão
+
+                        </li>
+
+
+                        <li>
+
+                            <span class="check">✓</span>
+
+                            Monitoramento por sensores
+
+                        </li>
+
+
+                        <li>
+
+                            <span class="check">✓</span>
+
+                            Dados em tempo real
+
+                        </li>
+
+
+                        <li>
+
+                            <span class="check">✓</span>
+
+                            Controle inteligente do estoque
+
+                        </li>
+
+
+                        <li>
+
+                            <span class="check">✓</span>
+
+                            Gestão completa da operação
+
+                        </li>
+
+
+                        <li>
+
+                            <span class="check">✓</span>
+
+                            Estrutura preparada para automação
+
+                        </li>
+
+                    </ul>
+
+
+                    <a href="{{ url_for('pagamento', plano='inteligencia') }}" class="btn-plano">
+
+                        Escolher Inteligência
+
+                        <span>→</span>
+
+                    </a>
+
+                </article>
+
+            </div>
+
+
+            <div class="planos-footer">
+
+                <span>✓</span>
+
+                Todos os planos contam com suporte e segurança
+                para seus dados.
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =====================================================
+             CONTATO
+        ====================================================== -->
+
+        <section id="contato">
+
+            <div class="contato">
+
+                <div class="contato-header">
+
+                    <span class="section-label">
+
+                        FALE CONOSCO
+
+                    </span>
+
+
+                    <h2>
+
+                        Entre em contato
+                        <span>conosco!</span>
+
+                    </h2>
+
+
+                    <p>
+
+                        Fale com nossa equipe para tirar dúvidas
+                        e conhecer melhor nossas soluções.
+
+                    </p>
+
+                </div>
+
+
+                <form class="contato2">
+
+                    <div class="input-group">
+
+                        <label for="nome">
+
+                            Nome
+
+                        </label>
+
+
+                        <input type="text" id="nome" name="nome" placeholder="Digite seu nome">
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="email">
+
+                            E-mail
+
+                        </label>
+
+
+                        <input type="email" id="email" name="email" placeholder="Digite seu e-mail">
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label for="mensagem">
+
+                            Mensagem
+
+                        </label>
+
+
+                        <textarea id="mensagem" name="mensagem" rows="5" placeholder="Digite sua mensagem"></textarea>
+
+                    </div>
+
+
+                    <button type="submit" class="btn-enviar">
+
+                        Enviar mensagem
+
+                        <span>→</span>
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================================================
+         RODAPÉ
+    ========================================================== -->
+
+    <footer class="rodape">
+
+        <div class="footer">
+
+
+            <div class="footer-brand">
+
+                <img src="{{ url_for('static', filename='imagens-laddingpage/logobranca2.png') }}" alt="BioTech Stock">
+
+
+                <p>
+
+                    Gestão inteligente para estoques
+                    mais seguros, eficientes e conectados.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="footer1">
+
+                <h3>
+
+                    Navegação
+
+                </h3>
+
+
+                <nav class="footer-links">
+
+                    <a href="#inicio">
+                        Início
+                    </a>
+
+                    <a href="#sobre">
+                        Sobre Nós
+                    </a>
+
+                    <a href="#produtos">
+                        Produtos
+                    </a>
+
+                    <a href="#planos">
+                        Planos
+                    </a>
+
+                    <a href="#contato">
+                        Contato
+                    </a>
+
+                </nav>
+
+            </div>
+
+
+
+            <div class="footer1">
+
+                <h3>
+
+                    Siga-nos
+
+                </h3>
+
+
+                <nav class="redes">
+
+
+                    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+
+                        <img src="{{ url_for('static', filename='imagens-laddingpage/facebook.png') }}" alt="Facebook">
+
+                    </a>
+
+
+
+                    <a href="https://www.instagram.com/biotech.stock/" target="_blank" rel="noopener noreferrer">
+
+                        <img src="{{ url_for('static', filename='imagens-laddingpage/insta.png') }}" alt="Instagram">
+
+                    </a>
+
+
+
+                    <a href="https://web.whatsapp.com/" target="_blank" rel="noopener noreferrer">
+
+                        <img src="{{ url_for('static', filename='imagens-laddingpage/whatsapp.png') }}" alt="WhatsApp">
+
+                    </a>
+
+                </nav>
+
+            </div>
+
+
+
+            <div class="footer1">
+
+                <h3>
+
+                    Contato
+
+                </h3>
+
+
+                <address>
+
+                    Rua Mateo Forte, nº 216<br>
+
+                    São Paulo - SP<br>
+
+
+                    <a href="tel:+5519991934692">
+
+                        📞 (19) 9 99193-4692
+
+                    </a>
+
+                    <br>
+
+
+                    <a href="mailto:biotechstockbr@gmail.com">
+
+                        ✉️ biotechstockbr@gmail.com
+
+                    </a>
+
+                </address>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <p>
+
+                © 2026 BioTech Stock.
+                Todos os direitos reservados.
+
+            </p>
+
+
+            <span>
+
+                Gestão • Tecnologia • Inovação
+
+            </span>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =========================================================
+         BOTÕES DE ACESSIBILIDADE
+    ========================================================== -->
+
+    <div class="acessibilidade">
+
+        <button type="button" id="btn-fonte-aumentar" title="Aumentar letras" aria-label="Aumentar tamanho das letras">
+
+            A+
+
+        </button>
+
+
+        <button type="button" id="btn-fonte-diminuir" title="Diminuir letras" aria-label="Diminuir tamanho das letras">
+
+            A−
+
+        </button>
+
+
+        <button type="button" id="btn-fonte-normal" title="Tamanho normal"
+            aria-label="Voltar tamanho normal das letras">
+
+            A
+
+        </button>
+
+
+        <button type="button" id="btn-contraste" title="Alto contraste" aria-label="Ativar alto contraste">
+
+            ◐
+
+        </button>
+
+
+        <button type="button" id="btn-escuro" title="Modo escuro" aria-label="Ativar modo escuro">
+
+            ☾
+
+        </button>
+
+    </div>
+
+
+
+    <!-- =========================================================
+         VLibras
+    ========================================================== -->
+
+    <div vw class="enabled">
+
+        <div vw-access-button class="active"></div>
+
+        <div vw-plugin-wrapper>
+
+            <div class="vw-plugin-top-wrapper"></div>
+
+        </div>
+
+    </div>
+
+
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+
+
+    <script>
+
+        new window.VLibras.Widget(
+            "https://vlibras.gov.br/app"
+        );
+
+
+        /* =========================================================
+           ELEMENTOS
+        ========================================================== */
+
+        const body = document.body;
+
+        const btnAumentar =
+            document.getElementById("btn-fonte-aumentar");
+
+        const btnDiminuir =
+            document.getElementById("btn-fonte-diminuir");
+
+        const btnNormal =
+            document.getElementById("btn-fonte-normal");
+
+        const btnContraste =
+            document.getElementById("btn-contraste");
+
+        const btnEscuro =
+            document.getElementById("btn-escuro");
+
+
+
+        /* =========================================================
+           MODO ESCURO
+        ========================================================== */
+
+        if (
+            localStorage.getItem("temaLanding")
+            === "escuro"
+        ) {
+
+            body.classList.add("modo-escuro");
+
+        }
+
+
+        btnEscuro.addEventListener(
+            "click",
+            function () {
+
+                body.classList.toggle(
+                    "modo-escuro"
+                );
+
+
+                if (
+                    body.classList.contains(
+                        "modo-escuro"
+                    )
+                ) {
+
+                    localStorage.setItem(
+                        "temaLanding",
+                        "escuro"
+                    );
+
+                } else {
+
+                    localStorage.setItem(
+                        "temaLanding",
+                        "claro"
+                    );
+
+                }
+
+            }
+        );
+
+
+
+        /* =========================================================
+           ALTO CONTRASTE
+        ========================================================== */
+
+        if (
+            localStorage.getItem(
+                "contrasteLanding"
+            ) === "ativo"
+        ) {
+
+            body.classList.add(
+                "alto-contraste"
+            );
+
+        }
+
+
+        btnContraste.addEventListener(
+            "click",
+            function () {
+
+                body.classList.toggle(
+                    "alto-contraste"
+                );
+
+
+                if (
+                    body.classList.contains(
+                        "alto-contraste"
+                    )
+                ) {
+
+                    localStorage.setItem(
+                        "contrasteLanding",
+                        "ativo"
+                    );
+
+                } else {
+
+                    localStorage.setItem(
+                        "contrasteLanding",
+                        "normal"
+                    );
+
+                }
+
+            }
+        );
+
+
+
+
+
+        /* =========================================================
+TAMANHO DAS LETRAS
+========================================================= */
+
+        let tamanhoFonte = localStorage.getItem(
+            "tamanhoFonteLanding"
+        );
+
+        if (tamanhoFonte === null) {
+
+            tamanhoFonte = 100;
+
+        } else {
+
+            tamanhoFonte = Number(tamanhoFonte);
+
+        }
+
+
+        function atualizarFonte() {
+
+            body.style.fontSize =
+                tamanhoFonte + "%";
+
+            localStorage.setItem(
+                "tamanhoFonteLanding",
+                tamanhoFonte
+            );
+
+        }
+
+
+        /* =========================================================
+           AUMENTAR LETRAS
+        ========================================================= */
+
+        btnAumentar.addEventListener(
+            "click",
+            function () {
+
+                if (tamanhoFonte < 160) {
+
+                    tamanhoFonte = tamanhoFonte + 10;
+
+                    atualizarFonte();
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           DIMINUIR LETRAS
+        ========================================================= */
+
+        btnDiminuir.addEventListener(
+            "click",
+            function () {
+
+                if (tamanhoFonte > 70) {
+
+                    tamanhoFonte = tamanhoFonte - 10;
+
+                    atualizarFonte();
+
+                }
+
+            }
+        );
+
+
+        /* =========================================================
+           TAMANHO NORMAL
+        ========================================================= */
+
+        btnNormal.addEventListener(
+            "click",
+            function () {
+
+                tamanhoFonte = 100;
+
+                atualizarFonte();
+
+            }
+        );
+
+
+        /* =========================================================
+           RECUPERAR TAMANHO SALVO
+        ========================================================= */
+
+        atualizarFonte();
+        /* =========================================================
+           DIMINUIR LETRAS
+        ========================================================== */
+
+        btnDiminuir.addEventListener(
+            "click",
+            function () {
+
+                body.classList.remove(
+                    "fonte-aumentada"
+                );
+
+                body.classList.add(
+                    "fonte-diminuida"
+                );
+
+
+                localStorage.setItem(
+                    "fonteLanding",
+                    "diminuida"
+                );
+
+            }
+        );
+
+
+
+        /* =========================================================
+           TAMANHO NORMAL
+        ========================================================== */
+
+        btnNormal.addEventListener(
+            "click",
+            function () {
+
+                body.classList.remove(
+                    "fonte-aumentada"
+                );
+
+                body.classList.remove(
+                    "fonte-diminuida"
+                );
+
+
+                localStorage.setItem(
+                    "fonteLanding",
+                    "normal"
+                );
+
+            }
+        );
+
+
+
+        /* =========================================================
+           RECUPERAR TAMANHO DA FONTE
+        ========================================================== */
+
+        const fonteSalva =
+            localStorage.getItem(
+                "fonteLanding"
+            );
+
+
+        if (
+            fonteSalva === "aumentada"
+        ) {
+
+            body.classList.add(
+                "fonte-aumentada"
+            );
+
+        }
+
+
+        if (
+            fonteSalva === "diminuida"
+        ) {
+
+            body.classList.add(
+                "fonte-diminuida"
+            );
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

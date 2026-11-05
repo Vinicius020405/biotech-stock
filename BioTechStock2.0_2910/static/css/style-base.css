@@ -1,0 +1,2786 @@
+body {
+background-color: #f8f9fa;
+color: #1f2937;
+font-family: 'Inter', sans-serif;
+
+
+transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    font-size 0.2s ease;
+
+
+}
+
+/* =====================================================
+ACESSIBILIDADE
+===================================================== */
+
+.skip-link {
+position: absolute;
+top: -50px;
+left: 10px;
+
+
+background: #2563eb;
+color: #ffffff;
+
+padding: 10px 16px;
+
+z-index: 10000;
+
+text-decoration: none;
+font-weight: 600;
+
+border-radius: 0 0 8px 8px;
+
+transition: top 0.2s ease-in-out;
+
+
+}
+
+.skip-link:focus {
+top: 0;
+outline: 3px solid #f59e0b;
+}
+
+*:focus-visible {
+outline: 3px solid #f59e0b !important;
+outline-offset: 2px !important;
+}
+
+/* =====================================================
+BARRA DE ACESSIBILIDADE
+===================================================== */
+
+.barra-acessibilidade {
+background: linear-gradient(
+135deg,
+#173b5f 0%,
+#1e4d78 50%,
+#173b5f 100%
+) !important;
+
+
+border-bottom:
+    1px solid rgba(255, 255, 255, 0.10);
+
+box-shadow:
+    0 4px 15px rgba(15, 23, 42, 0.15);
+
+
+}
+
+/* =====================================================
+BOTÃO MODO ESCURO
+===================================================== */
+
+.botao-tema {
+display: flex;
+align-items: center;
+gap: 5px;
+}
+
+/* =====================================================
+ALTO CONTRASTE
+===================================================== */
+
+body.alto-contraste {
+background: #000000 !important;
+color: #ffffff !important;
+}
+
+/* =====================================================
+CONTEÚDO
+===================================================== */
+
+body.alto-contraste .content {
+background: #000000 !important;
+color: #ffffff !important;
+}
+
+/* =====================================================
+HEADER
+===================================================== */
+
+body.alto-contraste .header {
+background: #000000 !important;
+color: #ffffff !important;
+
+
+border-bottom: 2px solid #ffff00 !important;
+
+box-shadow: none !important;
+
+
+}
+
+/* =====================================================
+SIDEBAR
+===================================================== */
+
+body.alto-contraste .sidebar {
+background: #000000 !important;
+color: #ffffff !important;
+
+
+border-right: 2px solid #ffff00 !important;
+
+box-shadow: none !important;
+
+
+}
+
+/* =====================================================
+BOTÃO SIDEBAR
+===================================================== */
+
+body.alto-contraste .botao-sidebar {
+background: #000000 !important;
+color: #ffff00 !important;
+
+
+border-bottom: 1px solid #ffff00 !important;
+
+
+}
+
+body.alto-contraste .botao-sidebar:hover {
+background: #ffffff !important;
+color: #000000 !important;
+}
+
+/* =====================================================
+LINKS SIDEBAR
+===================================================== */
+
+body.alto-contraste .sidebar a {
+background: #000000 !important;
+color: #ffff00 !important;
+
+
+box-shadow: none !important;
+
+
+}
+
+body.alto-contraste .sidebar a i {
+color: #ffff00 !important;
+}
+
+body.alto-contraste .sidebar a:hover {
+background: #ffffff !important;
+color: #000000 !important;
+
+
+transform: none !important;
+
+
+}
+
+body.alto-contraste .sidebar a:hover i {
+color: #000000 !important;
+}
+
+body.alto-contraste .sidebar a.active {
+background: #ffff00 !important;
+color: #000000 !important;
+
+
+box-shadow: none !important;
+
+transform: none !important;
+
+
+}
+
+body.alto-contraste .sidebar a.active i {
+color: #000000 !important;
+}
+
+/* =====================================================
+TOPBAR
+===================================================== */
+
+body.alto-contraste .topbar {
+background: #000000 !important;
+color: #ffffff !important;
+
+
+border: 2px solid #ffff00 !important;
+
+box-shadow: none !important;
+
+
+}
+
+body.alto-contraste .topbar h1,
+body.alto-contraste .topbar h2,
+body.alto-contraste .topbar h3,
+body.alto-contraste .topbar h4,
+body.alto-contraste .topbar h5,
+body.alto-contraste .topbar h6 {
+color: #ffffff !important;
+}
+
+/* =====================================================
+CARDS
+===================================================== */
+
+body.alto-contraste .card {
+background: #000000 !important;
+color: #ffffff !important;
+
+
+border: 2px solid #ffff00 !important;
+
+box-shadow: none !important;
+
+
+}
+
+body.alto-contraste .card p,
+body.alto-contraste .card small,
+body.alto-contraste .card strong,
+body.alto-contraste .card span {
+color: #ffffff !important;
+}
+
+/* =====================================================
+CONFIGURAÇÕES
+===================================================== */
+
+body.alto-contraste .configuracoes-container {
+color: #ffffff !important;
+}
+
+body.alto-contraste .configuracoes-header {
+background: #000000 !important;
+color: #ffffff !important;
+
+
+border: 2px solid #ffff00 !important;
+
+box-shadow: none !important;
+
+
+}
+
+body.alto-contraste .configuracoes-header h2,
+body.alto-contraste .configuracoes-header p,
+body.alto-contraste .configuracoes-label {
+color: #ffffff !important;
+}
+
+body.alto-contraste .configuracoes-icon {
+background: #000000 !important;
+color: #ffff00 !important;
+
+
+border: 1px solid #ffff00 !important;
+
+
+}
+
+body.alto-contraste .configuracoes-card {
+background: #000000 !important;
+color: #ffffff !important;
+
+
+border: 2px solid #ffff00 !important;
+
+box-shadow: none !important;
+
+
+}
+
+body.alto-contraste .configuracoes-card-header {
+background: #000000 !important;
+
+
+border-bottom: 1px solid #ffff00 !important;
+
+
+}
+
+body.alto-contraste .configuracoes-card-header h5,
+body.alto-contraste .configuracoes-card-header p {
+color: #ffffff !important;
+}
+
+body.alto-contraste .configuracoes-card-header > i {
+color: #ffff00 !important;
+}
+
+body.alto-contraste .configuracoes-item {
+background: #000000 !important;
+color: #ffffff !important;
+
+
+border-bottom: 1px solid #ffff00 !important;
+
+
+}
+
+body.alto-contraste .configuracoes-item-info strong,
+body.alto-contraste .configuracoes-item-info small {
+color: #ffffff !important;
+}
+
+body.alto-contraste .configuracoes-item-icon {
+background: #000000 !important;
+color: #ffff00 !important;
+
+
+border: 1px solid #ffff00 !important;
+
+
+}
+
+/* =====================================================
+BOTÕES
+===================================================== */
+
+body.alto-contraste .btn {
+background: #000000 !important;
+color: #ffff00 !important;
+
+
+border: 2px solid #ffff00 !important;
+
+box-shadow: none !important;
+
+
+}
+
+body.alto-contraste .btn:hover,
+body.alto-contraste .btn:focus {
+background: #ffff00 !important;
+color: #000000 !important;
+
+
+border-color: #ffff00 !important;
+
+
+}
+
+body.alto-contraste .btn-primary {
+background: #ffff00 !important;
+color: #000000 !important;
+
+
+border-color: #ffff00 !important;
+
+
+}
+
+/* =====================================================
+LINKS
+===================================================== */
+
+body.alto-contraste a {
+color: #ffff00 !important;
+}
+
+body.alto-contraste a:hover {
+background: #ffffff !important;
+color: #000000 !important;
+}
+
+/* =====================================================
+TEXTOS
+===================================================== */
+
+body.alto-contraste h1,
+body.alto-contraste h2,
+body.alto-contraste h3,
+body.alto-contraste h4,
+body.alto-contraste h5,
+body.alto-contraste h6,
+body.alto-contraste p,
+body.alto-contraste span,
+body.alto-contraste label,
+body.alto-contraste strong,
+body.alto-contraste small {
+color: #ffffff !important;
+}
+
+/* =====================================================
+FORMULÁRIOS
+===================================================== */
+
+body.alto-contraste .form-control,
+body.alto-contraste .form-select,
+body.alto-contraste textarea,
+body.alto-contraste input {
+background: #000000 !important;
+color: #ffffff !important;
+
+
+border: 2px solid #ffff00 !important;
+
+
+}
+
+body.alto-contraste .form-control::placeholder,
+body.alto-contraste textarea::placeholder {
+color: #ffffff !important;
+opacity: 1 !important;
+}
+
+body.alto-contraste .form-control:focus,
+body.alto-contraste .form-select:focus,
+body.alto-contraste textarea:focus,
+body.alto-contraste input:focus {
+background: #000000 !important;
+color: #ffffff !important;
+
+
+border-color: #ffffff !important;
+
+box-shadow:
+    0 0 0 3px #ffff00 !important;
+
+
+}
+
+/* =====================================================
+TABELAS
+===================================================== */
+
+body.alto-contraste .table {
+background: #000000 !important;
+color: #ffffff !important;
+
+
+border-color: #ffff00 !important;
+
+
+}
+
+body.alto-contraste .table thead th,
+body.alto-contraste .table tbody td {
+background: #000000 !important;
+color: #ffffff !important;
+
+
+border-color: #ffff00 !important;
+
+
+}
+
+body.alto-contraste .table tbody tr:hover td {
+background: #ffffff !important;
+color: #000000 !important;
+}
+
+/* =====================================================
+LIST GROUP
+===================================================== */
+
+body.alto-contraste .list-group-item {
+background: #000000 !important;
+color: #ffffff !important;
+
+
+border-color: #ffff00 !important;
+
+
+}
+
+/* =====================================================
+MODAIS
+===================================================== */
+
+body.alto-contraste .modal-content {
+background: #000000 !important;
+color: #ffffff !important;
+
+
+border: 2px solid #ffff00 !important;
+
+box-shadow: none !important;
+
+
+}
+
+body.alto-contraste .modal-header,
+body.alto-contraste .modal-footer {
+border-color: #ffff00 !important;
+}
+
+body.alto-contraste .modal-title {
+color: #ffffff !important;
+}
+
+/* =====================================================
+NOTIFICAÇÕES
+===================================================== */
+
+body.alto-contraste .botao-notificacao {
+background: #000000 !important;
+color: #ffff00 !important;
+
+
+border: 2px solid #ffff00 !important;
+
+
+}
+
+body.alto-contraste .botao-notificacao:hover {
+background: #ffff00 !important;
+color: #000000 !important;
+}
+
+body.alto-contraste .contador-notificacao {
+background: #ffff00 !important;
+color: #000000 !important;
+
+
+border-color: #000000 !important;
+
+
+}
+
+body.alto-contraste .menu-notificacao {
+background: #000000 !important;
+color: #ffffff !important;
+
+
+border: 2px solid #ffff00 !important;
+
+box-shadow: none !important;
+
+
+}
+
+body.alto-contraste .cabecalho-notificacao {
+background: #000000 !important;
+color: #ffffff !important;
+
+
+border-bottom: 1px solid #ffff00 !important;
+
+
+}
+
+body.alto-contraste .cabecalho-notificacao h5 {
+color: #ffffff !important;
+}
+
+body.alto-contraste .item-notificacao {
+background: #000000 !important;
+color: #ffffff !important;
+
+
+border-bottom: 1px solid #ffff00 !important;
+
+
+}
+
+body.alto-contraste .item-notificacao:hover {
+background: #ffffff !important;
+color: #000000 !important;
+}
+
+body.alto-contraste .titulo-notificacao,
+body.alto-contraste .mensagem-notificacao,
+body.alto-contraste .data-notificacao {
+color: #ffffff !important;
+}
+
+body.alto-contraste .icone-notificacao {
+background: #000000 !important;
+color: #ffff00 !important;
+
+
+border: 1px solid #ffff00 !important;
+
+
+}
+
+body.alto-contraste .notificacao-vazia {
+background: #000000 !important;
+color: #ffffff !important;
+
+
+border-color: #ffff00 !important;
+
+
+}
+
+body.alto-contraste .rodape-notificacao {
+background: #000000 !important;
+
+
+border-top: 1px solid #ffff00 !important;
+
+
+}
+
+body.alto-contraste .rodape-notificacao a {
+color: #ffff00 !important;
+}
+
+/* =====================================================
+ÁREA DO USUÁRIO
+===================================================== */
+
+body.alto-contraste .user-area {
+background: #000000 !important;
+color: #ffffff !important;
+
+
+border: 2px solid #ffff00 !important;
+
+
+}
+
+/* =====================================================
+ALERTAS
+===================================================== */
+
+body.alto-contraste .alert {
+background: #000000 !important;
+color: #ffffff !important;
+
+
+border: 2px solid #ffff00 !important;
+
+
+}
+
+/* =====================================================
+BADGES
+===================================================== */
+
+body.alto-contraste .badge {
+background: #ffff00 !important;
+color: #000000 !important;
+}
+
+/* =====================================================
+ACESSIBILIDADE
+===================================================== */
+
+body.alto-contraste .skip-link {
+background: #ffff00 !important;
+color: #000000 !important;
+}
+
+body.alto-contraste *:focus-visible {
+outline: 3px solid #ffffff !important;
+outline-offset: 3px !important;
+}
+
+/* =====================================================
+ÍCONES
+===================================================== */
+
+body.alto-contraste i {
+color: #ffff00 !important;
+}
+
+/* =====================================================
+SCROLLBAR
+===================================================== */
+
+body.alto-contraste ::-webkit-scrollbar {
+width: 10px;
+}
+
+body.alto-contraste ::-webkit-scrollbar-track {
+background: #000000;
+}
+
+body.alto-contraste ::-webkit-scrollbar-thumb {
+background: #ffff00;
+border-radius: 10px;
+}
+
+body.alto-contraste ::-webkit-scrollbar-thumb:hover {
+background: #ffffff;
+}
+
+/* =====================================================
+SELEÇÃO DE TEXTO
+===================================================== */
+
+body.alto-contraste ::selection {
+background: #ffff00;
+color: #000000;
+}
+
+/* =====================================================
+HEADER
+===================================================== */
+
+.header {
+background: linear-gradient(
+135deg,
+#173b5f 0%,
+#1e4d78 50%,
+#173b5f 100%
+) !important;
+
+
+padding: 12px 25px;
+
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+color: #ffffff;
+
+box-shadow:
+    0 4px 20px rgba(15, 23, 42, 0.15);
+
+position: relative;
+z-index: 2000;
+
+margin-left: 250px;
+width: calc(100% - 250px);
+
+min-height: 74px;
+
+border-bottom:
+    1px solid rgba(255, 255, 255, 0.10);
+
+transition:
+    width 0.25s ease,
+    margin-left 0.25s ease;
+
+
+}
+
+.header img {
+transition: 0.25s ease;
+}
+
+.header img:hover {
+transform: scale(1.03);
+}
+
+/* =====================================================
+ÁREA DO USUÁRIO
+===================================================== */
+
+.user-area {
+background: rgba(255, 255, 255, 0.10) !important;
+
+
+border: 1px solid rgba(255, 255, 255, 0.12);
+
+padding: 6px 14px;
+
+border-radius: 30px;
+
+display: flex;
+align-items: center;
+
+gap: 10px;
+
+box-shadow:
+    0 4px 15px rgba(0, 0, 0, 0.10);
+
+backdrop-filter: blur(8px);
+
+
+}
+
+/* =====================================================
+SIDEBAR
+===================================================== */
+
+.sidebar {
+position: fixed !important;
+
+
+top: 0 !important;
+left: 0 !important;
+
+width: 250px !important;
+min-width: 250px !important;
+max-width: 250px !important;
+
+height: 100vh !important;
+min-height: 100vh !important;
+
+background: linear-gradient(
+    180deg,
+    #0f172a 0%,
+    #162a46 45%,
+    #173b5f 100%
+) !important;
+
+padding: 22px 14px !important;
+
+display: flex !important;
+flex-direction: column !important;
+
+gap: 6px !important;
+
+overflow-y: auto !important;
+overflow-x: hidden !important;
+
+z-index: 3000 !important;
+
+border-right:
+    1px solid rgba(255, 255, 255, 0.08);
+
+box-shadow:
+    8px 0 30px rgba(15, 23, 42, 0.18);
+
+transition:
+    width 0.25s ease,
+    min-width 0.25s ease,
+    max-width 0.25s ease;
+
+
+}
+
+/* =====================================================
+SCROLLBAR SIDEBAR
+===================================================== */
+
+.sidebar::-webkit-scrollbar {
+width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+background: rgba(255, 255, 255, 0.20);
+border-radius: 10px;
+}
+
+/* =====================================================
+BOTÃO DO MENU
+===================================================== */
+
+.botao-sidebar {
+width: 100%;
+
+
+display: flex;
+align-items: center;
+
+gap: 12px;
+
+padding: 12px 15px;
+
+margin-bottom: 15px;
+
+border: none;
+
+border-bottom:
+    1px solid rgba(255, 255, 255, 0.10);
+
+background: transparent;
+
+color: #ffffff;
+
+font-size: 15px;
+font-weight: 600;
+
+text-align: left;
+
+cursor: pointer;
+
+transition: 0.2s ease;
+
+flex-shrink: 0;
+
+
+}
+
+.botao-sidebar i {
+font-size: 23px;
+min-width: 22px;
+text-align: center;
+}
+
+.botao-sidebar:hover {
+background: rgba(255, 255, 255, 0.08);
+border-radius: 8px;
+}
+
+.botao-sidebar:focus {
+outline: 2px solid #60a5fa !important;
+}
+
+/* =====================================================
+LINKS DA SIDEBAR
+===================================================== */
+
+.sidebar a {
+position: relative;
+
+
+color: #cbd5e1 !important;
+
+text-decoration: none;
+
+display: flex;
+align-items: center;
+
+gap: 12px;
+
+padding: 12px 15px !important;
+
+margin-bottom: 3px;
+
+border-radius: 10px !important;
+
+font-weight: 500;
+font-size: 0.94rem;
+
+flex-shrink: 0;
+
+transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+
+}
+
+.sidebar a:hover {
+background: rgba(255, 255, 255, 0.08) !important;
+
+
+color: #ffffff !important;
+
+transform: translateX(4px);
+
+box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.10);
+
+
+}
+
+.sidebar a.active {
+background: linear-gradient(
+135deg,
+#2563eb,
+#1d4ed8
+) !important;
+
+
+color: #ffffff !important;
+
+box-shadow:
+    0 6px 18px rgba(37, 99, 235, 0.30) !important;
+
+transform: translateX(3px);
+
+
+}
+
+.sidebar a i {
+width: 22px;
+min-width: 22px;
+
+
+text-align: center;
+
+font-size: 1.12rem;
+
+color: #94a3b8;
+
+transition: 0.2s ease;
+
+
+}
+
+.sidebar a:hover i,
+.sidebar a.active i {
+color: #ffffff;
+}
+
+/* =====================================================
+SISTEMA
+===================================================== */
+
+.system-area {
+display: flex;
+align-items: center;
+gap: 10px;
+}
+
+/* =====================================================
+CONTEÚDO
+===================================================== */
+
+.content {
+margin-left: 250px;
+
+
+min-height: calc(100vh - 74px);
+
+padding: 25px;
+
+transition:
+    margin-left 0.25s ease;
+
+
+}
+
+.topbar {
+background: #ffffff;
+
+
+border-radius: 14px;
+
+padding: 18px 22px;
+
+margin-bottom: 20px;
+
+box-shadow:
+    0 4px 18px rgba(15, 23, 42, 0.07);
+
+
+}
+
+/* =====================================================
+ALERTAS
+===================================================== */
+
+.alert {
+border-radius: 12px;
+}
+
+/* =====================================================
+NOTIFICAÇÕES
+===================================================== */
+
+.area-notificacao {
+position: relative;
+}
+
+.botao-notificacao {
+position: relative;
+
+
+width: 44px;
+height: 44px;
+
+border: none;
+
+border-radius: 50%;
+
+background: rgba(255, 255, 255, 0.10);
+
+color: #ffffff;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+cursor: pointer;
+
+transition: 0.2s ease;
+
+
+}
+
+.botao-notificacao:hover {
+background: rgba(255, 255, 255, 0.18);
+
+
+transform: translateY(-1px);
+
+
+}
+
+.botao-notificacao i {
+font-size: 20px;
+}
+
+.contador-notificacao {
+position: absolute;
+
+
+top: -2px;
+right: -2px;
+
+min-width: 20px;
+height: 20px;
+
+padding: 0 5px;
+
+background: #dc3545;
+
+color: #ffffff;
+
+border-radius: 20px;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+font-size: 11px;
+font-weight: 700;
+
+border: 2px solid #173b5f;
+
+
+}
+
+.menu-notificacao {
+position: absolute;
+
+
+top: 54px;
+right: 0;
+
+width: 380px;
+max-width: calc(100vw - 30px);
+
+background: #ffffff;
+
+border-radius: 14px;
+
+box-shadow:
+    0 15px 40px rgba(15, 23, 42, 0.20);
+
+border: 1px solid #e5e7eb;
+
+overflow: hidden;
+
+opacity: 0;
+visibility: hidden;
+
+transform:
+    translateY(-8px);
+
+transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0.2s ease;
+
+z-index: 5000;
+
+
+}
+
+.menu-notificacao.aberto {
+opacity: 1;
+
+
+visibility: visible;
+
+transform:
+    translateY(0);
+
+
+}
+
+.cabecalho-notificacao {
+padding: 16px 18px;
+
+
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+border-bottom: 1px solid #e5e7eb;
+
+background: #f8fafc;
+
+
+}
+
+.cabecalho-notificacao h5 {
+margin: 0;
+
+
+font-size: 15px;
+font-weight: 700;
+
+color: #172033;
+
+
+}
+
+.lista-notificacao {
+max-height: 420px;
+
+
+overflow-y: auto;
+
+
+}
+
+.item-notificacao {
+display: flex;
+
+
+gap: 12px;
+
+padding: 14px 16px;
+
+text-decoration: none;
+
+color: #1f2937;
+
+border-bottom: 1px solid #eef2f7;
+
+transition: 0.2s ease;
+
+
+}
+
+.item-notificacao:hover {
+background: #f8fafc;
+}
+
+.icone-notificacao {
+width: 40px;
+height: 40px;
+
+
+min-width: 40px;
+
+border-radius: 10px;
+
+background: #eaf2ff;
+
+color: #2563eb;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+font-size: 18px;
+
+
+}
+
+.conteudo-notificacao {
+min-width: 0;
+
+
+flex: 1;
+
+
+}
+
+.titulo-notificacao {
+font-size: 14px;
+
+
+font-weight: 700;
+
+margin-bottom: 3px;
+
+color: #172033;
+
+
+}
+
+.mensagem-notificacao {
+font-size: 13px;
+
+
+color: #64748b;
+
+line-height: 1.4;
+
+
+}
+
+.data-notificacao {
+font-size: 11px;
+
+
+color: #94a3b8;
+
+margin-top: 5px;
+
+
+}
+
+.notificacao-vazia {
+padding: 35px 20px;
+
+
+text-align: center;
+
+color: #64748b;
+
+
+}
+
+.notificacao-vazia i {
+font-size: 35px;
+
+
+display: block;
+
+margin-bottom: 10px;
+
+color: #94a3b8;
+
+
+}
+
+.rodape-notificacao {
+padding: 12px 16px;
+
+
+text-align: center;
+
+border-top: 1px solid #e5e7eb;
+
+background: #f8fafc;
+
+
+}
+
+.rodape-notificacao a {
+color: #2563eb;
+
+
+font-size: 13px;
+
+font-weight: 600;
+
+text-decoration: none;
+
+
+}
+
+.rodape-notificacao a:hover {
+text-decoration: underline;
+}
+
+/* =====================================================
+SIDEBAR FECHADA
+===================================================== */
+
+body.sidebar-fechada .sidebar {
+width: 80px !important;
+min-width: 80px !important;
+max-width: 80px !important;
+}
+
+body.sidebar-fechada .header {
+margin-left: 80px;
+
+
+width: calc(100% - 80px);
+
+
+}
+
+body.sidebar-fechada .content {
+margin-left: 80px;
+}
+
+body.sidebar-fechada .botao-sidebar {
+justify-content: center;
+
+
+padding-left: 10px;
+padding-right: 10px;
+
+
+}
+
+body.sidebar-fechada .botao-sidebar span {
+display: none;
+}
+
+body.sidebar-fechada .sidebar a {
+justify-content: center;
+
+
+padding-left: 10px !important;
+padding-right: 10px !important;
+
+
+}
+
+body.sidebar-fechada .sidebar a span {
+display: none;
+}
+
+body.sidebar-fechada .sidebar a {
+transform: none;
+}
+
+body.sidebar-fechada .sidebar a:hover {
+transform: scale(1.03);
+}
+
+/* ==========================================================
+BIOTECH STOCK
+MODO ESCURO PROFISSIONAL
+========================================================== */
+
+body.modo-escuro {
+background:
+radial-gradient(
+circle at 10% 10%,
+rgba(64, 140, 206, 0.16),
+transparent 30%
+),
+radial-gradient(
+circle at 90% 90%,
+rgba(37, 99, 235, 0.12),
+transparent 30%
+),
+linear-gradient(
+135deg,
+#172536,
+#1c2f43 50%,
+#142334
+) !important;
+
+
+color: #eaf2f9 !important;
+
+
+}
+
+/* ==========================================================
+HEADER
+========================================================== */
+
+body.modo-escuro .header {
+background:
+linear-gradient(
+135deg,
+#24557d,
+#286b9d,
+#204d72
+) !important;
+
+
+box-shadow:
+    0 8px 30px rgba(0, 0, 0, 0.30);
+
+border-bottom:
+    1px solid rgba(255, 255, 255, 0.15);
+
+
+}
+
+/* ==========================================================
+SIDEBAR
+========================================================== */
+
+body.modo-escuro .sidebar {
+background:
+linear-gradient(
+180deg,
+#172f47 0%,
+#1b405f 50%,
+#17334d 100%
+) !important;
+
+
+border-right:
+    1px solid rgba(255, 255, 255, 0.12);
+
+box-shadow:
+    8px 0 30px rgba(0, 0, 0, 0.30);
+
+
+}
+
+/* ==========================================================
+SIDEBAR LINKS
+========================================================== */
+
+body.modo-escuro .sidebar a {
+color: #d8e7f3 !important;
+}
+
+body.modo-escuro .sidebar a:hover {
+background:
+linear-gradient(
+90deg,
+rgba(78, 161, 219, 0.28),
+rgba(78, 161, 219, 0.10)
+) !important;
+
+
+color: #ffffff !important;
+
+transform: translateX(4px);
+
+
+}
+
+body.modo-escuro .sidebar a.active {
+background:
+linear-gradient(
+135deg,
+#3182bd,
+#256aa0
+) !important;
+
+
+color: #ffffff !important;
+
+box-shadow:
+    0 6px 20px rgba(37, 106, 160, 0.35) !important;
+
+
+}
+
+/* ==========================================================
+ÍCONES
+========================================================== */
+
+body.modo-escuro .sidebar a i {
+color: #a9c9df;
+}
+
+body.modo-escuro .sidebar a:hover i,
+body.modo-escuro .sidebar a.active i {
+color: #ffffff;
+}
+
+/* ==========================================================
+BOTÃO SIDEBAR
+========================================================== */
+
+body.modo-escuro .botao-sidebar {
+color: #ffffff;
+
+
+border-bottom:
+    1px solid rgba(255, 255, 255, 0.12);
+
+
+}
+
+body.modo-escuro .botao-sidebar:hover {
+background:
+rgba(255, 255, 255, 0.10);
+}
+
+/* ==========================================================
+CONTEÚDO
+========================================================== */
+
+body.modo-escuro .content {
+background: transparent !important;
+
+
+color: #eaf2f9 !important;
+
+
+}
+
+/* ==========================================================
+TOPBAR
+========================================================== */
+
+body.modo-escuro .topbar {
+background:
+linear-gradient(
+145deg,
+#263c52,
+#21364a
+) !important;
+
+
+border:
+    1px solid rgba(255, 255, 255, 0.10);
+
+box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.22);
+
+
+}
+
+body.modo-escuro .topbar h1,
+body.modo-escuro .topbar h2,
+body.modo-escuro .topbar h3,
+body.modo-escuro .topbar h4,
+body.modo-escuro .topbar h5,
+body.modo-escuro .topbar h6 {
+color: #ffffff !important;
+}
+
+/* ==========================================================
+TÍTULOS
+========================================================== */
+
+body.modo-escuro h1,
+body.modo-escuro h2,
+body.modo-escuro h3,
+body.modo-escuro h4,
+body.modo-escuro h5,
+body.modo-escuro h6 {
+color: #f5f9fc !important;
+}
+
+/* ==========================================================
+CARDS
+========================================================== */
+
+body.modo-escuro .card {
+background:
+linear-gradient(
+145deg,
+#2a4157,
+#23394d
+) !important;
+
+
+border:
+    1px solid rgba(255, 255, 255, 0.10) !important;
+
+color: #e8f1f7 !important;
+
+box-shadow:
+    0 12px 35px rgba(0, 0, 0, 0.25);
+
+
+}
+
+body.modo-escuro .card:hover {
+transform: translateY(-2px);
+
+
+box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.32);
+
+
+}
+
+/* ==========================================================
+TEXTOS DOS CARDS
+========================================================== */
+
+body.modo-escuro .card p {
+color: #b8cad8 !important;
+}
+
+body.modo-escuro .card small {
+color: #9fb5c7 !important;
+}
+
+/* ==========================================================
+FORMULÁRIOS
+========================================================== */
+
+body.modo-escuro .form-control,
+body.modo-escuro .form-select,
+body.modo-escuro textarea,
+body.modo-escuro input {
+background:
+#1d3043 !important;
+
+
+color:
+    #f1f6fa !important;
+
+border:
+    1px solid #456176 !important;
+
+
+}
+
+body.modo-escuro .form-control:focus,
+body.modo-escuro .form-select:focus,
+body.modo-escuro textarea:focus,
+body.modo-escuro input:focus {
+background:
+#21394f !important;
+
+
+color:
+    #ffffff !important;
+
+border-color:
+    #55a9df !important;
+
+box-shadow:
+    0 0 0 3px rgba(85, 169, 223, 0.18) !important;
+
+
+}
+
+body.modo-escuro .form-control::placeholder,
+body.modo-escuro textarea::placeholder {
+color:
+#91a7b9 !important;
+}
+
+body.modo-escuro .form-label {
+color:
+#d9e6ef !important;
+}
+
+/* ==========================================================
+TABELAS
+========================================================== */
+
+body.modo-escuro .table {
+color:
+#e7f0f6 !important;
+
+
+background:
+    #24394c !important;
+
+border-color:
+    #40586c !important;
+
+
+}
+
+body.modo-escuro .table thead th {
+background:
+linear-gradient(
+135deg,
+#2d648d,
+#245576
+) !important;
+
+
+color:
+    #ffffff !important;
+
+border-color:
+    #47728e !important;
+
+
+}
+
+body.modo-escuro .table tbody td {
+background:
+#24394c !important;
+
+
+color:
+    #dce8f0 !important;
+
+border-color:
+    #3b5265 !important;
+
+
+}
+
+body.modo-escuro .table tbody tr:hover td {
+background:
+#2d475d !important;
+
+
+color:
+    #ffffff !important;
+
+
+}
+
+/* ==========================================================
+LIST GROUP
+========================================================== */
+
+body.modo-escuro .list-group-item {
+background:
+#263d51 !important;
+
+
+color:
+    #e5eef5 !important;
+
+border-color:
+    #40586c !important;
+
+
+}
+
+/* ==========================================================
+MODAIS
+========================================================== */
+
+body.modo-escuro .modal-content {
+background:
+linear-gradient(
+145deg,
+#2a4258,
+#21384b
+) !important;
+
+
+color:
+    #edf4f8 !important;
+
+border:
+    1px solid rgba(255, 255, 255, 0.12);
+
+box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.45);
+
+
+}
+
+body.modo-escuro .modal-header,
+body.modo-escuro .modal-footer {
+border-color:
+#40586c !important;
+}
+
+body.modo-escuro .modal-title {
+color:
+#ffffff !important;
+}
+
+/* ==========================================================
+DROPDOWN
+========================================================== */
+
+body.modo-escuro .dropdown-menu {
+background:
+#263d51 !important;
+
+
+border:
+    1px solid #40586c !important;
+
+box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.35);
+
+
+}
+
+body.modo-escuro .dropdown-item {
+color:
+#dce8f0 !important;
+}
+
+body.modo-escuro .dropdown-item:hover {
+background:
+#31516a !important;
+
+
+color:
+    #ffffff !important;
+
+
+}
+
+/* ==========================================================
+BOTÕES
+========================================================== */
+
+body.modo-escuro .btn-primary {
+background:
+linear-gradient(
+135deg,
+#3288c5,
+#256ca3
+) !important;
+
+
+border:
+    none !important;
+
+color:
+    #ffffff !important;
+
+box-shadow:
+    0 6px 18px rgba(37, 108, 163, 0.25);
+
+
+}
+
+body.modo-escuro .btn-primary:hover {
+background:
+linear-gradient(
+135deg,
+#4a9bd2,
+#3182bd
+) !important;
+
+
+transform:
+    translateY(-1px);
+
+
+}
+
+/* ==========================================================
+LINKS
+========================================================== */
+
+body.modo-escuro a {
+color:
+#72b9e7;
+}
+
+body.modo-escuro a:hover {
+color:
+#a5d8f5;
+}
+
+/* ==========================================================
+ÁREA DO USUÁRIO
+========================================================== */
+
+body.modo-escuro .user-area {
+background:
+rgba(255, 255, 255, 0.12) !important;
+
+
+border:
+    1px solid rgba(255, 255, 255, 0.16);
+
+color:
+    #ffffff;
+
+
+}
+
+/* ==========================================================
+BOTÃO NOTIFICAÇÃO
+========================================================== */
+
+body.modo-escuro .botao-notificacao {
+background:
+rgba(255, 255, 255, 0.12);
+
+
+color:
+    #ffffff;
+
+
+}
+
+body.modo-escuro .botao-notificacao:hover {
+background:
+rgba(255, 255, 255, 0.22);
+}
+
+/* ==========================================================
+MENU DE NOTIFICAÇÕES
+========================================================== */
+
+body.modo-escuro .menu-notificacao {
+background:
+linear-gradient(
+145deg,
+#2a4258,
+#21384b
+) !important;
+
+
+border:
+    1px solid #456176 !important;
+
+box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.40);
+
+
+}
+
+body.modo-escuro .cabecalho-notificacao {
+background:
+linear-gradient(
+135deg,
+#2d648d,
+#245576
+) !important;
+
+
+border-color:
+    #47728e;
+
+
+}
+
+body.modo-escuro .cabecalho-notificacao h5 {
+color:
+#ffffff !important;
+}
+
+body.modo-escuro .item-notificacao {
+background:
+#263d51 !important;
+
+
+color:
+    #e8f1f7 !important;
+
+border-color:
+    #40586c !important;
+
+
+}
+
+body.modo-escuro .item-notificacao:hover {
+background:
+#31516a !important;
+}
+
+body.modo-escuro .titulo-notificacao {
+color:
+#ffffff !important;
+}
+
+body.modo-escuro .mensagem-notificacao {
+color:
+#b4c7d5 !important;
+}
+
+body.modo-escuro .data-notificacao {
+color:
+#8fa8ba !important;
+}
+
+body.modo-escuro .icone-notificacao {
+background:
+rgba(64, 140, 206, 0.22) !important;
+
+
+color:
+    #72b9e7 !important;
+
+
+}
+
+/* ==========================================================
+ALERTAS
+========================================================== */
+
+body.modo-escuro .alert {
+background:
+#263d51;
+
+
+color:
+    #edf4f8;
+
+border-color:
+    #40586c;
+
+
+}
+
+/* ==========================================================
+BADGES
+========================================================== */
+
+body.modo-escuro .badge {
+box-shadow:
+0 3px 10px rgba(0, 0, 0, 0.18);
+}
+
+/* ==========================================================
+BOTÃO VOLTAR
+========================================================== */
+
+body.modo-escuro .btn-voltar {
+background:
+linear-gradient(
+145deg,
+#304b62,
+#263e52
+) !important;
+
+
+color:
+    #b9ddf3 !important;
+
+border:
+    1px solid #4b6578 !important;
+
+
+}
+
+body.modo-escuro .btn-voltar:hover {
+background:
+#3a5a72 !important;
+
+
+color:
+    #ffffff !important;
+
+
+}
+
+/* ==========================================================
+SCROLLBAR
+========================================================== */
+
+body.modo-escuro ::-webkit-scrollbar {
+width:
+8px;
+}
+
+body.modo-escuro ::-webkit-scrollbar-track {
+background:
+#172738;
+}
+
+body.modo-escuro ::-webkit-scrollbar-thumb {
+background:
+#42677f;
+
+
+border-radius:
+    10px;
+
+
+}
+
+body.modo-escuro ::-webkit-scrollbar-thumb:hover {
+background:
+#5b91b1;
+}
+
+/* ==========================================================
+SELEÇÃO DE TEXTO
+========================================================== */
+
+body.modo-escuro ::selection {
+background:
+#3989c5;
+
+
+color:
+    #ffffff;
+
+
+}
+
+/* ==========================================================
+TRANSIÇÃO
+========================================================== */
+
+body.modo-escuro .card,
+body.modo-escuro .topbar,
+body.modo-escuro .form-control,
+body.modo-escuro .form-select,
+body.modo-escuro .table,
+body.modo-escuro .menu-notificacao {
+transition:
+background 0.25s ease,
+border 0.25s ease,
+box-shadow 0.25s ease;
+}
+
+/* ==========================================================
+CARDS
+========================================================== */
+
+.card {
+border: none;
+
+
+border-radius: 14px;
+
+box-shadow:
+    0 4px 18px rgba(15, 23, 42, 0.07);
+
+
+}
+
+/* ==========================================================
+TEXTOS
+========================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+font-weight: 600;
+}
+
+/* ==========================================================
+TABELAS
+========================================================== */
+
+.table {
+vertical-align: middle;
+}
+
+.table thead th {
+font-size: 13px;
+
+
+font-weight: 600;
+
+color: #475569;
+
+
+}
+
+/* ==========================================================
+FORMULÁRIOS
+========================================================== */
+
+.form-control,
+.form-select {
+border-radius: 9px;
+
+
+min-height: 42px;
+
+
+}
+
+.form-control:focus,
+.form-select:focus {
+border-color: #2563eb;
+
+
+box-shadow:
+    0 0 0 0.2rem rgba(37, 99, 235, 0.15);
+
+
+}
+
+/* ==========================================================
+MODAIS
+========================================================== */
+
+.modal-content {
+border: none;
+
+
+border-radius: 15px;
+
+box-shadow:
+    0 20px 50px rgba(15, 23, 42, 0.20);
+
+
+}
+
+/* ==========================================================
+LIST GROUP
+========================================================== */
+
+.list-group-item {
+border-color: #eef2f7;
+}
+
+/* ==========================================================
+DROPDOWN
+========================================================== */
+
+.dropdown-menu {
+border: none;
+
+
+border-radius: 12px;
+
+box-shadow:
+    0 12px 30px rgba(15, 23, 42, 0.15);
+
+
+}
+
+/* ==========================================================
+BOTÕES
+========================================================== */
+
+.btn {
+border-radius: 9px;
+}
+
+/* ==========================================================
+BADGES
+========================================================== */
+
+.badge {
+font-weight: 600;
+}
+
+/* ==========================================================
+TRANSIÇÕES
+========================================================== */
+
+button,
+a,
+.card,
+.form-control,
+.form-select {
+transition:
+all 0.2s ease;
+}
+
+/* ==========================================================
+RESPONSIVO - NOTIFICAÇÕES
+========================================================== */
+
+@media (max-width: 576px) {
+
+
+.menu-notificacao {
+    right: -100px;
+
+    width: calc(100vw - 30px);
+}
+
+
+}
+
+/* ==========================================================
+RESPONSIVO
+========================================================== */
+
+@media (max-width: 768px) {
+
+
+.sidebar {
+    width: 80px !important;
+    min-width: 80px !important;
+    max-width: 80px !important;
+}
+
+.sidebar a {
+    justify-content: center;
+}
+
+.sidebar a span,
+.botao-sidebar span {
+    display: none;
+}
+
+.botao-sidebar {
+    justify-content: center;
+}
+
+.header {
+    margin-left: 80px;
+
+    width: calc(100% - 80px);
+
+    padding: 10px 15px;
+}
+
+.content {
+    margin-left: 80px;
+
+    padding: 15px;
+}
+
+
+}
+
+/* =========================================================
+NOTIFICAÇÕES - MODO ESCURO PREMIUM
+========================================================= */
+
+body.modo-escuro .menu-notificacao {
+background:
+linear-gradient(
+145deg,
+#1b3048,
+#203d59
+) !important;
+
+
+border:
+    1px solid #3d5d78 !important;
+
+box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.45),
+    0 0 25px rgba(64, 140, 206, 0.10) !important;
+
+color:
+    #f4f8fc !important;
+
+
+}
+
+/* =========================================================
+CABEÇALHO DAS NOTIFICAÇÕES
+========================================================= */
+
+body.modo-escuro .cabecalho-notificacao {
+background:
+linear-gradient(
+135deg,
+#245d8f,
+#317bb7
+) !important;
+
+
+border-bottom:
+    1px solid #4c7191 !important;
+
+
+}
+
+body.modo-escuro .cabecalho-notificacao h5,
+body.modo-escuro .cabecalho-notificacao span {
+color:
+#ffffff !important;
+}
+
+/* =========================================================
+ITEM DE NOTIFICAÇÃO
+========================================================= */
+
+body.modo-escuro .item-notificacao {
+background:
+linear-gradient(
+135deg,
+#203952,
+#263f59
+) !important;
+
+
+border:
+    1px solid #3b5972 !important;
+
+color:
+    #f4f8fc !important;
+
+box-shadow:
+    0 5px 15px rgba(0, 0, 0, 0.15);
+
+transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+
+
+}
+
+/* =========================================================
+HOVER
+========================================================= */
+
+body.modo-escuro .item-notificacao:hover {
+background:
+linear-gradient(
+135deg,
+#294965,
+#2d5272
+) !important;
+
+
+border-color:
+    #5ca7dc !important;
+
+transform:
+    translateY(-2px);
+
+box-shadow:
+    0 8px 22px rgba(0, 0, 0, 0.25),
+    0 0 15px rgba(64, 140, 206, 0.12);
+
+
+}
+
+/* =========================================================
+ÍCONE DA NOTIFICAÇÃO
+========================================================= */
+
+body.modo-escuro .icone-notificacao {
+background:
+linear-gradient(
+135deg,
+#2f7fc1,
+#56a9e7
+) !important;
+
+
+color:
+    #ffffff !important;
+
+box-shadow:
+    0 4px 12px rgba(47, 127, 193, 0.30);
+
+
+}
+
+/* =========================================================
+TÍTULO
+========================================================= */
+
+body.modo-escuro .titulo-notificacao {
+color:
+#ffffff !important;
+
+
+font-weight:
+    700;
+
+
+}
+
+/* =========================================================
+MENSAGEM
+========================================================= */
+
+body.modo-escuro .mensagem-notificacao {
+color:
+#c7d6e5 !important;
+}
+
+/* =========================================================
+DATA
+========================================================= */
+
+body.modo-escuro .data-notificacao {
+color:
+#91a9be !important;
+}
+
+/* =========================================================
+NOTIFICAÇÃO VAZIA
+========================================================= */
+
+body.modo-escuro .notificacao-vazia {
+background:
+linear-gradient(
+145deg,
+#1c334c,
+#213b55
+) !important;
+
+
+border:
+    1px dashed #496b87 !important;
+
+color:
+    #b9c9d9 !important;
+
+
+}
+
+/* =========================================================
+RODAPÉ
+========================================================= */
+
+body.modo-escuro .rodape-notificacao {
+background:
+#182d43 !important;
+
+
+border-top:
+    1px solid #38566f !important;
+
+color:
+    #aebfd0 !important;
+
+
+}
+
+/* =========================================================
+BOTÃO DO SINO
+========================================================= */
+
+body.modo-escuro .botao-notificacao {
+background:
+linear-gradient(
+135deg,
+#2f7fc1,
+#4d9ed7
+) !important;
+
+
+color:
+    #ffffff !important;
+
+border:
+    1px solid #62afe2 !important;
+
+box-shadow:
+    0 5px 15px rgba(47, 127, 193, 0.25);
+
+transition:
+    0.2s ease;
+
+
+}
+
+body.modo-escuro .botao-notificacao:hover {
+background:
+linear-gradient(
+135deg,
+#3d91d0,
+#63b5ed
+) !important;
+
+
+transform:
+    translateY(-1px);
+
+box-shadow:
+    0 8px 20px rgba(47, 127, 193, 0.35);
+
+
+}
+
+/* =========================================================
+CONTADOR VERMELHO
+========================================================= */
+
+body.modo-escuro .contador-notificacao {
+background:
+linear-gradient(
+135deg,
+#ff5f6d,
+#ff7b7b
+) !important;
+
+
+color:
+    #ffffff !important;
+
+border:
+    2px solid #203952 !important;
+
+box-shadow:
+    0 3px 10px rgba(255, 95, 109, 0.35);
+
+
+}
+
+/* =========================================================
+DROPDOWN / ÁREA DA NOTIFICAÇÃO
+========================================================= */
+
+body.modo-escuro .dropdown-menu {
+background:
+#1b3048 !important;
+
+
+border:
+    1px solid #3d5d78 !important;
+
+box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.40) !important;
+
+
+}
+
+/* =========================================================
+TEXTO DENTRO DO DROPDOWN
+========================================================= */
+
+body.modo-escuro .dropdown-menu .dropdown-item {
+color:
+#dce8f3 !important;
+}
+
+body.modo-escuro .dropdown-menu .dropdown-item:hover {
+background:
+#294965 !important;
+
+
+color:
+    #ffffff !important;
+
+
+}
+
+/* =========================================================
+SEPARADORES
+========================================================= */
+
+body.modo-escuro .item-notificacao + .item-notificacao {
+border-top-color:
+#38566f !important;
+}
+
+/* =========================================================
+BOTÃO "VER TODAS" / AÇÕES
+========================================================= */
+
+body.modo-escuro .rodape-notificacao a {
+color:
+#65b6ed !important;
+
+
+font-weight:
+    600;
+
+transition:
+    0.2s ease;
+
+
+}
+
+body.modo-escuro .rodape-notificacao a:hover {
+color:
+#9bd5f7 !important;
+}
+
+/* =========================================================
+TEXTO DE ESTOQUE MÍNIMO / MÁXIMO
+========================================================= */
+
+body.modo-escuro .item-notificacao strong {
+color:
+#ffffff !important;
+}
+
+/* =========================================================
+PEQUENOS TEXTOS
+========================================================= */
+
+body.modo-escuro .item-notificacao small {
+color:
+#a9bdd0 !important;
+}
+
+/* =========================================================
+OCULTA TOPBAR
+========================================================= */
+
+.topbar {
+display: none !important;
+}
+
+/* =========================================================
+ESPAÇAMENTO DO CONTEÚDO APÓS O HEADER
+========================================================= */
+
+.content {
+padding-top: 50px !important;
+}
+
+/* =========================================================
+PRIORIDADE DO ALTO CONTRASTE
+Garante que o contraste vença o modo escuro
+========================================================= */
+
+body.alto-contraste.modo-escuro {
+background: #000000 !important;
+color: #ffffff !important;
+}
+
+body.alto-contraste.modo-escuro .header,
+body.alto-contraste.modo-escuro .sidebar,
+body.alto-contraste.modo-escuro .content,
+body.alto-contraste.modo-escuro .topbar,
+body.alto-contraste.modo-escuro .card,
+body.alto-contraste.modo-escuro .configuracoes-card,
+body.alto-contraste.modo-escuro .configuracoes-header,
+body.alto-contraste.modo-escuro .menu-notificacao,
+body.alto-contraste.modo-escuro .modal-content {
+background: #000000 !important;
+color: #ffffff !important;
+box-shadow: none !important;
+}
+
+body.alto-contraste.modo-escuro a,
+body.alto-contraste.modo-escuro button,
+body.alto-contraste.modo-escuro i {
+color: #ffff00 !important;
+}
+
+body.alto-contraste.modo-escuro .sidebar a.active,
+body.alto-contraste.modo-escuro .btn-primary {
+background: #ffff00 !important;
+color: #000000 !important;
+}

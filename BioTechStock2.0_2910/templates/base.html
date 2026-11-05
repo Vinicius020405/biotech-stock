@@ -1,0 +1,726 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        Sistema de Estoque
+        {% endblock %}
+    </title>
+
+    <!-- BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- BOOTSTRAP ICONS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- FONTE -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- CSS PRINCIPAL -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style-base.css') }}">
+</head>
+
+<body>
+
+    <!-- RESTAURA ESTADOS -->
+    <script>
+        if (localStorage.getItem("sidebarBioTech") === "fechada") {
+            document.body.classList.add("sidebar-fechada");
+        }
+
+        if (localStorage.getItem("altoContrasteBioTech") === "ativado") {
+            document.body.classList.add("alto-contraste");
+        }
+    </script>
+
+    <!-- PULAR PARA O CONTEÚDO -->
+    <a href="#conteudo-principal" class="skip-link">
+        Pular para o conteúdo
+    </a>
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <div>
+            <img
+                src="{{ url_for('static', filename='img/logobranca2.png') }}"
+                alt="BioTech Stock"
+                style="height: 48px; width: auto; object-fit: contain;">
+        </div>
+
+        <div class="d-flex align-items-center gap-3">
+
+            <!-- NOTIFICAÇÕES -->
+            <div class="area-notificacao">
+
+                <button
+                    type="button"
+                    class="botao-notificacao"
+                    onclick="abrirNotificacoes()"
+                    aria-label="Abrir notificações"
+                    aria-expanded="false"
+                    aria-controls="menuNotificacoes">
+
+                    <i class="bi bi-bell-fill" aria-hidden="true"></i>
+
+                    {% if quantidade_notificacoes > 0 %}
+                    <span class="contador-notificacao">
+                        {{ quantidade_notificacoes }}
+                    </span>
+                    {% endif %}
+                </button>
+
+                <div class="menu-notificacao" id="menuNotificacoes">
+
+                    <div class="cabecalho-notificacao">
+                        <h5>Notificações</h5>
+
+                        <span class="badge bg-primary">
+                            {{ quantidade_notificacoes }}
+                        </span>
+                    </div>
+
+                    <div class="lista-notificacao">
+
+                        {% if notificacoes %}
+
+                        {% for notificacao in notificacoes %}
+
+                        <a
+                            href="{{ url_for('notificacao_lida', id_notificacao=notificacao.id_notificacao) }}"
+                            class="item-notificacao">
+
+                            <div class="icone-notificacao">
+
+                                {% if notificacao.titulo == "Login realizado" %}
+                                <i class="bi bi-person-fill" aria-hidden="true"></i>
+
+                                {% elif notificacao.titulo == "Novo produto" %}
+                                <i class="bi bi-box-fill" aria-hidden="true"></i>
+
+                                {% elif notificacao.titulo == "Produto alterado" %}
+                                <i class="bi bi-pencil-fill" aria-hidden="true"></i>
+
+                                {% elif notificacao.titulo == "Produto excluído" %}
+                                <i class="bi bi-trash-fill" aria-hidden="true"></i>
+
+                                {% elif notificacao.titulo == "Estoque baixo" %}
+                                <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+
+                                {% else %}
+                                <i class="bi bi-bell-fill" aria-hidden="true"></i>
+                                {% endif %}
+
+                            </div>
+
+                            <div class="conteudo-notificacao">
+
+                                <div class="titulo-notificacao">
+                                    {{ notificacao.titulo }}
+                                </div>
+
+                                <div class="mensagem-notificacao">
+                                    {{ notificacao.mensagem }}
+                                </div>
+
+                                <div class="data-notificacao">
+                                    {{ notificacao.data_criacao }}
+                                </div>
+
+                            </div>
+
+                        </a>
+
+                        {% endfor %}
+
+                        {% else %}
+
+                        <div class="notificacao-vazia">
+                            <i class="bi bi-bell-fill" aria-hidden="true"></i>
+                            <div>Nenhuma notificação</div>
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+
+                    <div class="rodape-notificacao">
+                        <a href="{{ url_for('notificacoes') }}">
+                            Ver todas as notificações
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- USUÁRIO -->
+            <div class="user-area">
+                <i class="bi bi-person-circle" aria-hidden="true"></i>
+
+                <span>
+                    {{ session.get('usuario_nome', 'Usuário') }}
+                </span>
+            </div>
+
+            <!-- SAIR -->
+            <a
+                href="{{ url_for('logout') }}"
+                class="btn btn-outline-light btn-sm"
+                aria-label="Sair do sistema">
+
+                <i class="bi bi-box-arrow-right" aria-hidden="true"></i>
+                Sair
+            </a>
+
+        </div>
+
+    </header>
+
+    <!-- LAYOUT -->
+    <div>
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" aria-label="Menu principal">
+
+            <button
+                type="button"
+                class="botao-sidebar"
+                onclick="alternarSidebar()"
+                aria-label="Fechar menu lateral"
+                aria-expanded="true"
+                title="Fechar menu">
+
+                <i class="bi bi-list" id="iconeSidebar" aria-hidden="true"></i>
+                <span>BioTech Stock</span>
+            </button>
+
+            <a href="{{ url_for('dashboard') }}"
+                class="{% if request.endpoint == 'dashboard' %}active{% endif %}">
+                <i class="bi bi-speedometer2" aria-hidden="true"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="{{ url_for('listar_estoque') }}"
+                class="{% if request.endpoint == 'listar_estoque' %}active{% endif %}">
+                <i class="bi bi-boxes" aria-hidden="true"></i>
+                <span>Estoque</span>
+            </a>
+
+            <a href="{{ url_for('mapa_estoque') }}"
+                class="{% if request.endpoint == 'mapa_estoque' %}active{% endif %}">
+                <i class="bi bi-grid-3x3-gap-fill" aria-hidden="true"></i>
+                <span>Mapa de Estoque</span>
+            </a>
+
+            <a href="{{ url_for('novo_usuario') }}"
+                class="{% if request.endpoint == 'novo_usuario' %}active{% endif %}">
+                <i class="bi bi-people-fill" aria-hidden="true"></i>
+                <span>Usuários</span>
+            </a>
+
+            <a href="{{ url_for('listar_produtos') }}"
+                class="{% if request.endpoint == 'listar_produtos' %}active{% endif %}">
+                <i class="bi bi-box-seam" aria-hidden="true"></i>
+                <span>Produtos</span>
+            </a>
+
+            <a href="{{ url_for('listar_pedidos_entrada') }}"
+                class="{% if request.endpoint == 'listar_pedidos_entrada' %}active{% endif %}">
+                <i class="bi bi-journal-arrow-down" aria-hidden="true"></i>
+                <span>Pedido Entrada</span>
+            </a>
+
+            <a href="{{ url_for('listar_pedidos_saida') }}"
+                class="{% if request.endpoint == 'listar_pedidos_saida' %}active{% endif %}">
+                <i class="bi bi-journal-arrow-up" aria-hidden="true"></i>
+                <span>Pedido Saída</span>
+            </a>
+
+            <a href="{{ url_for('listar_localizacoes') }}"
+                class="{% if request.endpoint == 'listar_localizacoes' %}active{% endif %}">
+                <i class="bi bi-geo-alt" aria-hidden="true"></i>
+                <span>Localização</span>
+            </a>
+
+            <a href="{{ url_for('listar_sensores') }}"
+                class="{% if request.endpoint == 'listar_sensores' %}active{% endif %}">
+                <i class="bi bi-cpu" aria-hidden="true"></i>
+                <span>Sensores</span>
+            </a>
+
+            <a href="{{ url_for('listar_caminhoes') }}"
+                class="{% if request.endpoint == 'listar_caminhoes' %}active{% endif %}">
+                <i class="bi bi-truck" aria-hidden="true"></i>
+                <span>Caminhões</span>
+            </a>
+
+            <a href="{{ url_for('listar_fornecedor') }}"
+                class="{% if request.endpoint == 'listar_fornecedor' %}active{% endif %}">
+                <i class="bi bi-building-up" aria-hidden="true"></i>
+                <span>Fornecedor</span>
+            </a>
+
+            <a href="{{ url_for('notificacoes') }}"
+                class="{% if request.endpoint == 'notificacoes' %}active{% endif %}">
+                <i class="bi bi-bell" aria-hidden="true"></i>
+                <span>Notificações</span>
+            </a>
+
+            <a href="{{ url_for('configuracoes') }}"
+                class="{% if request.endpoint == 'configuracoes' %}active{% endif %}">
+                <i class="bi bi-gear-fill" aria-hidden="true"></i>
+                <span>Configurações</span>
+            </a>
+
+        </aside>
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="content" id="conteudo-principal">
+
+            <div class="topbar">
+                <h1 class="h4 mb-0">
+                    {% block page_title %}
+                    Painel
+                    {% endblock %}
+                </h1>
+            </div>
+
+            <!-- MENSAGENS -->
+            {% with mensagens = get_flashed_messages(with_categories=true) %}
+
+            {% if mensagens %}
+
+            {% for categoria, mensagem in mensagens %}
+
+            <div
+                class="alert alert-{{ categoria }} alert-dismissible fade show"
+                role="alert">
+
+                {{ mensagem }}
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Fechar">
+                </button>
+
+            </div>
+
+            {% endfor %}
+
+            {% endif %}
+
+            {% endwith %}
+
+            <!-- CONTEÚDO DAS PÁGINAS -->
+            {% block content %}
+                {% block conteudo %}
+                {% endblock %}
+            {% endblock %}
+
+        </main>
+
+    </div>
+
+    <!-- VLIBRAS -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+
+    <script>
+        if (window.VLibras) {
+            new window.VLibras.Widget('https://vlibras.gov.br/app');
+        }
+    </script>
+
+    <!-- BOOTSTRAP -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- MODO ESCURO -->
+    <script>
+        function aplicarTema() {
+            const tema = localStorage.getItem("temaBioTech");
+            const icone = document.getElementById("iconeTemaConfiguracoes");
+            const texto = document.getElementById("textoTemaConfiguracoes");
+            const botao = document.getElementById("botaoTemaConfiguracoes");
+
+            if (tema === "escuro") {
+                document.body.classList.add("modo-escuro");
+
+                if (icone) icone.className = "bi bi-sun-fill";
+                if (texto) texto.textContent = "Modo claro";
+
+                if (botao) {
+                    botao.setAttribute("aria-label", "Ativar modo claro");
+                }
+            } else {
+                document.body.classList.remove("modo-escuro");
+
+                if (icone) icone.className = "bi bi-moon-stars-fill";
+                if (texto) texto.textContent = "Modo escuro";
+
+                if (botao) {
+                    botao.setAttribute("aria-label", "Ativar modo escuro");
+                }
+            }
+        }
+
+        function alternarTema() {
+            const estaEscuro = document.body.classList.contains("modo-escuro");
+
+            localStorage.setItem(
+                "temaBioTech",
+                estaEscuro ? "claro" : "escuro"
+            );
+
+            aplicarTema();
+        }
+
+        aplicarTema();
+    </script>
+
+    <!-- ALTO CONTRASTE -->
+    <script>
+        function aplicarAltoContraste() {
+            const ativado =
+                localStorage.getItem("altoContrasteBioTech") === "ativado";
+
+            const botao = document.getElementById("botaoAltoContraste");
+            const icone = document.getElementById("iconeAltoContraste");
+            const texto = document.getElementById("textoAltoContraste");
+
+            document.body.classList.toggle("alto-contraste", ativado);
+
+            if (botao) {
+                botao.classList.toggle("btn-primary", ativado);
+                botao.classList.toggle("btn-outline-primary", !ativado);
+                botao.setAttribute("aria-pressed", String(ativado));
+            }
+
+            if (icone) {
+                icone.className = "bi bi-circle-half";
+            }
+
+            if (texto) {
+                texto.textContent = ativado
+                    ? "Desativar alto contraste"
+                    : "Ativar alto contraste";
+            }
+        }
+
+        function alternarAltoContraste() {
+            const ativado =
+                document.body.classList.contains("alto-contraste");
+
+            localStorage.setItem(
+                "altoContrasteBioTech",
+                ativado ? "desativado" : "ativado"
+            );
+
+            aplicarAltoContraste();
+        }
+
+        aplicarAltoContraste();
+    </script>
+
+    <!-- NOTIFICAÇÕES -->
+    <script>
+        function abrirNotificacoes() {
+            const menu = document.getElementById("menuNotificacoes");
+            const botao = document.querySelector(".botao-notificacao");
+
+            if (!menu || !botao) return;
+
+            menu.classList.toggle("aberto");
+
+            botao.setAttribute(
+                "aria-expanded",
+                menu.classList.contains("aberto") ? "true" : "false"
+            );
+        }
+
+        document.addEventListener("click", function (event) {
+            const area = document.querySelector(".area-notificacao");
+            const menu = document.getElementById("menuNotificacoes");
+            const botao = document.querySelector(".botao-notificacao");
+
+            if (area && menu && !area.contains(event.target)) {
+                menu.classList.remove("aberto");
+
+                if (botao) {
+                    botao.setAttribute("aria-expanded", "false");
+                }
+            }
+        });
+    </script>
+
+    <!-- ACESSIBILIDADE -->
+    <script>
+        function alterarFonte(delta) {
+            const estilo = window.getComputedStyle(document.body);
+            const tamanhoAtual = parseFloat(estilo.getPropertyValue("font-size"));
+
+            document.body.style.fontSize = (tamanhoAtual + delta) + "px";
+        }
+    </script>
+
+    <!-- SÍNTESE DE VOZ -->
+    <script>
+        (function () {
+            if (!("speechSynthesis" in window)) {
+                return;
+            }
+
+            const synth = window.speechSynthesis;
+
+            let leituraAtiva = false;
+            let ultimaLeitura = "";
+            let ultimaLeituraTempo = 0;
+
+            function vozAtivada() {
+                return localStorage.getItem("vozBioTech") === "ativado";
+            }
+
+            function prepararTexto(texto) {
+                return (texto || "")
+                    .replace(/\s+/g, " ")
+                    .trim();
+            }
+
+            function falarTexto(texto) {
+                texto = prepararTexto(texto);
+
+                if (!texto || !vozAtivada()) {
+                    return;
+                }
+
+                const agora = Date.now();
+
+                if (
+                    texto === ultimaLeitura &&
+                    agora - ultimaLeituraTempo < 1200
+                ) {
+                    return;
+                }
+
+                ultimaLeitura = texto;
+                ultimaLeituraTempo = agora;
+
+                synth.cancel();
+                leituraAtiva = true;
+
+                const partes = texto.match(/[^.!?;:]+[.!?;:]*/g) || [texto];
+                let indice = 0;
+
+                function falarProximaParte() {
+                    if (!leituraAtiva || !vozAtivada()) {
+                        return;
+                    }
+
+                    if (indice >= partes.length) {
+                        leituraAtiva = false;
+                        return;
+                    }
+
+                    const parte = prepararTexto(partes[indice]);
+                    indice++;
+
+                    if (!parte) {
+                        falarProximaParte();
+                        return;
+                    }
+
+                    const fala = new SpeechSynthesisUtterance(parte);
+
+                    fala.lang = "pt-BR";
+                    fala.rate = 0.9;
+                    fala.pitch = 1;
+                    fala.volume = 1;
+
+                    fala.onend = function () {
+                        falarProximaParte();
+                    };
+
+                    fala.onerror = function () {
+                        leituraAtiva = false;
+                    };
+
+                    synth.speak(fala);
+                }
+
+                falarProximaParte();
+            }
+
+            function obterTextoElemento(elemento) {
+                if (!elemento) return "";
+
+                if (elemento.matches("input, textarea")) {
+                    const rotulo = elemento.labels && elemento.labels.length
+                        ? elemento.labels[0].innerText
+                        : "";
+
+                    return elemento.getAttribute("aria-label") ||
+                        rotulo ||
+                        elemento.getAttribute("placeholder") ||
+                        elemento.value ||
+                        "";
+                }
+
+                if (elemento.matches("select")) {
+                    const opcao = elemento.options[elemento.selectedIndex];
+
+                    const rotulo = elemento.labels && elemento.labels.length
+                        ? elemento.labels[0].innerText
+                        : "";
+
+                    return elemento.getAttribute("aria-label") ||
+                        rotulo ||
+                        (opcao ? opcao.text : "");
+                }
+
+                return elemento.getAttribute("aria-label") ||
+                    elemento.innerText ||
+                    elemento.getAttribute("alt") ||
+                    "";
+            }
+
+            function lerPagina() {
+                const conteudo = document.getElementById("conteudo-principal");
+
+                if (!conteudo) {
+                    falarTexto(document.body.innerText);
+                    return;
+                }
+
+                const copia = conteudo.cloneNode(true);
+
+                copia.querySelectorAll(
+                    "script, style, button, input, select, textarea, .btn-close"
+                ).forEach(function (elemento) {
+                    elemento.remove();
+                });
+
+                falarTexto(copia.innerText);
+            }
+
+            document.addEventListener("click", function (evento) {
+                const elemento = evento.target.closest(
+                    "button, a, input, select, textarea, [role='button']"
+                );
+
+                if (!elemento) return;
+
+                if (
+                    elemento.id === "botaoVoz" ||
+                    elemento.closest("[data-controle-voz]")
+                ) {
+                    return;
+                }
+
+                const texto = obterTextoElemento(elemento);
+
+                if (texto && vozAtivada()) {
+                    falarTexto(texto);
+                }
+            });
+
+            document.addEventListener("focusin", function (evento) {
+                const elemento = evento.target;
+
+                if (!elemento.matches("input, select, textarea")) {
+                    return;
+                }
+
+                const texto = obterTextoElemento(elemento);
+
+                if (texto && vozAtivada()) {
+                    falarTexto(texto);
+                }
+            });
+
+            document.addEventListener("biotechLerPagina", lerPagina);
+
+            window.biotechVoz = {
+                falar: falarTexto,
+                lerPagina: lerPagina,
+                parar: function () {
+                    leituraAtiva = false;
+                    synth.cancel();
+                }
+            };
+        })();
+    </script>
+
+    <!-- SIDEBAR RETRÁTIL -->
+    <script>
+        function alternarSidebar() {
+            document.body.classList.toggle("sidebar-fechada");
+
+            const fechada =
+                document.body.classList.contains("sidebar-fechada");
+
+            localStorage.setItem(
+                "sidebarBioTech",
+                fechada ? "fechada" : "aberta"
+            );
+
+            atualizarSidebar();
+        }
+
+        function atualizarSidebar() {
+            const icone = document.getElementById("iconeSidebar");
+            const botao = document.querySelector(".botao-sidebar");
+
+            if (!icone || !botao) return;
+
+            const fechada =
+                document.body.classList.contains("sidebar-fechada");
+
+            if (fechada) {
+                icone.className = "bi bi-chevron-right";
+                botao.title = "Abrir menu";
+                botao.setAttribute("aria-label", "Abrir menu lateral");
+                botao.setAttribute("aria-expanded", "false");
+            } else {
+                icone.className = "bi bi-chevron-left";
+                botao.title = "Fechar menu";
+                botao.setAttribute("aria-label", "Fechar menu lateral");
+                botao.setAttribute("aria-expanded", "true");
+            }
+        }
+
+        document.addEventListener("click", function (event) {
+            const link = event.target.closest(".sidebar a");
+
+            if (!link) return;
+
+            const fechada =
+                document.body.classList.contains("sidebar-fechada");
+
+            localStorage.setItem(
+                "sidebarBioTech",
+                fechada ? "fechada" : "aberta"
+            );
+        });
+
+        document.addEventListener("DOMContentLoaded", atualizarSidebar);
+        atualizarSidebar();
+    </script>
+
+    {% block scripts %}
+    {% endblock %}
+
+</body>
+</html>

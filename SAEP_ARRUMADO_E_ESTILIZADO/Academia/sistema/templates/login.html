@@ -1,0 +1,48 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="panel narrow login-panel">
+
+    <div class="login-titulo">
+        <h1>Bem-vindo à Academia</h1>
+        <p>Entre com suas credenciais para acessar o sistema.</p>
+    </div>
+
+    <form method="post">
+
+        <label for="email">E-mail</label>
+        <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Digite seu e-mail"
+            autocomplete="username"
+            required
+            autofocus
+        >
+
+        <label for="senha">Senha</label>
+        <input
+            type="password"
+            id="senha"
+            name="senha"
+            placeholder="Digite sua senha"
+            autocomplete="current-password"
+            required
+        >
+
+        <button type="submit" class="btn-login">
+            Entrar no sistema
+        </button>
+
+    </form>
+
+    <p class="login-rodape">
+        Sistema de gerenciamento de academia
+    </p>
+
+</section>
+
+{% endblock %}

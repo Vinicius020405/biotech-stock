@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+{% if fornecedor %}
+Editar Fornecedor - Sistema de Estoque
+{% else %}
+Novo Fornecedor - Sistema de Estoque
+{% endif %}
+{% endblock %}
+
+
+{% block page_title %}
+{% endblock %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style-fornecedor.css') }}">
+
+<div class="card card-fornecedor-form">
+
+    <div class="card-header">
+
+        {% if fornecedor %}
+        <h5 class="mb-0">Editar fornecedor</h5>
+        <small>
+            Altere as informações do fornecedor selecionado
+        </small>
+        {% else %}
+        <h5 class="mb-0">Cadastrar novo fornecedor</h5>
+        <small>
+            Preencha os dados do fornecedor
+        </small>
+        {% endif %}
+
+    </div>
+
+    <div class="card-body">
+
+        <form method="POST">
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+                    <label for="nome" class="form-label">
+                        Nome do Fornecedor
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="nome"
+                        name="nome"
+                        value="{{ fornecedor.nome if fornecedor else '' }}"
+                        placeholder="Ex: CRISTÁLIA"
+                        required
+                    >
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    <label for="cnpj" class="form-label">
+                        CNPJ
+                    </label>
+
+                    <input
+                        type="number"
+                        class="form-control"
+                        id="cnpj"
+                        name="cnpj"
+                        value="{{ fornecedor.cnpj if fornecedor else '' }}"
+                        placeholder="00.000.000/0000-00"
+                        required
+                    >
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    <label for="email" class="form-label">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        name="email"
+                        value="{{ fornecedor.email if fornecedor else '' }}"
+                        placeholder="fornecedor@email.com"
+                        required
+                    >
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="telefone" class="form-label">
+                        Telefone
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="telefone"
+                        name="telefone"
+                        value="{{ fornecedor.telefone if fornecedor else '' }}"
+                        placeholder="(11) 99999-9999"
+                    >
+                </div>
+
+                <div class="col-md-8 mb-3">
+                    <label for="endereco" class="form-label">
+                        Endereço
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="endereco"
+                        name="endereco"
+                        value="{{ fornecedor.endereco if fornecedor else '' }}"
+                        placeholder="Rua, número, bairro, cidade"
+                    >
+                </div>
+
+                <div class="col-md-3 mb-3">
+                    <label for="cep" class="form-label">
+                        CEP
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="cep"
+                        name="cep"
+                        value="{{ fornecedor.cep if fornecedor else '' }}"
+                        placeholder="00000-000"
+                    >
+                </div>
+
+                <div class="col-md-5 mb-3">
+                    <label for="contato_responsavel" class="form-label">
+                        Contato Responsável
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="contato_responsavel"
+                        name="contato_responsavel"
+                        value="{{ fornecedor.contato_responsavel if fornecedor else '' }}"
+                        placeholder="Nome ou telefone do responsável"
+                    >
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label for="status" class="form-label">
+                        Status
+                    </label>
+
+                    <select
+                        class="form-select"
+                        id="status"
+                        name="status"
+                    >
+                        <option
+                            value="ativo"
+                            {% if fornecedor and fornecedor.status == 'ativo' %}selected{% endif %}
+                        >
+                            Ativo
+                        </option>
+
+                        <option
+                            value="inativo"
+                            {% if fornecedor and fornecedor.status == 'inativo' %}selected{% endif %}
+                        >
+                            Inativo
+                        </option>
+                    </select>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <label for="observacoes" class="form-label">
+                        Observações
+                    </label>
+
+                    <textarea
+                        class="form-control"
+                        id="observacoes"
+                        name="observacoes"
+                        rows="4"
+                        placeholder="Digite alguma observação sobre o fornecedor..."
+                    >{{ fornecedor.observacoes if fornecedor else '' }}</textarea>
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+
+                <a
+                    href="{{ url_for('listar_fornecedor') }}"
+                    class="btn btn-secondary"
+                >
+                    Voltar
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    {% if fornecedor %}
+                    Salvar Alterações
+                    {% else %}
+                    Cadastrar Fornecedor
+                    {% endif %}
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

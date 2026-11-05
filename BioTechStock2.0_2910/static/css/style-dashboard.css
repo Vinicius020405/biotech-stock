@@ -1,0 +1,158 @@
+.card-dashboard {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    transition: transform .3s ease;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.card-dashboard::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background: #2563eb;
+}
+
+.card-dashboard .card-body {
+    padding: 1.6rem;
+}
+
+/* CONTRASTE CORRIGIDO (WCAG AA: > 4.5:1) */
+.card-dashboard .card-title {
+    font-size: .90rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #000000;
+    margin-bottom: 10px;
+}
+
+.card-dashboard .card-value {
+    font-size: 2.3rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+    color: #0f172a;
+}
+
+.card-dashboard p {
+    margin: 0;
+    font-size: .92rem;
+    color: #161616 !important;
+}
+
+.dashboard-header {
+    background: linear-gradient(135deg, #0f172a, #1e3a8a);
+    border-radius: 20px;
+    padding: 35px;
+    margin-bottom: 25px;
+    color: #ffffff;
+    box-shadow: 0 15px 40px rgba(30, 58, 138, .25);
+    margin-top: -40px;
+}
+
+.dashboard-header h2 {
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.dashboard-header p {
+    color: #f1f5f9;
+    margin-bottom: 0;
+}
+
+/* ALERTA DE ESTOQUE CRÍTICO */
+.alert-estoque-baixo {
+    background-color: #fef2f2;
+    border: 2px solid #dc2626;
+    border-radius: 16px;
+    padding: 22px;
+    margin-bottom: 25px;
+}
+
+.alert-estoque-baixo h2 {
+    color: #991b1b;
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.alert-estoque-baixo p {
+    color: #7f1d1d;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+}
+
+.alert-estoque-baixo ul {
+    margin-bottom: 0;
+    padding-left: 20px;
+}
+
+.alert-estoque-baixo li {
+    color: #7f1d1d;
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+}
+
+.badge-qtd-critica {
+    background-color: #dc2626;
+    color: #ffffff;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.chart-card {
+    margin-top: 25px;
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    background: #ffffff;
+}
+
+.chart-container {
+    position: relative;
+    height: 280px;
+}
+
+/* SUPORTE AO MODO ALTO CONTRASTE PARA OS CARDS E ALERTAS */
+body.alto-contraste .card-dashboard,
+body.alto-contraste .chart-card,
+body.alto-contraste .dashboard-header {
+    background-color: #000000 !important;
+    border: 2px solid #ffff00 !important;
+}
+
+body.alto-contraste .card-dashboard::before {
+    background: #ffff00 !important;
+}
+
+body.alto-contraste .card-dashboard .card-title,
+body.alto-contraste .card-dashboard .card-value,
+body.alto-contraste .card-dashboard p,
+body.alto-contraste .dashboard-header h2,
+body.alto-contraste .dashboard-header p,
+body.alto-contraste .chart-card h3 {
+    color: #ffff00 !important;
+}
+
+body.alto-contraste .alert-estoque-baixo {
+    background-color: #000000 !important;
+    border: 2px solid #ff0000 !important;
+}
+
+body.alto-contraste .alert-estoque-baixo h2,
+body.alto-contraste .alert-estoque-baixo p,
+body.alto-contraste .alert-estoque-baixo li {
+    color: #ffffff !important;
+}

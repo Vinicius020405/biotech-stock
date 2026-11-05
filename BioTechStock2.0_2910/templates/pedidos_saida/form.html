@@ -1,0 +1,415 @@
+{% set cabecalho = pedido.cabecalho if pedido else None %}
+{% set itens = pedido.itens if pedido else [] %}
+
+{% extends "base.html" %}
+
+{% block title %}
+Novo Pedido de Saída - Sistema de Estoque
+{% endblock %}
+
+{% block page_title %}
+{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style-pedido-saida.css') }}">
+
+<div class="page-card">
+
+    <div class="card-header-custom">
+
+        <h5>Novo pedido de saída</h5>
+
+        <small>
+            Informe os dados gerais e adicione os produtos que serão retirados do estoque
+        </small>
+
+    </div>
+
+    <div class="form-body">
+
+        <form method="POST">
+
+            <div class="mb-4">
+
+                <h6 class="fw-bold mb-1">
+                    Cabeçalho do pedido
+                </h6>
+
+                <small class="text-muted">
+                    Informe os dados gerais da saída
+                </small>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-4 mb-3">
+
+                    <label for="numero_documento" class="form-label">
+                        Número do Documento
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="numero_documento"
+                        name="numero_documento"
+                        value="{{ cabecalho.numero_documento if cabecalho else '' }}"
+                        required
+                    >
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <label for="solicitante" class="form-label">
+                        Solicitante
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="solicitante"
+                        name="solicitante"
+                        value="{{ cabecalho.solicitante if cabecalho else '' }}"
+                        required
+                    >
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <label for="data_saida" class="form-label">
+                        Data de Saída
+                    </label>
+
+                    <input
+                        type="date"
+                        class="form-control"
+                        id="data_saida"
+                        name="data_saida"
+                        value="{{ cabecalho.data_saida if cabecalho else '' }}"
+                        required
+                    >
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <label for="id_caminhao" class="form-label">
+                        Caminhão
+                    </label>
+
+                    <select
+                        class="form-select"
+                        id="id_caminhao"
+                        name="id_caminhao"
+                        required
+                    >
+
+                        <option value="">
+                            Selecione um caminhão
+                        </option>
+
+                        {% for caminhao in caminhoes %}
+
+                        <option
+                            value="{{ caminhao.id_caminhao }}"
+                            {% if cabecalho and cabecalho.id_caminhao == caminhao.id_caminhao %}
+                                selected
+                            {% endif %}
+                        >
+                            {{ caminhao.placa }} - {{ caminhao.modelo }}
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="mb-4">
+
+                <label for="observacao" class="form-label">
+                    Observação
+                </label>
+
+                <textarea
+                    class="form-control"
+                    id="observacao"
+                    name="observacao"
+                    rows="3"
+                    placeholder="Digite uma observação sobre o pedido, se necessário"
+                >{{ cabecalho.observacao if cabecalho else '' }}</textarea>
+
+            </div>
+
+            <hr>
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                <div>
+
+                    <h6 class="fw-bold mb-1">
+                        Itens do pedido
+                    </h6>
+
+                    <small class="text-muted">
+                        Adicione um ou mais produtos ao pedido de saída
+                    </small>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="btn btn-add-item"
+                    onclick="adicionarItemSaida()"
+                >
+                    + Adicionar Item
+                </button>
+
+            </div>
+
+            <div class="items-table-wrapper">
+
+                <div class="table-responsive">
+
+                    <table
+                        class="table items-table align-middle"
+                        id="tabelaItensSaida"
+                    >
+
+                        <thead>
+
+                            <tr>
+
+                                <th style="width: 40%;">
+                                    Produto
+                                </th>
+
+                                <th style="width: 30%;">
+                                    Localização
+                                </th>
+
+                                <th style="width: 20%;">
+                                    Quantidade
+                                </th>
+
+                                <th
+                                    style="width: 10%;"
+                                    class="text-center"
+                                >
+                                    Ação
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="corpoItensSaida">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+            <div class="alert alert-stock">
+
+                O sistema só permitirá a saída se houver
+                <strong>saldo suficiente em estoque.</strong>
+
+            </div>
+
+            <hr>
+
+            <div class="d-flex justify-content-between">
+
+                <a
+                    href="{{ url_for('listar_pedidos_saida') }}"
+                    class="btn btn-secondary"
+                >
+                    Voltar
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                >
+                    Salvar Pedido de Saída
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<template id="templateItemSaida">
+
+    <tr>
+
+        <td>
+
+            <select
+                name="id_produto[]"
+                class="form-select"
+                required
+            >
+
+                <option value="">
+                    Selecione
+                </option>
+
+                {% for produto in produtos %}
+
+                <option value="{{ produto.id_produto }}">
+                    {{ produto.codigo }} - {{ produto.nome }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </td>
+
+        <td>
+
+            <select
+                name="id_localizacao[]"
+                class="form-select"
+                required
+            >
+
+                <option value="">
+                    Selecione
+                </option>
+
+                {% for localizacao in localizacoes %}
+
+                <option value="{{ localizacao.id_localizacao }}">
+                    {{ localizacao.nome }} - {{ localizacao.setor }}
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </td>
+
+        <td>
+
+            <input
+                type="number"
+                name="quantidade[]"
+                class="form-control"
+                step="0.01"
+                min="0.01"
+                required
+            >
+
+        </td>
+
+        <td class="text-center">
+
+            <button
+                type="button"
+                class="btn btn-danger btn-sm btn-remove-item"
+                onclick="removerLinha(this)"
+                title="Remover item"
+            >
+                ×
+            </button>
+
+        </td>
+
+    </tr>
+
+</template>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+
+function adicionarItemSaida(
+    produtoId = "",
+    localizacaoId = "",
+    quantidade = ""
+) {
+
+    const template =
+        document.getElementById("templateItemSaida");
+
+    const corpo =
+        document.getElementById("corpoItensSaida");
+
+    const novaLinha =
+        template.content.cloneNode(true);
+
+    corpo.appendChild(novaLinha);
+
+    const linhas =
+        corpo.querySelectorAll("tr");
+
+    const linha =
+        linhas[linhas.length - 1];
+
+    linha.querySelector(
+        'select[name="id_produto[]"]'
+    ).value = produtoId;
+
+    linha.querySelector(
+        'select[name="id_localizacao[]"]'
+    ).value = localizacaoId;
+
+    linha.querySelector(
+        'input[name="quantidade[]"]'
+    ).value = quantidade;
+}
+
+
+function removerLinha(botao) {
+
+    const linha =
+        botao.closest("tr");
+
+    linha.remove();
+}
+
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        {% if itens %}
+
+            {% for item in itens %}
+
+                adicionarItemSaida(
+                    "{{ item.id_produto }}",
+                    "{{ item.id_localizacao }}",
+                    "{{ item.quantidade }}"
+                );
+
+            {% endfor %}
+
+        {% else %}
+
+            adicionarItemSaida();
+
+        {% endif %}
+
+    }
+);
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,310 @@
+/* ==========================================
+   PRODUTO - PADRÃO DO MÓDULO
+========================================== */
+
+/* ================================
+   FORMULÁRIO
+================================ */
+
+.card {
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, .08);
+}
+
+.card-header {
+    background: linear-gradient(135deg, #408cce, midnightblue) !important;
+    color: white !important;
+    border: none !important;
+    padding: 22px 25px;
+}
+
+.card-header h5 {
+    font-weight: 700;
+    color: white !important;
+    margin-bottom: 5px;
+}
+
+.card-header small {
+    color: rgba(255, 255, 255, .85) !important;
+}
+
+.card-body {
+    padding: 25px;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 6px;
+}
+
+.form-control,
+.form-select {
+    border-radius: 10px;
+    border: 1px solid #dfe3e8;
+    padding: 10px 12px;
+    background: #fff;
+    transition: .2s;
+}
+
+.form-control:hover,
+.form-select:hover {
+    border-color: #b6c2cf;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #408cce;
+    box-shadow: 0 0 0 0.2rem rgba(64, 140, 206, .15);
+}
+
+textarea.form-control {
+    resize: vertical;
+}
+
+.img-thumbnail {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .10);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #408cce, midnightblue);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-weight: 600;
+    transition: .2s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, .15);
+}
+
+.btn-secondary {
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-weight: 600;
+}
+
+.alert-secondary {
+    border: none;
+    border-radius: 10px;
+    background: #f8fafc;
+}
+
+hr {
+    opacity: .10;
+    margin: 25px 0;
+}
+
+
+/* ================================
+   LISTAGEM
+================================ */
+
+.page-header {
+    background: linear-gradient(135deg, #408cce, midnightblue);
+    color: white;
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .12);
+    margin-top: -35px;
+}
+
+.page-header h3 {
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.card-produtos {
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, .08);
+}
+
+.table thead th {
+    background: midnightblue !important;
+    color: white !important;
+    border: none;
+    padding: 15px;
+    vertical-align: middle;
+}
+
+.table tbody td {
+    vertical-align: middle;
+    padding: 14px;
+}
+
+.table tbody tr {
+    transition: .2s;
+}
+
+.table tbody tr:hover {
+    background-color: #f8faff;
+}
+
+.produto-img {
+    width: 65px;
+    height: 65px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 2px solid #e9ecef;
+}
+
+.codigo-badge {
+    background: #e8eefc;
+    color: #2f4cb3;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.status-ativo {
+    background: #d1fae5;
+    color: #065f46;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.status-inativo {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.btn-novo {
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-weight: 600;
+}
+
+.btn-action {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.modal-content {
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #408cce, midnightblue) !important;
+    color: white !important;
+    border: none;
+}
+
+.modal-header .btn-close {
+    filter: brightness(0) invert(1);
+}
+
+.empty-box {
+    text-align: center;
+    padding: 60px;
+}
+
+.empty-box i {
+    font-size: 60px;
+    color: #adb5bd;
+}
+
+
+/* ================================
+   MODO ESCURO
+================================ */
+
+body.dark-mode .card,
+body.dark-mode .card-body {
+    background: #0c1c2d !important;
+    color: #e5edf7 !important;
+}
+
+body.dark-mode .card-header {
+    background: linear-gradient(135deg, #163b5c, #1f4e79) !important;
+    border-bottom-color: #315575 !important;
+}
+
+body.dark-mode .card-header h5 {
+    color: #ffffff !important;
+}
+
+body.dark-mode .card-header small {
+    color: rgba(255, 255, 255, .80) !important;
+}
+
+body.dark-mode .form-label {
+    color: #e5edf7;
+}
+
+body.dark-mode .form-control,
+body.dark-mode .form-select {
+    background: #12283d;
+    border-color: #315575;
+    color: #e5edf7;
+}
+
+body.dark-mode .form-control::placeholder {
+    color: #8fa6bc;
+}
+
+body.dark-mode .form-control:focus,
+body.dark-mode .form-select:focus {
+    border-color: #408cce;
+    box-shadow: 0 0 0 0.2rem rgba(64, 140, 206, .20);
+}
+
+body.dark-mode .alert-secondary {
+    background: #172b40;
+    color: #e5edf7;
+}
+
+body.dark-mode .table {
+    background: #0c1c2d !important;
+    color: #e5edf7 !important;
+}
+
+body.dark-mode .table thead th {
+    background: linear-gradient(135deg, #163b5c, #1f4e79) !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode .table tbody tr,
+body.dark-mode .table tbody td {
+    background: #0c1c2d !important;
+    color: #e5edf7 !important;
+    border-bottom-color: #263f58 !important;
+}
+
+body.dark-mode .table tbody tr:hover,
+body.dark-mode .table tbody tr:hover td {
+    background: #122c45 !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode .modal-content {
+    background: #0c1c2d;
+    color: #e5edf7;
+}
+
+body.dark-mode .modal-header {
+    background: linear-gradient(135deg, #163b5c, #1f4e79) !important;
+    color: #ffffff !important;
+}
+
+body.dark-mode .modal-body .text-muted {
+    color: #9fb3c8 !important;
+}

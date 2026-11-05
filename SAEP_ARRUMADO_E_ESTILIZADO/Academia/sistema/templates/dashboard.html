@@ -1,0 +1,44 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="dashboard-topo">
+    <div>
+        <h1>Painel principal</h1>
+        <p>
+            Bem-vindo(a), <strong>{{ nome_usuario }}</strong>!
+            Escolha uma funcionalidade para continuar.
+        </p>
+    </div>
+</div>
+
+<div class="cards">
+
+    <a class="panel dashboard-card" href="{{ url_for('listar_alunos') }}">
+        <div class="card-icone">AL</div>
+        <h2>Alunos</h2>
+        <p>Gerencie os alunos cadastrados no sistema.</p>
+        <strong>{{ contagens.alunos }}</strong>
+        <span>alunos cadastrados</span>
+    </a>
+
+    <a class="panel dashboard-card" href="{{ url_for('listar_planos') }}">
+        <div class="card-icone">PL</div>
+        <h2>Planos</h2>
+        <p>Consulte e organize os planos de treinamento.</p>
+        <strong>{{ contagens.planos }}</strong>
+        <span>planos cadastrados</span>
+    </a>
+
+    <a class="panel dashboard-card" href="{{ url_for('listar_agendamentos') }}">
+        <div class="card-icone">AG</div>
+        <h2>Agendamentos</h2>
+        <p>Consulte os horários e os agendamentos.</p>
+        <strong>{{ contagens.agendamentos }}</strong>
+        <span>agendamentos registrados</span>
+    </a>
+
+</div>
+
+{% endblock %}

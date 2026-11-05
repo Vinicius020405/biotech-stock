@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+    <title>Sistema indisponível | BioTech Stock</title>
+ 
+    <link rel="stylesheet"
+        href="{{ url_for('static', filename='css/style-error404.css') }}">
+</head>
+ 
+<body>
+ 
+    <div class="background">
+ 
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+ 
+        <main class="error-container">
+ 
+            <!-- LOGO -->
+            <div class="logo">
+                <span>BioTech</span> Stock
+            </div>
+ 
+            <!-- ÍCONE -->
+            <div class="status-icon">
+                <div class="pulse"></div>
+                ⚠
+            </div>
+ 
+            <!-- CÓDIGO -->
+            <div class="error-number">
+                404
+            </div>
+ 
+            <div class="line"></div>
+ 
+            <!-- TÍTULO -->
+            <h1>
+                Desculpe, o sistema está<br>
+                temporariamente indisponível.
+            </h1>
+ 
+            <!-- DESCRIÇÃO -->
+            <p>
+                Parece que o sistema encontrou um problema inesperado
+                e precisou interromper o acesso temporariamente.
+                <br><br>
+ 
+                Nossa equipe já está trabalhando para restabelecer
+                o funcionamento normal.
+            </p>
+ 
+            <p class="wait-message">
+                <strong>Aguarde alguns instantes e tente novamente.</strong>
+            </p>
+ 
+            <!-- BOTÕES -->
+            <div class="buttons">
+ 
+                <button onclick="location.reload()" class="btn-primary">
+                    ↻ Tentar novamente
+                </button>
+ 
+                <a href="{{ url_for('index') }}" class="btn-secondary">
+                    Voltar ao início
+                </a>
+ 
+            </div>
+ 
+            <!-- STATUS -->
+            <div class="system-status">
+                <span class="status-dot"></span>
+                Sistema em manutenção
+            </div>
+ 
+            <div class="error-code">
+                BIOTECH STOCK • ERROR 404
+            </div>
+ 
+        </main>
+ 
+    </div>
+ 
+</body>
+ 
+</html>

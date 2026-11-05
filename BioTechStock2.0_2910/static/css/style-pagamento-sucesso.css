@@ -1,0 +1,658 @@
+/* ==========================================================
+   BIOTECH STOCK
+   PAGAMENTO — SUCESSO
+   ========================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* ==========================================================
+   BODY
+   ========================================================== */
+
+body {
+
+    min-height: 100vh;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    color: #ffffff;
+
+    background:
+
+        radial-gradient(
+            circle at 15% 15%,
+            rgba(72, 187, 255, .16),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 85% 85%,
+            rgba(99, 102, 241, .14),
+            transparent 30%
+        ),
+
+        linear-gradient(
+            135deg,
+            #07111f,
+            #0b1728 45%,
+            #101827
+        );
+
+}
+
+
+/* ==========================================================
+   CONTAINER
+   ========================================================== */
+
+.sucesso-container {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 45px 20px;
+
+}
+
+
+/* ==========================================================
+   CARD PRINCIPAL
+   ========================================================== */
+
+.sucesso-card {
+
+    width: 100%;
+
+    max-width: 620px;
+
+    padding: 48px;
+
+    text-align: center;
+
+    border-radius: 28px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.10),
+            rgba(255,255,255,.045)
+        );
+
+    border: 1px solid
+        rgba(255,255,255,.12);
+
+    box-shadow:
+
+        0 35px 90px
+        rgba(0,0,0,.45),
+
+        inset 0 1px 0
+        rgba(255,255,255,.10);
+
+    backdrop-filter: blur(18px);
+
+}
+
+
+/* ==========================================================
+   ÍCONE DE SUCESSO
+   ========================================================== */
+
+.icone-sucesso {
+
+    width: 82px;
+
+    height: 82px;
+
+    margin: 0 auto 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    font-size: 42px;
+
+    font-weight: 800;
+
+    color: #ffffff;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #21d4a4,
+            #168fba
+        );
+
+    box-shadow:
+
+        0 0 35px
+        rgba(33,212,164,.35);
+
+}
+
+
+/* ==========================================================
+   TAG
+   ========================================================== */
+
+.tag {
+
+    display: inline-block;
+
+    padding: 7px 14px;
+
+    margin-bottom: 14px;
+
+    border-radius: 30px;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    color: #6ee7f9;
+
+    background:
+        rgba(78, 220, 255, .08);
+
+    border: 1px solid
+        rgba(78,220,255,.18);
+
+}
+
+
+/* ==========================================================
+   TÍTULO
+   ========================================================== */
+
+.sucesso-card h1 {
+
+    font-size: 34px;
+
+    line-height: 1.15;
+
+    margin-bottom: 12px;
+
+    font-weight: 800;
+
+}
+
+
+.descricao {
+
+    max-width: 480px;
+
+    margin: 0 auto 28px;
+
+    color:
+        rgba(255,255,255,.65);
+
+    line-height: 1.6;
+
+    font-size: 15px;
+
+}
+
+
+/* ==========================================================
+   PLANO
+   ========================================================== */
+
+.plano-confirmado {
+
+    padding: 20px;
+
+    margin-bottom: 22px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border: 1px solid
+        rgba(255,255,255,.09);
+
+}
+
+
+.plano-confirmado span {
+
+    display: block;
+
+    font-size: 10px;
+
+    letter-spacing: 1.7px;
+
+    color:
+        rgba(255,255,255,.45);
+
+    margin-bottom: 6px;
+
+}
+
+
+.plano-confirmado strong {
+
+    display: block;
+
+    font-size: 22px;
+
+    color: #ffffff;
+
+    margin-bottom: 4px;
+
+}
+
+
+.plano-confirmado small {
+
+    color: #6ee7f9;
+
+    font-size: 13px;
+
+}
+
+
+/* ==========================================================
+   ACESSO
+   ========================================================== */
+
+.acesso {
+
+    text-align: left;
+
+    padding: 24px;
+
+    border-radius: 22px;
+
+    background:
+
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.075),
+            rgba(255,255,255,.035)
+        );
+
+    border: 1px solid
+        rgba(255,255,255,.10);
+
+    margin-bottom: 18px;
+
+}
+
+
+/* ==========================================================
+   HEADER ACESSO
+   ========================================================== */
+
+.acesso-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding-bottom: 18px;
+
+    margin-bottom: 18px;
+
+    border-bottom: 1px solid
+        rgba(255,255,255,.08);
+
+}
+
+
+.acesso-header span {
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    color: #55d8ef;
+
+}
+
+
+.acesso-header h2 {
+
+    margin-top: 5px;
+
+    font-size: 20px;
+
+}
+
+
+.cadeado {
+
+    width: 42px;
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background:
+        rgba(77,211,238,.10);
+
+    border: 1px solid
+        rgba(77,211,238,.15);
+
+    font-size: 19px;
+
+}
+
+
+/* ==========================================================
+   DADOS
+   ========================================================== */
+
+.dado {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 14px;
+
+    margin-bottom: 10px;
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    border: 1px solid
+        rgba(255,255,255,.055);
+
+}
+
+
+.dado:last-child {
+
+    margin-bottom: 0;
+
+}
+
+
+.dado-icone {
+
+    width: 40px;
+
+    height: 40px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 11px;
+
+    background:
+        rgba(84,211,238,.09);
+
+}
+
+
+.dado-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+}
+
+
+.dado-info span {
+
+    font-size: 11px;
+
+    color:
+        rgba(255,255,255,.45);
+
+}
+
+
+.dado-info strong {
+
+    font-size: 15px;
+
+    color: #ffffff;
+
+    word-break: break-word;
+
+}
+
+
+.dado-info .senha {
+
+    color: #6ee7f9;
+
+    letter-spacing: 2px;
+
+}
+
+
+/* ==========================================================
+   AVISO
+   ========================================================== */
+
+.aviso {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    text-align: left;
+
+    padding: 13px 15px;
+
+    margin-bottom: 22px;
+
+    border-radius: 13px;
+
+    background:
+        rgba(33,212,164,.055);
+
+    border: 1px solid
+        rgba(33,212,164,.12);
+
+}
+
+
+.aviso span {
+
+    width: 23px;
+
+    height: 23px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: rgba(33,212,164,.15);
+
+    color: #55e6bc;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+}
+
+
+.aviso p {
+
+    font-size: 12px;
+
+    line-height: 1.45;
+
+    color:
+        rgba(255,255,255,.55);
+
+}
+
+
+/* ==========================================================
+   BOTÃO LOGIN
+   ========================================================== */
+
+.btn-login {
+
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 14px;
+
+    padding: 15px 20px;
+
+    border-radius: 14px;
+
+    text-decoration: none;
+
+    font-size: 15px;
+
+    font-weight: 800;
+
+    color: #ffffff;
+
+    background:
+
+        linear-gradient(
+            135deg,
+            #20cfa5,
+            #168eb8
+        );
+
+    box-shadow:
+
+        0 12px 30px
+        rgba(27,185,177,.22);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+
+}
+
+
+.btn-login strong {
+
+    font-size: 20px;
+
+}
+
+
+.btn-login:hover {
+
+    color: #ffffff;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+
+        0 16px 38px
+        rgba(27,185,177,.35);
+
+}
+
+
+/* ==========================================================
+   RODAPÉ
+   ========================================================== */
+
+.rodape {
+
+    margin-top: 22px;
+
+    font-size: 11px;
+
+    color:
+        rgba(255,255,255,.35);
+
+}
+
+
+/* ==========================================================
+   RESPONSIVO
+   ========================================================== */
+
+@media (max-width: 600px) {
+
+    .sucesso-container {
+
+        padding: 20px 12px;
+
+    }
+
+
+    .sucesso-card {
+
+        padding: 30px 20px;
+
+        border-radius: 22px;
+
+    }
+
+
+    .sucesso-card h1 {
+
+        font-size: 28px;
+
+    }
+
+
+    .acesso {
+
+        padding: 18px;
+
+    }
+
+}

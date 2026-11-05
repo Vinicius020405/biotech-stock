@@ -1,0 +1,58 @@
+
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Academia | Controle</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <a class="brand" href="{{ url_for('inicio') }}">
+            ACADEMIA | CONTROLE
+        </a>
+
+        {% if session.get('id_usuario') %}
+        <nav>
+            <a href="{{ url_for('inicio') }}">Início</a>
+            <a href="{{ url_for('listar_alunos') }}">Alunos</a>
+            <a href="{{ url_for('listar_planos') }}">Planos</a>
+            <a href="{{ url_for('listar_agendamentos') }}">Agendamentos</a>
+
+            <span>Olá, {{ nome_usuario }}</span>
+
+            <form action="{{ url_for('sair') }}"
+                  method="post"
+                  class="inline">
+                <button type="submit" class="secondary">Sair</button>
+            </form>
+        </nav>
+        {% endif %}
+    </header>
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="alert {{ category }}" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        Academia | Sistema de Controle
+    </footer>
+
+</body>
+
+</html>

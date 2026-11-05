@@ -1,0 +1,205 @@
+/* ==========================================
+   ESTOQUE - LISTAGEM
+========================================== */
+
+.page-header {
+    background: linear-gradient(135deg, #408cce, midnightblue);
+    color: white;
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, .12);
+    margin-top: -35px;
+}
+
+.page-header h3 {
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.card-estoque {
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, .08);
+}
+
+.table thead th {
+    background: midnightblue !important;
+    color: white !important;
+    border: none;
+    padding: 15px;
+    vertical-align: middle;
+}
+
+.table tbody td {
+    padding: 14px;
+    vertical-align: middle;
+}
+
+.table tbody tr {
+    transition: .2s;
+}
+
+.table tbody tr:hover {
+    background: #f8faff;
+    transform: scale(1.002);
+}
+
+body.dark-mode .table tbody tr:hover {
+    background: #122c45 !important;
+}
+
+.codigo-badge {
+    background: #e8eefc;
+    color: #2f4cb3;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.estoque-ok {
+    background: #d1fae5;
+    color: #000000;
+    font-weight: 700;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.estoque-baixo {
+    background: #fef3c7;
+    color: #92400e;
+    font-weight: 700;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.estoque-zero {
+    background: #fee2e2;
+    color: #991b1b;
+    font-weight: 700;
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.produto-nome {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.localizacao-badge {
+    background: #f1f5f9;
+    color: #334155;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.empty-box {
+    text-align: center;
+    padding: 60px;
+}
+
+.empty-box i {
+    font-size: 70px;
+    color: #cbd5e1;
+}
+
+.empty-box h4 {
+    margin-top: 15px;
+    color: #334155;
+    font-weight: 700;
+}
+
+.empty-box p {
+    color: #64748b;
+}
+
+/* ==========================================================
+   ESTOQUE - MODO ESCURO
+========================================================== */
+
+body.dark-mode .card-estoque {
+    background: #0c1c2d !important;
+    border: 1px solid #263f58;
+}
+
+body.dark-mode .card-estoque .card-body {
+    background: #0c1c2d !important;
+}
+
+body.dark-mode .card-estoque .table {
+    background: #0c1c2d !important;
+    color: #e5edf7 !important;
+}
+
+/* CABEÇALHO */
+body.dark-mode .card-estoque .table thead th {
+    background: linear-gradient(135deg, #163b5c, #1f4e79) !important;
+    color: #ffffff !important;
+    border-bottom: 1px solid #315575 !important;
+}
+
+/* CORPO */
+body.dark-mode .card-estoque .table tbody {
+    background: #0c1c2d !important;
+}
+
+body.dark-mode .card-estoque .table tbody tr {
+    background: #0c1c2d !important;
+}
+
+body.dark-mode .card-estoque .table tbody td {
+    background: #0c1c2d !important;
+    color: #e5edf7 !important;
+    border-bottom: 1px solid #263f58 !important;
+}
+
+/* HOVER */
+body.dark-mode .card-estoque .table tbody tr:hover {
+    background: #122c45 !important;
+}
+
+body.dark-mode .card-estoque .table tbody tr:hover td {
+    background: #122c45 !important;
+    color: #ffffff !important;
+}
+
+/* TEXTOS */
+body.dark-mode .card-estoque .produto-nome {
+    color: #f1f6fc !important;
+}
+
+body.dark-mode .card-estoque tbody strong {
+    color: #e5edf7 !important;
+}
+
+/* CÓDIGO */
+body.dark-mode .card-estoque .codigo-badge {
+    background: #182d4d !important;
+    color: #72bdf0 !important;
+}
+
+/* LOCALIZAÇÃO */
+body.dark-mode .card-estoque .localizacao-badge {
+    background: #172b40 !important;
+    color: #b9cde0 !important;
+}
+
+/* ESTOQUE OK */
+body.dark-mode .card-estoque .estoque-ok {
+    background: #123d32 !important;
+    color: #6ee7b7 !important;
+}
+
+/* ESTOQUE BAIXO */
+body.dark-mode .card-estoque .estoque-baixo {
+    background: #493b16 !important;
+    color: #fcd34d !important;
+}
+
+/* ESTOQUE ZERO */
+body.dark-mode .card-estoque .estoque-zero {
+    background: #4a2024 !important;
+    color: #fca5a5 !important;
+}

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gestão | BioTech Stock</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style-dashboard-gestao.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     HEADER
+================================================== -->
+
+<header class="topo">
+
+    <div class="logo">
+        BioTech <span>Stock</span>
+    </div>
+
+    <div class="usuario">
+
+        Olá, <strong>{{ nome }}</strong>
+
+        <a
+            href="{{ url_for('logout') }}"
+            class="btn-sair"
+        >
+
+            Sair
+
+        </a>
+
+    </div>
+
+</header>
+
+
+<div class="container">
+
+
+    <!-- ==================================================
+         HERO
+    ================================================== -->
+
+    <section class="hero">
+
+        <small>
+            GESTÃO INTELIGENTE
+        </small>
+
+        <h1>
+            Visão geral da operação
+        </h1>
+
+        <p>
+            Tenha uma visão centralizada dos principais
+            indicadores do seu estoque e acompanhe
+            o desempenho da operação.
+        </p>
+
+    </section>
+
+
+    <!-- ==================================================
+         CARDS
+    ================================================== -->
+
+    <div class="cards">
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                📦
+            </div>
+
+            <span>
+                Produtos
+            </span>
+
+            <strong>
+                248
+            </strong>
+
+            <small>
+                +12% este mês
+            </small>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                📊
+            </div>
+
+            <span>
+                Movimentações
+            </span>
+
+            <strong>
+                1.284
+            </strong>
+
+            <small>
+                Operação estável
+            </small>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                🚚
+            </div>
+
+            <span>
+                Entregas
+            </span>
+
+            <strong>
+                86
+            </strong>
+
+            <small>
+                Em andamento
+            </small>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-icon">
+                👥
+            </div>
+
+            <span>
+                Equipe
+            </span>
+
+            <strong>
+                18
+            </strong>
+
+            <small>
+                Usuários ativos
+            </small>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ==================================================
+         INDICADORES
+    ================================================== -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <h2>
+                Indicadores de desempenho
+            </h2>
+
+            <span class="tag">
+                VISUALIZAÇÃO
+            </span>
+
+        </div>
+
+
+        <div class="preview">
+
+
+            <div class="preview-card">
+
+                <h3>
+                    Eficiência do estoque
+                </h3>
+
+                <p>
+                    Indicador visual de utilização
+                    e movimentação do estoque.
+                </p>
+
+                <div class="barra">
+
+                    <span class="barra-72"></span>
+
+                </div>
+
+                <span class="tag">
+                    72%
+                </span>
+
+            </div>
+
+
+            <div class="preview-card">
+
+                <h3>
+                    Operação
+                </h3>
+
+                <p>
+                    Acompanhamento visual das
+                    atividades realizadas.
+                </p>
+
+                <div class="barra">
+
+                    <span class="barra-58"></span>
+
+                </div>
+
+                <span class="tag">
+                    58%
+                </span>
+
+            </div>
+
+
+            <div class="preview-card">
+
+                <h3>
+                    Desempenho
+                </h3>
+
+                <p>
+                    Indicadores gerais para
+                    acompanhamento da operação.
+                </p>
+
+                <div class="barra">
+
+                    <span class="barra-84"></span>
+
+                </div>
+
+                <span class="tag">
+                    84%
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         RECURSOS
+    ================================================== -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <h2>
+                Recursos do plano Gestão
+            </h2>
+
+            <span class="tag">
+                PREVIEW
+            </span>
+
+        </div>
+
+
+        <div class="preview">
+
+
+            <div class="preview-card">
+
+                <h3>
+                    📈 Relatórios
+                </h3>
+
+                <p>
+                    Visualização de informações
+                    e indicadores da operação.
+                </p>
+
+                <span class="tag">
+                    VISUAL
+                </span>
+
+            </div>
+
+
+            <div class="preview-card">
+
+                <h3>
+                    👥 Gestão de equipe
+                </h3>
+
+                <p>
+                    Visão geral dos usuários
+                    e atividades do sistema.
+                </p>
+
+                <span class="tag">
+                    VISUAL
+                </span>
+
+            </div>
+
+
+            <div class="preview-card">
+
+                <h3>
+                    📊 Análises
+                </h3>
+
+                <p>
+                    Indicadores para auxiliar
+                    na tomada de decisões.
+                </p>
+
+                <span class="tag">
+                    VISUAL
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         AVISO
+    ================================================== -->
+
+    <div class="aviso">
+
+        plano Gestão.
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>

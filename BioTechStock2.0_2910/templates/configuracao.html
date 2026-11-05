@@ -1,0 +1,403 @@
+{% extends "base.html" %}
+
+{% block title %}
+Configurações - Sistema de Estoque
+{% endblock %}
+
+{% block page_title %}
+{% endblock %}
+
+{% block content %}
+
+<link rel="stylesheet"
+    href="{{ url_for('static', filename='css/style-configuracao.css') }}">
+
+<div class="configuracoes-container">
+
+    <!-- CABEÇALHO -->
+
+    <div class="configuracoes-header">
+
+        <div>
+            <span class="configuracoes-label">BIOTECH STOCK</span>
+
+            <h2>Configurações</h2>
+
+            <p>Personalize sua experiência no sistema.</p>
+        </div>
+
+        <div class="configuracoes-icon">
+            <i class="bi bi-gear-fill"></i>
+        </div>
+
+    </div>
+
+    <!-- CARTÃO -->
+
+    <div class="configuracoes-card">
+
+        <div class="configuracoes-card-header">
+
+            <div>
+                <h5>Aparência</h5>
+                <p>Personalize a aparência do sistema.</p>
+            </div>
+
+            <i class="bi bi-palette-fill"></i>
+
+        </div>
+
+        <!-- MODO ESCURO -->
+
+        <div class="configuracoes-item">
+
+            <div class="configuracoes-item-info">
+
+                <div class="configuracoes-item-icon">
+                    <i class="bi bi-moon-stars-fill"></i>
+                </div>
+
+                <div>
+                    <strong>Modo escuro</strong>
+                    <small>Altere entre o modo claro e escuro.</small>
+                </div>
+
+            </div>
+
+            <button type="button"
+                class="btn btn-primary"
+                id="botaoTemaConfiguracoes"
+                onclick="alternarTema()">
+
+                <i class="bi bi-moon-stars-fill"
+                    id="iconeTemaConfiguracoes"></i>
+
+                <span id="textoTemaConfiguracoes">Modo escuro</span>
+
+            </button>
+
+        </div>
+
+        <!-- TAMANHO DA FONTE -->
+
+        <div class="configuracoes-item">
+
+            <div class="configuracoes-item-info">
+
+                <div class="configuracoes-item-icon">
+                    <i class="bi bi-type"></i>
+                </div>
+
+                <div>
+                    <strong>Tamanho da fonte</strong>
+                    <small>Ajuste o tamanho dos textos do sistema.</small>
+                </div>
+
+            </div>
+
+            <div class="controle-fonte">
+
+                <button type="button"
+                    class="btn btn-outline-primary"
+                    onclick="alterarFonte(-1)"
+                    aria-label="Diminuir tamanho da fonte">
+                    A-
+                </button>
+
+                <button type="button"
+                    class="btn btn-outline-primary"
+                    onclick="alterarFonte(1)"
+                    aria-label="Aumentar tamanho da fonte">
+                    A+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- ALTO CONTRASTE -->
+
+        <div class="configuracoes-item">
+
+            <div class="configuracoes-item-info">
+
+                <div class="configuracoes-item-icon">
+                    <i class="bi bi-circle-half"></i>
+                </div>
+
+                <div>
+                    <strong>Alto contraste</strong>
+                    <small>
+                        Aumente o contraste para facilitar a visualização
+                        dos elementos.
+                    </small>
+                </div>
+
+            </div>
+
+            <button type="button"
+                class="btn btn-outline-primary"
+                id="botaoAltoContraste"
+                onclick="alternarAltoContraste()"
+                aria-pressed="false">
+
+                <i class="bi bi-circle-half"
+                    id="iconeAltoContraste"></i>
+
+                <span id="textoAltoContraste">
+                    Ativar alto contraste
+                </span>
+
+            </button>
+
+        </div>
+
+        <!-- LEITURA EM VOZ ALTA -->
+
+        <div class="configuracoes-item">
+
+            <div class="configuracoes-item-info">
+
+                <div class="configuracoes-item-icon">
+                    <i class="bi bi-volume-up-fill"></i>
+                </div>
+
+                <div>
+                    <strong>Leitura em voz alta</strong>
+                    <small>
+                        Ative ou desative a leitura dos textos do sistema.
+                    </small>
+                </div>
+
+            </div>
+
+            <button type="button"
+                class="btn btn-outline-primary"
+                id="botaoControleVoz"
+                aria-pressed="false">
+
+                <i class="bi bi-volume-mute-fill"
+                    id="iconeControleVoz"></i>
+
+                <span id="textoControleVoz">Ativar voz</span>
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- TESTE DE LEITURA EM VOZ ALTA -->
+
+    <div style="
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 25px;
+        margin-top: 20px;
+        background: white;
+        color: #173b5f;
+        border: 2px solid #287dcc;
+        border-radius: 12px;
+    ">
+
+        <div>
+            <h5 style="margin-bottom: 8px;">
+                <i class="bi bi-volume-up-fill"></i>
+                Teste de áudio
+            </h5>
+
+            <p style="margin: 0;">
+                Clique no botão para verificar se a voz funciona.
+            </p>
+        </div>
+
+        <button type="button"
+            id="testeVoz"
+            style="
+                padding: 12px 20px;
+                background: #0d6efd;
+                color: white;
+                border: none;
+                border-radius: 10px;
+                cursor: pointer;
+            ">
+
+            <i class="bi bi-volume-up-fill"></i>
+            Testar voz
+
+        </button>
+
+    </div>
+
+</div>
+
+<!-- =========================================================
+     CONFIGURAÇÕES E TESTE DE VOZ
+     ========================================================= -->
+
+<script>
+
+    function aplicarAltoContraste() {
+
+        const ativado =
+            localStorage.getItem("altoContrasteBioTech") === "ativado";
+
+        const botao =
+            document.getElementById("botaoAltoContraste");
+
+        const icone =
+            document.getElementById("iconeAltoContraste");
+
+        const texto =
+            document.getElementById("textoAltoContraste");
+
+        document.body.classList.toggle("alto-contraste", ativado);
+
+        if (botao) {
+            botao.classList.toggle("btn-primary", ativado);
+            botao.classList.toggle("btn-outline-primary", !ativado);
+            botao.setAttribute("aria-pressed", String(ativado));
+        }
+
+        if (icone) {
+            icone.className = "bi bi-circle-half";
+        }
+
+        if (texto) {
+            texto.textContent = ativado
+                ? "Desativar alto contraste"
+                : "Ativar alto contraste";
+        }
+
+    }
+
+    function alternarAltoContraste() {
+
+        const ativado =
+            document.body.classList.contains("alto-contraste");
+
+        localStorage.setItem(
+            "altoContrasteBioTech",
+            ativado ? "desativado" : "ativado"
+        );
+
+        aplicarAltoContraste();
+
+    }
+
+    function atualizarBotaoVoz() {
+
+        const ativa =
+            localStorage.getItem("vozBioTech") === "ativada";
+
+        const botao =
+            document.getElementById("botaoControleVoz");
+
+        const icone =
+            document.getElementById("iconeControleVoz");
+
+        const texto =
+            document.getElementById("textoControleVoz");
+
+        if (botao) {
+            botao.classList.toggle("btn-primary", ativa);
+            botao.classList.toggle("btn-outline-primary", !ativa);
+            botao.setAttribute("aria-pressed", String(ativa));
+        }
+
+        if (icone) {
+            icone.className = ativa
+                ? "bi bi-volume-up-fill"
+                : "bi bi-volume-mute-fill";
+        }
+
+        if (texto) {
+            texto.textContent = ativa
+                ? "Desativar voz"
+                : "Ativar voz";
+        }
+
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+
+        aplicarAltoContraste();
+        atualizarBotaoVoz();
+
+        const botaoVoz =
+            document.getElementById("botaoControleVoz");
+
+        if (botaoVoz) {
+
+            botaoVoz.addEventListener("click", function () {
+
+                const ativa =
+                    localStorage.getItem("vozBioTech") === "ativada";
+
+                const novaAtivacao = !ativa;
+
+                localStorage.setItem(
+                    "vozBioTech",
+                    novaAtivacao ? "ativada" : "desativada"
+                );
+
+                if (!novaAtivacao && "speechSynthesis" in window) {
+                    window.speechSynthesis.cancel();
+                }
+
+                atualizarBotaoVoz();
+
+                if (novaAtivacao) {
+                    falarTeste(
+                        "Leitura em voz alta ativada."
+                    );
+                }
+
+            });
+
+        }
+
+        const botaoTeste =
+            document.getElementById("testeVoz");
+
+        if (botaoTeste) {
+
+            botaoTeste.addEventListener("click", function () {
+
+                falarTeste(
+                    "O teste de áudio do BioTech Stock está funcionando."
+                );
+
+            });
+
+        }
+
+    });
+
+    function falarTeste(texto) {
+
+        if (!("speechSynthesis" in window)) {
+
+            alert("Seu navegador não suporta leitura em voz alta.");
+
+            return;
+
+        }
+
+        window.speechSynthesis.cancel();
+
+        const fala = new SpeechSynthesisUtterance(texto);
+
+        fala.lang = "pt-BR";
+        fala.rate = 1;
+
+        window.speechSynthesis.speak(fala);
+
+    }
+
+</script>
+
+{% endblock %}
