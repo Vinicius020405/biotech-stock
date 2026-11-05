@@ -1,0 +1,1247 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BioTech Stock | Dashboard RFID</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --navy: #081527;
+            --navy-light: #10243c;
+            --green: #00c896;
+            --green-dark: #009b74;
+            --background: #f2f6fa;
+            --white: #ffffff;
+            --text: #14253b;
+            --muted: #718198;
+            --border: #e6edf3;
+            --red: #ef4444;
+            --shadow: 0 12px 35px rgba(14, 32, 56, .06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            background: var(--background);
+            color: var(--text);
+        }
+
+        .app {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* MENU LATERAL */
+
+        .sidebar {
+            width: 260px;
+            background: var(--navy);
+            color: white;
+            padding: 30px 20px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 50px;
+            padding: 0 10px;
+        }
+
+        .brand-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--green);
+            color: var(--navy);
+            border-radius: 13px;
+            display: grid;
+            place-items: center;
+            font-size: 25px;
+            font-weight: bold;
+        }
+
+        .brand h2 {
+            font-size: 20px;
+            letter-spacing: -.5px;
+        }
+
+        .brand span {
+            display: block;
+            color: #92a4b9;
+            font-size: 11px;
+            margin-top: 4px;
+            letter-spacing: 1.5px;
+        }
+
+        .menu-label {
+            color: #73869f;
+            font-size: 11px;
+            letter-spacing: 2px;
+            margin: 0 12px 15px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            margin-bottom: 8px;
+            border-radius: 11px;
+            color: #b8c7d8;
+            text-decoration: none;
+            font-size: 14px;
+            transition: .2s;
+        }
+
+        .menu-item.active {
+            background: rgba(0, 200, 150, .13);
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        .menu-item:hover {
+            background: rgba(255, 255, 255, .07);
+        }
+
+        .sidebar-bottom {
+            margin-top: auto;
+            padding: 18px;
+            background: rgba(255, 255, 255, .05);
+            border-radius: 12px;
+        }
+
+        .sidebar-bottom strong {
+            font-size: 13px;
+        }
+
+        .sidebar-bottom p {
+            color: #92a4b9;
+            font-size: 12px;
+            margin-top: 7px;
+            line-height: 1.6;
+        }
+
+        /* CONTEÚDO */
+
+        .main {
+            margin-left: 260px;
+            padding: 35px;
+            width: calc(100% - 260px);
+            max-width: 1900px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .topbar h1 {
+            font-size: 29px;
+            letter-spacing: -.8px;
+        }
+
+        .topbar p {
+            color: var(--muted);
+            margin-top: 8px;
+            font-size: 14px;
+        }
+
+        .connection {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 17px;
+            border-radius: 30px;
+            background: white;
+            border: 1px solid var(--border);
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--red);
+        }
+
+        .dot.online {
+            background: var(--green);
+            box-shadow: 0 0 0 5px rgba(0, 200, 150, .12);
+        }
+
+        /* INDICADORES */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .stat {
+            background: white;
+            padding: 25px;
+            border-radius: 17px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--green);
+            opacity: .65;
+        }
+
+        .stat .label {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+
+        .stat .value {
+            font-size: 34px;
+            font-weight: 750;
+            letter-spacing: -1px;
+        }
+
+        .stat .sub {
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* MEDICAMENTO */
+
+        .section-title {
+            font-size: 19px;
+            margin-bottom: 18px;
+            letter-spacing: -.3px;
+        }
+
+        .reader-card {
+            background: linear-gradient(
+                115deg,
+                #081527,
+                #12354b
+            );
+            color: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 45px rgba(8, 21, 39, .12);
+        }
+
+        .reader-card::after {
+            content: "";
+            position: absolute;
+            width: 270px;
+            height: 270px;
+            border: 45px solid rgba(0, 200, 150, .08);
+            border-radius: 50%;
+            right: -90px;
+            top: -110px;
+            pointer-events: none;
+        }
+
+        .reader-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .reader-header h2 {
+            font-size: 19px;
+        }
+
+        .reader-tag {
+            background: rgba(0, 200, 150, .15);
+            color: #5df2c9;
+            padding: 9px 13px;
+            border-radius: 25px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .reader-grid {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr 1.2fr;
+            gap: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .reader-field span {
+            display: block;
+            color: #a8bdcf;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .reader-field strong {
+            font-size: 25px;
+            color: white;
+            overflow-wrap: anywhere;
+        }
+
+        .reader-field strong.green {
+            color: #5df2c9;
+        }
+
+        .reader-footer {
+            border-top: 1px solid rgba(255, 255, 255, .12);
+            margin-top: 28px;
+            padding-top: 18px;
+            font-size: 12px;
+            color: #b4c5d5;
+        }
+
+        /* GRÁFICO E PRODUTOS */
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.25fr 1fr;
+            gap: 22px;
+            margin-bottom: 25px;
+        }
+
+        .panel {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            min-width: 0;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .panel-header h2 {
+            font-size: 18px;
+        }
+
+        .panel-header small {
+            color: var(--muted);
+        }
+
+        .chart-container {
+            height: 280px;
+            position: relative;
+        }
+
+        .product-list {
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+        }
+
+        .product {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            gap: 10px;
+        }
+
+        .product-name {
+            font-weight: 650;
+            font-size: 14px;
+        }
+
+        .product-uid {
+            font-size: 11px;
+            color: var(--muted);
+            margin-top: 6px;
+            overflow-wrap: anywhere;
+        }
+
+        .product-quantity {
+            color: var(--green-dark);
+            font-weight: 750;
+            white-space: nowrap;
+        }
+
+        /* TABELA */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 720px;
+        }
+
+        th {
+            text-align: left;
+            padding: 15px;
+            color: var(--muted);
+            font-size: 12px;
+            background: #f7f9fc;
+            font-weight: 650;
+        }
+
+        td {
+            padding: 17px 15px;
+            border-bottom: 1px solid var(--border);
+            font-size: 13px;
+        }
+
+        tbody tr:hover {
+            background: #f9fcfd;
+        }
+
+        .badge {
+            display: inline-block;
+            border-radius: 20px;
+            padding: 7px 11px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .badge.success {
+            color: #008b65;
+            background: #dffaf0;
+        }
+
+        .badge.warning {
+            color: #aa6900;
+            background: #fff1d6;
+        }
+
+        .search {
+            padding: 11px 15px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            outline: none;
+            font-family: inherit;
+            min-width: 200px;
+        }
+
+        .search:focus {
+            border-color: var(--green);
+        }
+
+        .empty {
+            text-align: center;
+            color: var(--muted);
+            padding: 25px;
+            font-size: 13px;
+        }
+
+        footer {
+            margin-top: 30px;
+            color: var(--muted);
+            font-size: 12px;
+            text-align: center;
+        }
+
+        /* RESPONSIVIDADE */
+
+        @media(max-width: 1250px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width: 900px) {
+            .sidebar {
+                width: 75px;
+                padding: 20px 10px;
+            }
+
+            .brand {
+                justify-content: center;
+                padding: 0;
+            }
+
+            .brand h2,
+            .brand span,
+            .menu-label,
+            .menu-item .menu-text,
+            .sidebar-bottom {
+                display: none;
+            }
+
+            .menu-item {
+                justify-content: center;
+            }
+
+            .main {
+                margin-left: 75px;
+                width: calc(100% - 75px);
+                padding: 25px;
+            }
+
+            .reader-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media(max-width: 600px) {
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                margin-left: 0;
+                width: 100%;
+                padding: 18px;
+            }
+
+            .topbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .stat {
+                padding: 18px;
+            }
+
+            .stat .value {
+                font-size: 26px;
+            }
+
+            .reader-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .reader-card {
+                padding: 22px;
+            }
+
+            .panel-header {
+                flex-wrap: wrap;
+            }
+
+            .search {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- MENU LATERAL -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">+</div>
+
+            <div>
+                <h2>BioTech Stock</h2>
+                <span>RFID MANAGEMENT</span>
+            </div>
+        </div>
+
+        <div class="menu-label">GERENCIAMENTO</div>
+
+        <a href="#inicio" class="menu-item active">
+            <span>▦</span>
+            <span class="menu-text">Dashboard</span>
+        </a>
+
+        <a href="#medicamentos" class="menu-item">
+            <span>▣</span>
+            <span class="menu-text">Medicamentos</span>
+        </a>
+
+        <a href="#historico" class="menu-item">
+            <span>◷</span>
+            <span class="menu-text">Histórico RFID</span>
+        </a>
+
+        <div class="sidebar-bottom">
+            <strong>ESP32 + MFRC522</strong>
+            <p>
+                Integração com HiveMQ Cloud,
+                MySQL e FastAPI.
+            </p>
+        </div>
+
+    </aside>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+
+    <main class="main" id="inicio">
+
+        <div class="topbar">
+
+            <div>
+                <h1>Visão geral do estoque</h1>
+                <p>
+                    Monitoramento inteligente de medicamentos
+                    com tecnologia RFID.
+                </p>
+            </div>
+
+            <div class="connection">
+                <span id="statusPonto" class="dot"></span>
+                <span id="statusTexto">Conectando...</span>
+            </div>
+
+        </div>
+
+        <!-- INDICADORES -->
+
+        <section class="stats">
+
+            <div class="stat">
+                <div class="label">Medicamentos cadastrados</div>
+                <div id="totalMedicamentos" class="value">--</div>
+                <div class="sub">Produtos vinculados ao RFID</div>
+            </div>
+
+            <div class="stat">
+                <div class="label">Unidades em estoque</div>
+                <div id="estoqueTotal" class="value">--</div>
+                <div class="sub">Soma dos produtos cadastrados</div>
+            </div>
+
+            <div class="stat">
+                <div class="label">Leituras RFID recentes</div>
+                <div id="totalLeituras" class="value">--</div>
+                <div class="sub">Últimos 20 registros da API</div>
+            </div>
+
+            <div class="stat">
+                <div class="label">Medicamentos identificados</div>
+                <div id="identificados" class="value">--</div>
+                <div class="sub">UIDs reconhecidos nas leituras</div>
+            </div>
+
+        </section>
+
+        <!-- ÚLTIMO MEDICAMENTO -->
+
+        <section class="reader-card">
+
+            <div class="reader-header">
+                <h2>Último medicamento identificado</h2>
+                <span id="tagRFID" class="reader-tag">
+                    Aguardando leitura
+                </span>
+            </div>
+
+            <div class="reader-grid">
+
+                <div class="reader-field">
+                    <span>MEDICAMENTO</span>
+                    <strong id="nomeMedicamento">
+                        Aguardando cartão...
+                    </strong>
+                </div>
+
+                <div class="reader-field">
+                    <span>QUANTIDADE EM ESTOQUE</span>
+                    <strong id="quantidadeMedicamento" class="green">
+                        --
+                    </strong>
+                </div>
+
+                <div class="reader-field">
+                    <span>IDENTIFICAÇÃO RFID</span>
+                    <strong id="uidMedicamento">
+                        --
+                    </strong>
+                </div>
+
+            </div>
+
+            <div class="reader-footer">
+                <span id="ultimaLeitura">
+                    Nenhuma leitura identificada.
+                </span>
+            </div>
+
+        </section>
+
+        <!-- GRÁFICO E MEDICAMENTOS -->
+
+        <section class="content-grid" id="medicamentos">
+
+            <div class="panel">
+
+                <div class="panel-header">
+                    <h2>Leituras por medicamento</h2>
+                    <small>Histórico recente</small>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="graficoRFID"></canvas>
+                </div>
+
+            </div>
+
+            <div class="panel">
+
+                <div class="panel-header">
+                    <h2>Estoque de medicamentos</h2>
+                    <small>Dados do MySQL</small>
+                </div>
+
+                <div id="listaMedicamentos" class="product-list">
+                    <div class="empty">
+                        Carregando medicamentos...
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- HISTÓRICO -->
+
+        <section class="panel" id="historico">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>Histórico de leituras RFID</h2>
+                    <small>
+                        Registros recebidos do ESP32
+                    </small>
+                </div>
+
+                <input
+                    id="pesquisa"
+                    class="search"
+                    type="text"
+                    placeholder="Pesquisar medicamento ou UID..."
+                >
+
+            </div>
+
+            <div class="table-wrapper">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>DATA / HORA</th>
+                            <th>DISPOSITIVO</th>
+                            <th>UID</th>
+                            <th>MEDICAMENTO</th>
+                            <th>ESTOQUE</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tabelaRFID">
+                        <tr>
+                            <td colspan="6" class="empty">
+                                Carregando leituras...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </section>
+
+        <footer>
+            BioTech Stock © 2026 |
+            Sistema de monitoramento RFID
+        </footer>
+
+    </main>
+
+</div>
+
+<script>
+
+    // =========================================
+    // CONFIGURAÇÃO DA API
+    // =========================================
+
+    const API = "http://127.0.0.1:8000";;
+    const INTERVALO = 3000;
+
+    let historicoRFID = [];
+    let graficoRFID = null;
+    let atualizando = false;
+
+    // =========================================
+    // BUSCAR DADOS DA FASTAPI
+    // =========================================
+
+    async function buscarAPI(rota) {
+
+        const resposta = await fetch(
+            API + rota,
+            { cache: "no-store" }
+        );
+
+        if (!resposta.ok) {
+            throw new Error(
+                `Erro ${resposta.status} na rota ${rota}`
+            );
+        }
+
+        return await resposta.json();
+    }
+
+    // =========================================
+    // FORMATAÇÃO
+    // =========================================
+
+    function formatarNumero(numero) {
+        return Number(numero).toLocaleString("pt-BR");
+    }
+
+    function formatarData(data) {
+
+        if (!data) return "--";
+
+        const valor = new Date(data);
+
+        if (isNaN(valor.getTime())) {
+            return "--";
+        }
+
+        return valor.toLocaleString("pt-BR");
+    }
+
+    function elemento(id) {
+        return document.getElementById(id);
+    }
+
+    function criarCelula(linha, valor) {
+        const td = document.createElement("td");
+        td.textContent = valor ?? "--";
+        linha.appendChild(td);
+        return td;
+    }
+
+    // =========================================
+    // CARREGAR MEDICAMENTOS DO MYSQL
+    // =========================================
+
+    async function carregarMedicamentos() {
+
+        const dados = await buscarAPI("/medicamentos");
+
+        const medicamentos = dados.medicamentos || [];
+
+        elemento("totalMedicamentos").textContent =
+            formatarNumero(medicamentos.length);
+
+        const estoqueTotal = medicamentos.reduce(
+            (total, produto) =>
+                total + Number(produto.quantidade || 0),
+            0
+        );
+
+        elemento("estoqueTotal").textContent =
+            formatarNumero(estoqueTotal);
+
+        const lista = elemento("listaMedicamentos");
+
+        lista.replaceChildren();
+
+        if (!medicamentos.length) {
+            lista.innerHTML =
+                '<div class="empty">Nenhum medicamento cadastrado.</div>';
+            return;
+        }
+
+        medicamentos.forEach(produto => {
+
+            const item = document.createElement("div");
+            item.className = "product";
+
+            const informacoes = document.createElement("div");
+
+            const nome = document.createElement("div");
+            nome.className = "product-name";
+            nome.textContent = produto.nome;
+
+            const uid = document.createElement("div");
+            uid.className = "product-uid";
+            uid.textContent = produto.uid;
+
+            informacoes.appendChild(nome);
+            informacoes.appendChild(uid);
+
+            const quantidade = document.createElement("div");
+            quantidade.className = "product-quantity";
+
+            quantidade.textContent =
+                formatarNumero(produto.quantidade) + " un.";
+
+            item.appendChild(informacoes);
+            item.appendChild(quantidade);
+
+            lista.appendChild(item);
+        });
+    }
+
+    // =========================================
+    // CARREGAR RFID
+    // =========================================
+
+    async function carregarRFID() {
+
+        const dados = await buscarAPI("/rfid/estoque");
+
+        console.log("RFID recebido:", dados);
+
+        historicoRFID = dados.leituras || [];
+
+        elemento("totalLeituras").textContent =
+            formatarNumero(historicoRFID.length);
+
+        const identificados = historicoRFID.filter(
+            item => item.quantidade !== null
+        );
+
+        const uidsIdentificados = new Set(
+            identificados.map(item => item.uid)
+        );
+
+        elemento("identificados").textContent =
+            formatarNumero(uidsIdentificados.size);
+
+        // Último medicamento lido
+
+        if (historicoRFID.length > 0) {
+
+            const ultimo = historicoRFID[0];
+
+            const cadastrado =
+                ultimo.quantidade !== null;
+
+            elemento("nomeMedicamento").textContent =
+                ultimo.medicamento || "Não cadastrado";
+
+            elemento("quantidadeMedicamento").textContent =
+                cadastrado
+                    ? formatarNumero(ultimo.quantidade) + " un."
+                    : "--";
+
+            elemento("uidMedicamento").textContent =
+                ultimo.uid || "--";
+
+            elemento("tagRFID").textContent =
+                cadastrado
+                    ? "Medicamento identificado"
+                    : "Cartão não cadastrado";
+
+            elemento("ultimaLeitura").textContent =
+                "Última leitura registrada: " +
+                formatarData(ultimo.timestamp) +
+                " | Dispositivo: " +
+                (ultimo.device_id || "--");
+        }
+
+        atualizarTabela();
+        atualizarGrafico();
+    }
+
+    // =========================================
+    // TABELA DE HISTÓRICO
+    // =========================================
+
+    function atualizarTabela() {
+
+        const pesquisa = elemento("pesquisa")
+            .value.toLowerCase()
+            .trim();
+
+        const filtrados = historicoRFID.filter(item => {
+
+            const nome = String(
+                item.medicamento || ""
+            ).toLowerCase();
+
+            const uid = String(
+                item.uid || ""
+            ).toLowerCase();
+
+            const dispositivo = String(
+                item.device_id || ""
+            ).toLowerCase();
+
+            return (
+                nome.includes(pesquisa) ||
+                uid.includes(pesquisa) ||
+                dispositivo.includes(pesquisa)
+            );
+        });
+
+        const tabela = elemento("tabelaRFID");
+        tabela.replaceChildren();
+
+        if (!filtrados.length) {
+
+            const linha = document.createElement("tr");
+            const celula = document.createElement("td");
+
+            celula.colSpan = 6;
+            celula.className = "empty";
+            celula.textContent = "Nenhuma leitura encontrada.";
+
+            linha.appendChild(celula);
+            tabela.appendChild(linha);
+
+            return;
+        }
+
+        filtrados.forEach(item => {
+
+            const linha = document.createElement("tr");
+
+            criarCelula(
+                linha,
+                formatarData(item.timestamp)
+            );
+
+            criarCelula(
+                linha,
+                item.device_id
+            );
+
+            criarCelula(
+                linha,
+                item.uid
+            );
+
+            criarCelula(
+                linha,
+                item.medicamento
+            );
+
+            criarCelula(
+                linha,
+                item.quantidade === null
+                    ? "--"
+                    : formatarNumero(item.quantidade)
+            );
+
+            const status = document.createElement("td");
+            const badge = document.createElement("span");
+
+            const cadastrado =
+                item.quantidade !== null;
+
+            badge.className =
+                "badge " +
+                (cadastrado ? "success" : "warning");
+
+            badge.textContent =
+                cadastrado
+                    ? "Identificado"
+                    : "Não cadastrado";
+
+            status.appendChild(badge);
+            linha.appendChild(status);
+
+            tabela.appendChild(linha);
+        });
+    }
+
+    // =========================================
+    // GRÁFICO RFID
+    // =========================================
+
+    function atualizarGrafico() {
+
+        if (typeof Chart === "undefined") {
+            return;
+        }
+
+        const contagem = {};
+
+        historicoRFID.forEach(item => {
+
+            const nome =
+                item.medicamento || "Desconhecido";
+
+            contagem[nome] =
+                (contagem[nome] || 0) + 1;
+        });
+
+        const nomes = Object.keys(contagem);
+        const valores = Object.values(contagem);
+
+        if (graficoRFID) {
+            graficoRFID.destroy();
+        }
+
+        const canvas = elemento("graficoRFID");
+
+        graficoRFID = new Chart(canvas, {
+
+            type: "bar",
+
+            data: {
+                labels: nomes,
+
+                datasets: [{
+                    label: "Leituras",
+                    data: valores,
+                    backgroundColor: "#00c896",
+                    borderRadius: 8,
+                    maxBarThickness: 65
+                }]
+            },
+
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        },
+                        grid: {
+                            color: "#eef2f7"
+                        }
+                    },
+
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // =========================================
+    // ATUALIZAR DASHBOARD
+    // =========================================
+
+    async function atualizarDashboard() {
+
+        if (atualizando) return;
+
+        atualizando = true;
+
+        try {
+
+            const resultados = await Promise.allSettled([
+                carregarMedicamentos(),
+                carregarRFID()
+            ]);
+
+            const erros = resultados.filter(
+                resultado => resultado.status === "rejected"
+            );
+
+            if (erros.length > 0) {
+                throw erros[0].reason;
+            }
+
+            elemento("statusTexto").textContent =
+                "Sistema conectado";
+
+            elemento("statusPonto")
+                .classList.add("online");
+
+        } catch (erro) {
+
+            console.error(
+                "Erro ao atualizar dashboard:",
+                erro
+            );
+
+            elemento("statusTexto").textContent =
+                "Erro de conexão";
+
+            elemento("statusPonto")
+                .classList.remove("online");
+
+        } finally {
+
+            atualizando = false;
+        }
+    }
+
+    // =========================================
+    // PESQUISA
+    // =========================================
+
+    elemento("pesquisa").addEventListener(
+        "input",
+        atualizarTabela
+    );
+
+    // =========================================
+    // INICIAR
+    // =========================================
+
+    atualizarDashboard();
+
+    setInterval(
+        atualizarDashboard,
+        INTERVALO
+    );
+
+</script>
+
+</body>
+</html>
